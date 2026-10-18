@@ -26,8 +26,8 @@ Además, una **Game Zone** independiente permitirá reutilizar motores de juegos
   3. **Number Machine:** números de 0 a 20, patrones y comprensión auditiva.
   4. **Change the Person:** reutilizar y ampliar el laboratorio original con *me llamo/se llama*, *tengo/tiene*, *estoy/está*.
   5. **Conversation Builder:** transformar preguntas/respuestas y construir respuestas completas.
-  6. **Spanish Around the World:** nombres, saludos y variedad del mundo hispanohablante sin estereotipos.
-- **Incidencia detectada:** `speechSynthesis`/voz del navegador no funciona en un Android del docente. Sustituir los botones de audio por archivos reales reproducibles en navegadores de Android, iPad y PC; preferir voz española peninsular clara y controles por palabra. **Los audios nuevos de pronunciación aún no existen**.
+  6. **The Question Machine / La máquina de preguntas:** manipular preguntas y relacionarlas con respuestas.
+- **Incidencia detectada:** `speechSynthesis`/voz del navegador no funciona en un Android del docente. Sustituir los botones de audio por archivos reales reproducibles en navegadores de Android, iPad y PC; preferir voz española peninsular clara y controles por palabra. **Actualización:** ya hay 29 MP3 de Explore en el repositorio; Play los conserva, junto con los dos listenings originales.
 
 ## Play: primera selección
 
@@ -44,10 +44,12 @@ Otros motores potenciales: **El detective lingüístico** y **La fábrica de fra
 - [x] Verificar que los dos MP3 originales ya están en `assets/audio/`.
 - [x] Importar el código original del ZIP (sin sobrescribir MP3).
 - [x] Comprobar rutas de audio y pasar los tests originales.
-- [ ] Integrar los seis laboratorios de Explore con el diseño existente.
+- [x] Integrar los seis laboratorios de Explore con el diseño existente (PR #2 fusionada).
 - [ ] Reemplazar los audios generados por el navegador; crear y validar audios de pronunciación si procede.
-- [ ] Desarrollar Play y sus tres primeros juegos.
+- [x] Crear la primera versión jugable de Play y sus tres juegos en rama de revisión (ver PLAY_UNIDAD_1.md).
+- [x] Revisión docente de Play y aprobación para integrar tras aclarar Conversaciones imposibles.
+- [ ] Completar pruebas de accesibilidad y dispositivos reales.
 - [ ] Crear Game Zone y mecanismos de reutilización por curso.
 - [ ] Probar accesibilidad, móvil/iPad/PC y publicar.
 
-**Estado importante:** el prototipo original (incluido Explore en su versión inicial) está en `main` y ha superado sus pruebas. Los seis nuevos laboratorios de Explore aún no se han integrado. Ninguna actividad nueva debe declararse publicada antes de probarla en el proyecto conjunto.
+**Estado actualizado:** Explore está en `main` tras la PR #2. Play ha sido probado por el profesor, con mejora de orientación en Conversaciones imposibles y aprobación para integrar. La PR #3 de cultura sigue siendo un trabajo separado; no se incluye ni modifica en esta entrega. La validación automatizada de Play no sustituye las pruebas visuales, de accesibilidad ni de aula.

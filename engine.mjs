@@ -12,7 +12,7 @@ export function labSentence(kind,person,value){
 export function savedSnapshot(state){return {schema:1,mode:state.mode,section:state.section,completed:[...state.completed],reviewDate:new Date().toISOString().slice(0,10)};}
 export function restoreSnapshot(raw){
  const p=JSON.parse(raw);if(p.schema!==1)throw Error('Unknown progress version');
- return {mode:['en','es','bi'].includes(p.mode)?p.mode:'en',section:['home','learn','explore','practise','communicate','grammar','vocabulary','listening'].includes(p.section)?p.section:'home',completed:Array.isArray(p.completed)?p.completed.filter(x=>['learn','explore','practise','communicate'].includes(x)):[]};
+ return {mode:['en','es','bi'].includes(p.mode)?p.mode:'en',section:['home','learn','explore','practise','communicate','grammar','vocabulary','listening','play'].includes(p.section)?p.section:'home',completed:Array.isArray(p.completed)?p.completed.filter(x=>['learn','explore','practise','communicate'].includes(x)):[]};
 }
 // Restricted emphasis for authored explanations; arbitrary HTML stays escaped.
 export function teachingMarkup(value){return String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])).replace(/\*\*([^*]+)\*\*/g,'<strong class="key-language" lang="es">$1</strong>');}
