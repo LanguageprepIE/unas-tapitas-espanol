@@ -1,11 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
-import {newExploreState,updateExplore,renderExplore,greetingScene,personScene,conversationScene,pendingAudio,readyAudio,numberWords,soundWords} from '../explore.mjs';
+import {newExploreState,updateExplore,renderExplore,greetingScene,personScene,conversationScene,questionScene,pendingAudio,readyAudio,numberWords,soundWords} from '../explore.mjs';
 
 const h={T:(en)=>en,L:(en)=>en,pair:(x)=>x[0],E:(s)=>String(s).replaceAll('&','&amp;').replaceAll('"','&quot;'),button:(action,label,cls='',extra='')=>`<button data-action="${action}" class="${cls}" ${extra}>${label}</button>`};
 test('each laboratory renders distinct controls in the original Explore route',()=>{
- const s=newExploreState();const controls={greetings:'ex-time',sounds:'ex-select-sound',numbers:'ex-number',person:'ex-person-kind',conversation:'ex-turn',world:'ex-country'};
+ const s=newExploreState();const controls={greetings:'ex-time',sounds:'ex-select-sound',numbers:'ex-number',person:'ex-person-kind',conversation:'ex-turn',questions:'ex-q-lead'};
  for(const [lab,action] of Object.entries(controls)){updateExplore(s,'ex-lab',lab);const html=renderExplore(s,h);assert(html.includes(action),lab);assert(html.includes('ex-nav'),lab);assert(!html.includes('undefined'),lab);if(lab==='numbers')assert(html.includes('audio[data-explore-audio]')||html.includes('data-explore-audio'),`number audio missing in ${lab}`);else if(lab!=='sounds')assert(!html.includes('<audio'),`unexpected audio in ${lab}`);}
 });
 test('greeting variables change the encounter without declaring a single correct answer',()=>{
@@ -26,8 +26,18 @@ test('conversation turns move and full answer responds to a change of question',
 test('conversation builder makes the reordering task visible and explains each move',()=>{
  const s=newExploreState();s.lab='conversation';const html=renderExplore(s,h);assert(html.includes('This exchange has been shuffled.'));assert(html.includes('Move up one place'));assert(html.includes('Move down one place'));assert(html.indexOf('¡Hasta luego!')<html.indexOf('Me llamo Alba.'));
 });
-test('country comparison includes context and disallows unexpected keys',()=>{
- const s=newExploreState();s.lab='world';updateExplore(s,'ex-country','argentina');updateExplore(s,'ex-compare-country','spain');const html=renderExplore(s,h);assert(html.includes('Buenos Aires')&&html.includes('Madrid'));updateExplore(s,'ex-country','not-a-place');assert.equal(s.country,'argentina');
+test('question machine connects words, answers, and both question marks',()=>{
+ const s=newExploreState();s.lab='questions';
+ assert.equal(questionScene(s).question,'¿Cómo te llamas?');assert.equal(questionScene(s).answer,'Me llamo Alba.');
+ updateExplore(s,'ex-q-goal','age');assert.equal(questionScene(s).question,'¿Cuántos años tienes?');assert.equal(questionScene(s).answer,'Tengo trece años.');
+ updateExplore(s,'ex-q-lead','Cómo');assert(questionScene(s).observation[0].includes('unfamiliar'));
+ updateExplore(s,'ex-q-lead','Cuántos');assert(questionScene(s).observation[0].includes('number'));
+ updateExplore(s,'ex-q-punct','open');assert.equal(questionScene(s).question,'Cuántos años tienes?');assert(questionScene(s).punctuation[0].includes('both'));
+ updateExplore(s,'ex-q-punct','close');assert.equal(questionScene(s).question,'Cuántos años tienes');
+ updateExplore(s,'ex-q-goal','meaning');assert.equal(questionScene(s).question,'Qué significa hola');
+ updateExplore(s,'ex-q-lead','invalid');assert.equal(s.qLead,'Qué');
+ updateExplore(s,'ex-lab','world');assert.equal(s.lab,'questions');
+ const html=renderExplore(s,h);assert(html.includes('The Question Machine'));assert(!html.includes('Spanish Around the World'));
 });
 test('only verified packaged audio can enter the ready registry',async()=>{
  assert.equal(pendingAudio.sounds.length,soundWords.length);assert.equal(pendingAudio.numbers.length,21);
