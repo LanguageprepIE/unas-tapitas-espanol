@@ -10,8 +10,8 @@ consolidación y preparación de examen, con refuerzo integrado. No se han
 inventado ni desarrollado todavía unidades de LC.
 
 U1 de 1st Year conserva todos sus datos, ejercicios, juegos, motores y 31 MP3.
-U2 «El aula» es únicamente una ficha en desarrollo, centrada en objetos de clase.
-No tiene pantalla de actividades, módulos de contenido ni enlaces de entrada.
+U2 «El aula» presenta Learn · Bloque A, centrado en objetos de clase.
+Solo su resumen y su Learn están abiertos; el resto de las etapas está pendiente.
 Los demás cursos/niveles muestran un catálogo informativo sin unidades disponibles.
 
 ## Módulos y ampliación
@@ -19,7 +19,9 @@ Los demás cursos/niveles muestran un catálogo informativo sin unidades disponi
 - `catalogue.mjs`: cursos, niveles, metadatos de unidades, estados de publicación,
   identificadores de motores aprobados y validación/construcción de rutas.
 - `app.js`: interfaz existente de U1, catálogo compartido, navegación contextual,
-  estado de la sesión y registro de vistas por motor (`unit1`).
+  estado de la sesión y registro de vistas por motor (`unit1`, `unit2`).
+- `unit2-learn.mjs`: contenido, MP3 aprobados, estado local y vistas de Learn A.
+- `assets/illustrations/unit2-objects.svg`: iconos propios de los objetos.
 - `progress.mjs`: preferencias globales y almacenamiento por curso/unidad/nivel.
 - `engine.mjs`, `explore.mjs`, `play-engine.mjs`, `play.mjs` y `data/`: permanecen
   intactos; mantienen las comprobaciones, experimentos y juegos aprobados.
@@ -33,12 +35,11 @@ prepara. Crear o reutilizar su adaptador de contenidos y sus vistas, registrarlo
 en el motor y aislar su estado de sesión antes de marcarla como `available`.
 El adaptador deberá cargar y guardar con la identidad completa de la ruta.
 El catálogo, las fichas, el parser y el almacenamiento se reutilizan: no copiar
-la aplicación entera por unidad. La interfaz actual de actividades sigue siendo
-el adaptador de U1; esta rama no pretende convertir todos sus ejercicios en un
-motor universal ni publicar una segunda unidad.
+la aplicación entera por unidad. La interfaz existente de U1 conserva su adaptador; U2 añade un adaptador limitado
+a Learn A. No se generalizan los ejercicios de U1.
 
-Una unidad solo es accesible si figura como `available` y su identificador de
-motor está registrado. El registro de identificadores de `catalogue.mjs` y el
+Una unidad completa solo es accesible si figura como `available`; un estado `partial`
+abre únicamente sus rutas `overview` y `learn`. En ambos casos el motor debe estar registrado. El registro de identificadores de `catalogue.mjs` y el
 registro de vistas de `app.js` deben actualizarse juntos. Cada nuevo adaptador
 necesita regresiones de rutas, estado y contenido antes de habilitarse.
 
@@ -55,14 +56,16 @@ estáticos sin reglas de servidor:
 | LC HL / OL | `#course/lc/hl` / `#course/lc/ol` |
 | U1 | `#course/1st-year/unit/1/overview` |
 | Apartado de U1 | `#course/1st-year/unit/1/learn` (y otros apartados) |
+| U2 Learn A | `#course/1st-year/unit/2/learn` |
 
 Los antiguos `#learn`, `#explore`, `#practise`, `#communicate`, `#play`,
 `#grammar`, `#vocabulary` y `#listening` siguen abriendo U1. `#unit` abre su
 resumen. `#home` pasa a ser la portada de cursos. Las rutas válidas se normalizan
 con `history.replaceState`, sin introducir pasos extra en el historial.
-Una unidad pendiente, una sección inválida o una unidad inexistente devuelve al
+Una unidad pendiente, una sección aún no abierta de U2 o una unidad inexistente devuelve al
 catálogo del curso/nivel; un curso desconocido devuelve a la portada. No se
 renderizan actividades de U1 como sustituto de una unidad pendiente.
+El progreso de Learn A permanece en la sesión y nunca se guarda como progreso de U1.
 `#main` conserva el salto accesible al contenido. Atrás/adelante usan el
 historial nativo y `hashchange`; no se necesita router externo.
 

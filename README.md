@@ -9,8 +9,9 @@ LC se divide en **HL y OL**, con una futura progresión común entre 5th y 6th Y
 
 - **1st Year · U1: Hola y bienvenidos**: completa, con Learn, Explore, Practise,
   Communicate y Play; sus contenidos y 31 MP3 se conservan intactos.
-- **1st Year · U2: El aula**: ficha en desarrollo (objetos de clase), sin actividades
-  ni enlaces de acceso. Los demás cursos y niveles muestran «Próximamente».
+- **1st Year · U2: El aula**: Learn · Bloque A «¿Qué hay en mi mochila?»
+  disponible. Las otras etapas siguen en preparación; los demás cursos y niveles
+  muestran «Próximamente».
 - Rutas por curso/unidad y compatibilidad con los antiguos enlaces de U1.
 - Progreso opcional separado por curso/unidad/nivel y lectura del guardado anterior
   de U1; no se guardan textos ni respuestas personales.
@@ -43,9 +44,11 @@ Ejecutar `npm test` con Node.js; no requiere instalar dependencias.
 `npm run build` prepara `dist/` con la web estática y todos sus recursos para
 alojamiento; no modifica los archivos fuente.
 
-- **62 pruebas superadas** en esta rama: las 53 anteriores y 9 regresiones nuevas
-  de navegación, guardado, migración, privacidad y aislamiento de unidades/niveles.
-- Datos de U1, motores de actividades, juegos y 31 MP3 sin cambios respecto a la base.
+- **67 pruebas automáticas**: navegación, estado, accesibilidad básica del marcado,
+  correspondencia entre 27 audios de Learn A y el inventario, y regresiones de U1.
+- Datos de U1, motores de actividades, juegos y sus MP3 sin cambios respecto a la base.
+- Learn A usa los 20 MP3 de objetos y siete expresiones ya verificadas de U2;
+  cada imagen es una ilustración SVG original. No se generan audios.
 - La nueva navegación se comprueba con renderizado simulado en Node. Sigue pendiente
   la revisión manual de esta rama en móvil, iPad y ordenador; las pruebas previas
   del docente corresponden a U1 antes de este cambio.
