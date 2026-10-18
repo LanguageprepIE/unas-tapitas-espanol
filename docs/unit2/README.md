@@ -1,45 +1,64 @@
 # Banco de audio — 1st Year, Unit 2: El aula
 
-Estado: preparación parcial para revisión, 18 de octubre de 2026. No es un banco completo ni está conectado todavía a actividades.
+Estado: entrega parcial para revisión, 18 de octubre de 2026. PR #6 en borrador. No se han conectado estos recursos a actividades ni modificado la Unidad 1.
 
-## Inventario y validación
+## Resultado
 
-- 69 recursos, con 69 nombres distintos: 4 listenings, 20 objetos, 7 días, 14 asignaturas, 8 transportes y 16 expresiones.
-- `manifest-original.csv` conserva sin cambios el inventario del ZIP aportado por el docente.
-- `audio-inventory.csv` añade ruta prevista, velocidad, identificador de voz, alcance de verificación, duración y SHA-256 cuando existe el archivo. Las voces nominales proceden del inventario; los identificadores de voz de los maestros proceden de ElevenLabs.
-- Los textos de los 65 clips coinciden, en orden, con los prompts de los cinco maestros, ignorando mayúsculas, espacios y puntuación. Esto verifica los textos previstos, no el contenido del audio todavía inaccesible.
-- La velocidad no está documentada en el inventario ni en los parámetros devueltos por la conexión. Se marca como pendiente; no se presume 1.0 ni se altera el audio.
-- Los dos MP3 recibidos son LIS_02 (estuche, 31.53 s) y LIS_04 (transporte, 21.37 s). Se copian byte a byte del ZIP, con sus nombres originales. Ambos se decodifican completos sin errores con FFmpeg. Evidencia en `audio-validation.json`.
-- El inventario solo contiene etiquetas temáticas para los listenings, no sus transcripciones completas. Se conserva su aprobación docente; no se afirma una nueva verificación lingüística.
+| Elemento | Cantidad |
+| --- | ---: |
+| Recursos del inventario | 69 |
+| Maestros originales descargados | 5 de 5 |
+| Clips separados | 65 de 65 |
+| Clips con texto confirmado automáticamente | 63 |
+| Clips pendientes de revisión auditiva | 2 |
+| Listenings aprobados incluidos | 2 de 4 |
+| Recursos presentes | 67 de 69 |
+| MP3 totales, incluidos los cinco maestros | 72 |
 
-## Organización prevista
+Los dos clips pendientes de revisión auditiva son `1Y_U02_AUD_TRA_04_v1.mp3` (en coche) y `1Y_U02_AUD_TRA_05_v1.mp3` (en bicicleta). Están exportados y se decodifican, pero el reconocimiento automático de fragmentos tan breves da resultados inconsistentes. Se han revisado sus límites y no se presentan como lingüísticamente verificados. No usar todavía estos dos clips como modelos definitivos.
 
-Todos los archivos de esta unidad vivirán bajo `assets/audio/unit2/`:
+Los listenings presentes son LIS_02 (estuche) y LIS_04 (transporte), recibidos en el ZIP. LIS_01 y LIS_03 siguen sin original local; no se han regenerado ni sustituido. Los cuatro conservan su aprobación docente. El inventario contiene etiquetas temáticas para los listenings, no sus transcripciones completas, por lo que no se afirma una nueva comprobación lingüística.
 
-| Carpeta | Categoría del paquete | Cantidad prevista | Disponibles |
-| --- | --- | ---: | ---: |
-| `listenings/` | LIS | 4 | 2 |
-| `vocabulary/objects/` | OBJ | 20 | 0 |
-| `vocabulary/days/` | DIA | 7 | 0 |
-| `vocabulary/subjects/` | ASI | 14 | 0 |
-| `vocabulary/transport/` | TRA | 8 | 0 |
-| `expressions/` | EXP | 16 | 0 |
+## Archivos y organización
 
-Las carpetas de clips pendientes se crearán al incorporar archivos reales. No se añaden MP3 vacíos. Se conserva la nomenclatura explícita del ZIP (`OBJ/DIA/ASI/TRA/EXP`); difiere del prefijo general `VOC` mencionado anteriormente. No se renombran recursos ni se inventan equivalencias aprobadas.
+Todos los MP3 de esta unidad se encuentran en `assets/audio/unit2/`:
 
-## Recuperación de los cinco maestros
+| Carpeta | Categoría | Recursos presentes |
+| --- | --- | ---: |
+| `masters/` | originales completos, para trazabilidad | 5 |
+| `listenings/` | LIS | 2 |
+| `vocabulary/objects/` | OBJ | 20 |
+| `vocabulary/days/` | DIA | 7 |
+| `vocabulary/subjects/` | ASI | 14 |
+| `vocabulary/transport/` | TRA | 8, incluidos los dos pendientes de revisión |
+| `expressions/` | EXP | 16 |
 
-Los cinco identificadores proporcionados son **flow IDs**, no asset IDs. `creative_get_flow` permite acceder a todos y confirma un nodo TTS completado en cada uno. `masters.json` recoge sus node IDs, prompts, modelo y voice IDs. Ningún nodo se ha ejecutado ni regenerado.
+Se conserva la nomenclatura del ZIP (`OBJ/DIA/ASI/TRA/EXP`); difiere del prefijo general `VOC` mencionado anteriormente. No se han renombrado los recursos aprobados ni creado MP3 vacíos.
 
-El bloqueo restante es concreto: la conexión permite leer el proyecto y la configuración del nodo, pero no enumera las generaciones/sesiones terminadas ni devuelve sus archivos o enlaces de descarga. `creative_get_flow_run_status` requiere session IDs de una ejecución previa, que no han sido proporcionados por las consultas de lectura. La consulta de assets con los cinco flow IDs no devuelve activos. La solicitud de una herramienta adicional confirma que no existe esa capacidad actualmente.
+- `manifest-original.csv`: inventario del ZIP conservado sin cambios, incluidos sus finales de línea originales.
+- `audio-inventory.csv`: 69 filas con texto, voz, velocidad, nombre, ruta, estado, SHA-256 y, para clips, maestro y tiempos de corte. Hay 69 nombres únicos.
+- `masters.json`: flow, sesión, generación, voz, texto, duración y SHA-256 de los cinco originales. Se descargaron mediante `creative_get_flow_run_status` usando los identificadores aportados por el docente; el bloqueo de acceso anterior queda resuelto.
+- `clip-cut-plan.json`: intervalos de cada clip en su maestro.
+- `master-transcripts-local.json`: reconocimiento local de los originales. Los 65 textos coinciden con los del inventario, ignorando puntuación, mayúsculas y espacios.
+- `clip-speech-verification.json`: evidencia lingüística y alcance de verificación de cada clip. Los 63 confirmados coinciden con su texto mediante reconocimiento local de los clips exportados, con comprobación individual de discrepancias cuando fue posible.
+- `audio-validation.json`: resumen, hashes, duraciones y comprobaciones técnicas.
 
-Hace falta acceso de solo lectura a **las salidas de generaciones ya completadas por flow/node**, incluyendo session IDs y URL del MP3 original (o descarga binaria). No falta acceso a los proyectos y no se necesita volver a generar ni localizar manualmente los maestros identificados.
+## Método y límites de validación
+
+Los originales se conservan byte a byte, sin conversión. Los clips se extraen de PCM mono a 44 100 Hz usando los límites documentados, apoyados en los tiempos de palabra y tramos de baja energía. Se añaden 80 ms de silencio inicial y 180 ms final y se exportan a MP3 a 128 kbps. Se preservan voz, tono y velocidad; no se aplica normalización ni se generan palabras nuevas.
+
+La velocidad de generación no figura en los datos consultados. El inventario la marca como no documentada; no se presume ningún valor.
+
+Los 65 clips se decodifican completos sin errores con FFmpeg. Su correlación con el recorte original supera 0.97 y sus longitudes difieren de las previstas en menos de un frame MP3, debido al contenedor/codificación. Esta comprobación técnica no sustituye la validación lingüística.
+
+La validación del habla utiliza faster-whisper small ejecutado localmente, sin llamadas de pago a ElevenLabs. Es automática y no equivale a una revisión auditiva humana. No se declara verificado ningún resultado no concluyente.
+
+Los dos listenings recibidos mantienen sus hashes del ZIP y se decodifican sin errores. Vértice solo aparece en LIS_04 como excepción previamente aprobada; no se ha usado para nuevas grabaciones. No se han gastado nuevos créditos ni ejecutado nodos de generación.
+
+Las 62 pruebas existentes pasan. Solo cambian archivos de `assets/audio/unit2/` y `docs/unit2/`. La Unidad 1 permanece intacta. El PR continúa en borrador y no se fusiona con main.
 
 ## Pendientes
 
-- Descargar los cinco maestros existentes y verificar su audio real.
-- Cortar y verificar 65 clips individuales con pausas naturales, sin palabras adyacentes; aún no se ha separado ninguno.
-- Recuperar los originales de LIS_01 y LIS_03; el ZIP confirma que siguen pendientes y no proporciona sus identificadores.
-- Verificar las velocidades originales y las transcripciones completas de los listenings cuando sean accesibles.
-
-Balance: 2 de 69 recursos integrados; 67 pendientes (65 clips y 2 listenings). Cinco maestros identificados, cero maestros descargados. La Unidad 1 y sus audios permanecen sin cambios. Vértice solo aparece en LIS_04 como excepción ya aprobada; no se utiliza para nuevas grabaciones.
+1. Revisión auditiva de los dos clips breves de transporte señalados arriba.
+2. Recuperación de los originales aprobados LIS_01 y LIS_03.
+3. Completar velocidades originales y transcripciones completas de listenings cuando se disponga de esos datos.

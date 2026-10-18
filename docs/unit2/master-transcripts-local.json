@@ -1,0 +1,983 @@
+{
+  "motor": "faster-whisper small; CPU int8; reconocimiento local sin llamadas a ElevenLabs",
+  "nota": "Transcripción automática independiente; no equivale a revisión auditiva humana.",
+  "maestros": {
+    "OBJ": [
+      {
+        "start": 0.0,
+        "end": 8.0,
+        "text": " un lápiz, un bolígrafo, una goma, una regla, un sacapuntas, un estuche, un cuaderno, un",
+        "words": [
+          {
+            "start": 0.0,
+            "end": 0.16,
+            "word": " un",
+            "probability": 0.5819686055183411
+          },
+          {
+            "start": 0.16,
+            "end": 0.54,
+            "word": " lápiz,",
+            "probability": 0.9896274010340372
+          },
+          {
+            "start": 0.94,
+            "end": 1.12,
+            "word": " un",
+            "probability": 0.9897387623786926
+          },
+          {
+            "start": 1.12,
+            "end": 1.7,
+            "word": " bolígrafo,",
+            "probability": 0.9871646404266358
+          },
+          {
+            "start": 2.14,
+            "end": 2.36,
+            "word": " una",
+            "probability": 0.9955899715423584
+          },
+          {
+            "start": 2.36,
+            "end": 2.66,
+            "word": " goma,",
+            "probability": 0.982311487197876
+          },
+          {
+            "start": 3.26,
+            "end": 3.4,
+            "word": " una",
+            "probability": 0.997456967830658
+          },
+          {
+            "start": 3.4,
+            "end": 3.74,
+            "word": " regla,",
+            "probability": 0.9874360263347626
+          },
+          {
+            "start": 4.32,
+            "end": 4.44,
+            "word": " un",
+            "probability": 0.9285088777542114
+          },
+          {
+            "start": 4.44,
+            "end": 5.12,
+            "word": " sacapuntas,",
+            "probability": 0.9442159235477448
+          },
+          {
+            "start": 5.66,
+            "end": 5.74,
+            "word": " un",
+            "probability": 0.9840368628501892
+          },
+          {
+            "start": 5.74,
+            "end": 6.12,
+            "word": " estuche,",
+            "probability": 0.9571861922740936
+          },
+          {
+            "start": 6.76,
+            "end": 6.86,
+            "word": " un",
+            "probability": 0.9972295165061951
+          },
+          {
+            "start": 6.86,
+            "end": 7.4,
+            "word": " cuaderno,",
+            "probability": 0.993796706199646
+          },
+          {
+            "start": 7.84,
+            "end": 8.0,
+            "word": " un",
+            "probability": 0.9967502355575562
+          }
+        ]
+      },
+      {
+        "start": 8.0,
+        "end": 15.72,
+        "text": " libro, una mochila, una carpeta, unas tijeras, un pegamento, una calculadora, un rotulador,",
+        "words": [
+          {
+            "start": 8.0,
+            "end": 8.22,
+            "word": " libro,",
+            "probability": 0.9944052696228027
+          },
+          {
+            "start": 8.88,
+            "end": 9.0,
+            "word": " una",
+            "probability": 0.9988104104995728
+          },
+          {
+            "start": 9.0,
+            "end": 9.46,
+            "word": " mochila,",
+            "probability": 0.9973651170730591
+          },
+          {
+            "start": 10.02,
+            "end": 10.12,
+            "word": " una",
+            "probability": 0.9983773231506348
+          },
+          {
+            "start": 10.12,
+            "end": 10.7,
+            "word": " carpeta,",
+            "probability": 0.9960737824440002
+          },
+          {
+            "start": 11.18,
+            "end": 11.34,
+            "word": " unas",
+            "probability": 0.9917981624603271
+          },
+          {
+            "start": 11.34,
+            "end": 11.86,
+            "word": " tijeras,",
+            "probability": 0.9937821626663208
+          },
+          {
+            "start": 12.46,
+            "end": 12.58,
+            "word": " un",
+            "probability": 0.9948495030403137
+          },
+          {
+            "start": 12.58,
+            "end": 13.1,
+            "word": " pegamento,",
+            "probability": 0.9959997832775116
+          },
+          {
+            "start": 13.72,
+            "end": 13.84,
+            "word": " una",
+            "probability": 0.9942476749420166
+          },
+          {
+            "start": 13.84,
+            "end": 14.48,
+            "word": " calculadora,",
+            "probability": 0.9961779713630676
+          },
+          {
+            "start": 15.12,
+            "end": 15.2,
+            "word": " un",
+            "probability": 0.9971464276313782
+          },
+          {
+            "start": 15.2,
+            "end": 15.72,
+            "word": " rotulador,",
+            "probability": 0.9947693347930908
+          }
+        ]
+      },
+      {
+        "start": 16.32,
+        "end": 22.74,
+        "text": " un subrayador, una pizarra, una mesa, una silla, una hoja, un ordenador.",
+        "words": [
+          {
+            "start": 16.32,
+            "end": 16.4,
+            "word": " un",
+            "probability": 0.9948691129684448
+          },
+          {
+            "start": 16.4,
+            "end": 17.14,
+            "word": " subrayador,",
+            "probability": 0.9182172417640686
+          },
+          {
+            "start": 17.76,
+            "end": 17.88,
+            "word": " una",
+            "probability": 0.9956243634223938
+          },
+          {
+            "start": 17.88,
+            "end": 18.46,
+            "word": " pizarra,",
+            "probability": 0.9691555301348368
+          },
+          {
+            "start": 18.94,
+            "end": 19.08,
+            "word": " una",
+            "probability": 0.9989963173866272
+          },
+          {
+            "start": 19.08,
+            "end": 19.42,
+            "word": " mesa,",
+            "probability": 0.9992262125015259
+          },
+          {
+            "start": 20.06,
+            "end": 20.16,
+            "word": " una",
+            "probability": 0.9980395436286926
+          },
+          {
+            "start": 20.16,
+            "end": 20.58,
+            "word": " silla,",
+            "probability": 0.9945298433303833
+          },
+          {
+            "start": 21.08,
+            "end": 21.28,
+            "word": " una",
+            "probability": 0.9981801509857178
+          },
+          {
+            "start": 21.28,
+            "end": 21.7,
+            "word": " hoja,",
+            "probability": 0.9979533553123474
+          },
+          {
+            "start": 22.22,
+            "end": 22.3,
+            "word": " un",
+            "probability": 0.9944065809249878
+          },
+          {
+            "start": 22.3,
+            "end": 22.74,
+            "word": " ordenador.",
+            "probability": 0.9984697699546814
+          }
+        ]
+      }
+    ],
+    "DIA": [
+      {
+        "start": 0.0,
+        "end": 4.58,
+        "text": " ¡Lunes, martes, miércoles, jueves, viernes, sábado, domingo!",
+        "words": [
+          {
+            "start": 0.0,
+            "end": 0.42,
+            "word": " ¡Lunes,",
+            "probability": 0.6789272626241049
+          },
+          {
+            "start": 0.74,
+            "end": 1.26,
+            "word": " martes,",
+            "probability": 0.9232812821865082
+          },
+          {
+            "start": 1.42,
+            "end": 1.9,
+            "word": " miércoles,",
+            "probability": 0.9904454201459885
+          },
+          {
+            "start": 2.18,
+            "end": 2.54,
+            "word": " jueves,",
+            "probability": 0.9963760077953339
+          },
+          {
+            "start": 2.8,
+            "end": 3.26,
+            "word": " viernes,",
+            "probability": 0.9956409931182861
+          },
+          {
+            "start": 3.48,
+            "end": 3.94,
+            "word": " sábado,",
+            "probability": 0.9952994783719381
+          },
+          {
+            "start": 4.04,
+            "end": 4.58,
+            "word": " domingo!",
+            "probability": 0.9909098148345947
+          }
+        ]
+      }
+    ],
+    "ASI": [
+      {
+        "start": 0.0,
+        "end": 8.26,
+        "text": " español, inglés, matemáticas, ciencias, historia, geografía, educación física, música,",
+        "words": [
+          {
+            "start": 0.0,
+            "end": 0.44,
+            "word": " español,",
+            "probability": 0.8013224601745605
+          },
+          {
+            "start": 0.92,
+            "end": 1.38,
+            "word": " inglés,",
+            "probability": 0.9699274897575378
+          },
+          {
+            "start": 2.14,
+            "end": 2.62,
+            "word": " matemáticas,",
+            "probability": 0.9872931440671285
+          },
+          {
+            "start": 3.34,
+            "end": 3.82,
+            "word": " ciencias,",
+            "probability": 0.9847032030423483
+          },
+          {
+            "start": 4.44,
+            "end": 4.84,
+            "word": " historia,",
+            "probability": 0.9867961406707764
+          },
+          {
+            "start": 5.56,
+            "end": 6.14,
+            "word": " geografía,",
+            "probability": 0.9919652740160624
+          },
+          {
+            "start": 6.68,
+            "end": 6.94,
+            "word": " educación",
+            "probability": 0.9822216629981995
+          },
+          {
+            "start": 6.94,
+            "end": 7.42,
+            "word": " física,",
+            "probability": 0.9955604076385498
+          },
+          {
+            "start": 8.02,
+            "end": 8.26,
+            "word": " música,",
+            "probability": 0.9863548874855042
+          }
+        ]
+      },
+      {
+        "start": 8.96,
+        "end": 15.4,
+        "text": " arte, economía doméstica, empresariales, tecnología, educación personal, social",
+        "words": [
+          {
+            "start": 8.96,
+            "end": 9.26,
+            "word": " arte,",
+            "probability": 0.9951907396316528
+          },
+          {
+            "start": 9.78,
+            "end": 10.38,
+            "word": " economía",
+            "probability": 0.9965333044528961
+          },
+          {
+            "start": 10.38,
+            "end": 10.84,
+            "word": " doméstica,",
+            "probability": 0.982196569442749
+          },
+          {
+            "start": 11.36,
+            "end": 12.12,
+            "word": " empresariales,",
+            "probability": 0.995381494363149
+          },
+          {
+            "start": 12.58,
+            "end": 13.0,
+            "word": " tecnología,",
+            "probability": 0.995448648929596
+          },
+          {
+            "start": 13.72,
+            "end": 13.98,
+            "word": " educación",
+            "probability": 0.9852489829063416
+          },
+          {
+            "start": 13.98,
+            "end": 14.5,
+            "word": " personal,",
+            "probability": 0.9869019985198975
+          },
+          {
+            "start": 14.96,
+            "end": 15.4,
+            "word": " social",
+            "probability": 0.9939550757408142
+          }
+        ]
+      },
+      {
+        "start": 15.92,
+        "end": 19.64,
+        "text": " y para la salud, educación cívica, social y política.",
+        "words": [
+          {
+            "start": 15.559999999999999,
+            "end": 16.04,
+            "word": " y",
+            "probability": 0.8849595189094543
+          },
+          {
+            "start": 16.04,
+            "end": 16.16,
+            "word": " para",
+            "probability": 0.9918828010559082
+          },
+          {
+            "start": 16.16,
+            "end": 16.28,
+            "word": " la",
+            "probability": 0.9969774484634399
+          },
+          {
+            "start": 16.28,
+            "end": 16.58,
+            "word": " salud,",
+            "probability": 0.9993390440940857
+          },
+          {
+            "start": 17.08,
+            "end": 17.34,
+            "word": " educación",
+            "probability": 0.9859840273857117
+          },
+          {
+            "start": 17.34,
+            "end": 18.06,
+            "word": " cívica,",
+            "probability": 0.9791233738263448
+          },
+          {
+            "start": 18.38,
+            "end": 18.86,
+            "word": " social",
+            "probability": 0.9965953230857849
+          },
+          {
+            "start": 18.86,
+            "end": 19.3,
+            "word": " y",
+            "probability": 0.9933562874794006
+          },
+          {
+            "start": 19.3,
+            "end": 19.64,
+            "word": " política.",
+            "probability": 0.9991769194602966
+          }
+        ]
+      }
+    ],
+    "TRA": [
+      {
+        "start": 0.0,
+        "end": 5.92,
+        "text": " A pie, andando, en autobús, en coche, en bicicleta, en tren, en moto, en patinete eléctrico.",
+        "words": [
+          {
+            "start": 0.0,
+            "end": 0.14,
+            "word": " A",
+            "probability": 0.5784757137298584
+          },
+          {
+            "start": 0.14,
+            "end": 0.34,
+            "word": " pie,",
+            "probability": 0.4764539897441864
+          },
+          {
+            "start": 0.78,
+            "end": 1.42,
+            "word": " andando,",
+            "probability": 0.9151853919029236
+          },
+          {
+            "start": 1.78,
+            "end": 1.92,
+            "word": " en",
+            "probability": 0.9866552352905273
+          },
+          {
+            "start": 1.92,
+            "end": 2.44,
+            "word": " autobús,",
+            "probability": 0.9371151328086853
+          },
+          {
+            "start": 2.56,
+            "end": 2.62,
+            "word": " en",
+            "probability": 0.9757207632064819
+          },
+          {
+            "start": 2.62,
+            "end": 2.96,
+            "word": " coche,",
+            "probability": 0.9824008643627167
+          },
+          {
+            "start": 3.08,
+            "end": 3.1,
+            "word": " en",
+            "probability": 0.9846298098564148
+          },
+          {
+            "start": 3.1,
+            "end": 3.54,
+            "word": " bicicleta,",
+            "probability": 0.9952119886875153
+          },
+          {
+            "start": 3.66,
+            "end": 3.74,
+            "word": " en",
+            "probability": 0.9831936359405518
+          },
+          {
+            "start": 3.74,
+            "end": 3.88,
+            "word": " tren,",
+            "probability": 0.9949541687965393
+          },
+          {
+            "start": 4.16,
+            "end": 4.2,
+            "word": " en",
+            "probability": 0.9964460730552673
+          },
+          {
+            "start": 4.2,
+            "end": 4.46,
+            "word": " moto,",
+            "probability": 0.972123920917511
+          },
+          {
+            "start": 4.94,
+            "end": 5.04,
+            "word": " en",
+            "probability": 0.987838625907898
+          },
+          {
+            "start": 5.04,
+            "end": 5.46,
+            "word": " patinete",
+            "probability": 0.9056302309036255
+          },
+          {
+            "start": 5.46,
+            "end": 5.92,
+            "word": " eléctrico.",
+            "probability": 0.9924778491258621
+          }
+        ]
+      }
+    ],
+    "EXP": [
+      {
+        "start": 0.0,
+        "end": 5.28,
+        "text": " ¿Qué es esto? Es un lápiz. ¿Qué son? Son unos cuadernos. ¿Cuántos libros hay?",
+        "words": [
+          {
+            "start": 0.0,
+            "end": 0.18,
+            "word": " ¿Qué",
+            "probability": 0.8924226462841034
+          },
+          {
+            "start": 0.18,
+            "end": 0.32,
+            "word": " es",
+            "probability": 0.997638463973999
+          },
+          {
+            "start": 0.32,
+            "end": 0.6,
+            "word": " esto?",
+            "probability": 0.9916952252388
+          },
+          {
+            "start": 0.96,
+            "end": 1.12,
+            "word": " Es",
+            "probability": 0.9002044200897217
+          },
+          {
+            "start": 1.12,
+            "end": 1.26,
+            "word": " un",
+            "probability": 0.9982693195343018
+          },
+          {
+            "start": 1.26,
+            "end": 1.68,
+            "word": " lápiz.",
+            "probability": 0.9946853121121725
+          },
+          {
+            "start": 2.0,
+            "end": 2.24,
+            "word": " ¿Qué",
+            "probability": 0.9717387557029724
+          },
+          {
+            "start": 2.24,
+            "end": 2.52,
+            "word": " son?",
+            "probability": 0.9909329414367676
+          },
+          {
+            "start": 2.94,
+            "end": 3.14,
+            "word": " Son",
+            "probability": 0.9752551317214966
+          },
+          {
+            "start": 3.14,
+            "end": 3.36,
+            "word": " unos",
+            "probability": 0.9991992115974426
+          },
+          {
+            "start": 3.36,
+            "end": 4.04,
+            "word": " cuadernos.",
+            "probability": 0.9883833130200704
+          },
+          {
+            "start": 4.42,
+            "end": 4.76,
+            "word": " ¿Cuántos",
+            "probability": 0.9711488485336304
+          },
+          {
+            "start": 4.76,
+            "end": 5.08,
+            "word": " libros",
+            "probability": 0.9995049238204956
+          },
+          {
+            "start": 5.08,
+            "end": 5.28,
+            "word": " hay?",
+            "probability": 0.9976565837860107
+          }
+        ]
+      },
+      {
+        "start": 6.2,
+        "end": 9.52,
+        "text": " Hay tres libros. No tengo regla. ¿Qué día es hoy?",
+        "words": [
+          {
+            "start": 6.2,
+            "end": 6.74,
+            "word": " Hay",
+            "probability": 0.8766202330589294
+          },
+          {
+            "start": 6.74,
+            "end": 6.94,
+            "word": " tres",
+            "probability": 0.8889179229736328
+          },
+          {
+            "start": 6.94,
+            "end": 7.44,
+            "word": " libros.",
+            "probability": 0.9989138543605804
+          },
+          {
+            "start": 7.72,
+            "end": 7.9,
+            "word": " No",
+            "probability": 0.826708197593689
+          },
+          {
+            "start": 7.9,
+            "end": 8.12,
+            "word": " tengo",
+            "probability": 0.9994491934776306
+          },
+          {
+            "start": 8.12,
+            "end": 8.46,
+            "word": " regla.",
+            "probability": 0.9949056208133698
+          },
+          {
+            "start": 8.9,
+            "end": 9.0,
+            "word": " ¿Qué",
+            "probability": 0.9763565063476562
+          },
+          {
+            "start": 9.0,
+            "end": 9.2,
+            "word": " día",
+            "probability": 0.9962039589881897
+          },
+          {
+            "start": 9.2,
+            "end": 9.36,
+            "word": " es",
+            "probability": 0.9539185166358948
+          },
+          {
+            "start": 9.36,
+            "end": 9.52,
+            "word": " hoy?",
+            "probability": 0.9996103644371033
+          }
+        ]
+      },
+      {
+        "start": 10.48,
+        "end": 12.98,
+        "text": " Hoy es lunes. ¿Cuál es tu asignatura favorita?",
+        "words": [
+          {
+            "start": 10.48,
+            "end": 10.7,
+            "word": " Hoy",
+            "probability": 0.9848036766052246
+          },
+          {
+            "start": 10.7,
+            "end": 10.84,
+            "word": " es",
+            "probability": 0.9974195957183838
+          },
+          {
+            "start": 10.84,
+            "end": 11.08,
+            "word": " lunes.",
+            "probability": 0.9964199662208557
+          },
+          {
+            "start": 11.64,
+            "end": 11.78,
+            "word": " ¿Cuál",
+            "probability": 0.985704223314921
+          },
+          {
+            "start": 11.78,
+            "end": 11.92,
+            "word": " es",
+            "probability": 0.9980529546737671
+          },
+          {
+            "start": 11.92,
+            "end": 11.98,
+            "word": " tu",
+            "probability": 0.9962852001190186
+          },
+          {
+            "start": 11.98,
+            "end": 12.44,
+            "word": " asignatura",
+            "probability": 0.996117909749349
+          },
+          {
+            "start": 12.44,
+            "end": 12.98,
+            "word": " favorita?",
+            "probability": 0.9962608516216278
+          }
+        ]
+      },
+      {
+        "start": 13.94,
+        "end": 17.98,
+        "text": " Mi asignatura favorita es español. No me gustan las matemáticas.",
+        "words": [
+          {
+            "start": 13.94,
+            "end": 14.12,
+            "word": " Mi",
+            "probability": 0.9698208570480347
+          },
+          {
+            "start": 14.12,
+            "end": 14.6,
+            "word": " asignatura",
+            "probability": 0.998146136601766
+          },
+          {
+            "start": 14.6,
+            "end": 15.18,
+            "word": " favorita",
+            "probability": 0.999616414308548
+          },
+          {
+            "start": 15.18,
+            "end": 15.64,
+            "word": " es",
+            "probability": 0.9647658467292786
+          },
+          {
+            "start": 15.64,
+            "end": 16.04,
+            "word": " español.",
+            "probability": 0.9974368214607239
+          },
+          {
+            "start": 16.74,
+            "end": 16.9,
+            "word": " No",
+            "probability": 0.9802771210670471
+          },
+          {
+            "start": 16.9,
+            "end": 17.0,
+            "word": " me",
+            "probability": 0.9994702935218811
+          },
+          {
+            "start": 17.0,
+            "end": 17.28,
+            "word": " gustan",
+            "probability": 0.9960959255695343
+          },
+          {
+            "start": 17.28,
+            "end": 17.42,
+            "word": " las",
+            "probability": 0.9969485402107239
+          },
+          {
+            "start": 17.42,
+            "end": 17.98,
+            "word": " matemáticas.",
+            "probability": 0.9959540565808614
+          }
+        ]
+      },
+      {
+        "start": 18.62,
+        "end": 23.54,
+        "text": " ¿Cómo vas al colegio? Voy a pie. Voy en patinete eléctrico. No voy en coche.",
+        "words": [
+          {
+            "start": 18.62,
+            "end": 18.78,
+            "word": " ¿Cómo",
+            "probability": 0.9729424715042114
+          },
+          {
+            "start": 18.78,
+            "end": 19.0,
+            "word": " vas",
+            "probability": 0.9939244389533997
+          },
+          {
+            "start": 19.0,
+            "end": 19.14,
+            "word": " al",
+            "probability": 0.9936743974685669
+          },
+          {
+            "start": 19.14,
+            "end": 19.64,
+            "word": " colegio?",
+            "probability": 0.9979633688926697
+          },
+          {
+            "start": 20.0,
+            "end": 20.12,
+            "word": " Voy",
+            "probability": 0.9481275677680969
+          },
+          {
+            "start": 20.12,
+            "end": 20.24,
+            "word": " a",
+            "probability": 0.9964325428009033
+          },
+          {
+            "start": 20.24,
+            "end": 20.44,
+            "word": " pie.",
+            "probability": 0.985965371131897
+          },
+          {
+            "start": 21.02,
+            "end": 21.16,
+            "word": " Voy",
+            "probability": 0.9815911054611206
+          },
+          {
+            "start": 21.16,
+            "end": 21.32,
+            "word": " en",
+            "probability": 0.946879506111145
+          },
+          {
+            "start": 21.32,
+            "end": 21.9,
+            "word": " patinete",
+            "probability": 0.934910257657369
+          },
+          {
+            "start": 21.9,
+            "end": 22.46,
+            "word": " eléctrico.",
+            "probability": 0.9920488595962524
+          },
+          {
+            "start": 22.76,
+            "end": 22.86,
+            "word": " No",
+            "probability": 0.9813536405563354
+          },
+          {
+            "start": 22.86,
+            "end": 23.04,
+            "word": " voy",
+            "probability": 0.9896196722984314
+          },
+          {
+            "start": 23.04,
+            "end": 23.2,
+            "word": " en",
+            "probability": 0.9940639138221741
+          },
+          {
+            "start": 23.2,
+            "end": 23.54,
+            "word": " coche.",
+            "probability": 0.9966855645179749
+          }
+        ]
+      }
+    ]
+  }
+}

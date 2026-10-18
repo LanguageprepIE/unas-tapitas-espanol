@@ -1,0 +1,656 @@
+{
+  "motor": "faster-whisper small; CPU int8; reconocimiento local, sin consumir créditos ElevenLabs",
+  "limite": "Verificación automática, no escucha humana. 63 confirmados y 2 pendientes de revisión auditiva.",
+  "clips": [
+    {
+      "archivo": "1Y_U02_AUD_OBJ_01_v1.mp3",
+      "texto_esperado": "un lápiz",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 0.0,
+      "fin_maestro": 0.852,
+      "transcripcion_confirmatoria": "un lápiz,",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_OBJ_02_v1.mp3",
+      "texto_esperado": "un bolígrafo",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 0.852,
+      "fin_maestro": 2.043,
+      "transcripcion_confirmatoria": "un bolígrafo,",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_OBJ_03_v1.mp3",
+      "texto_esperado": "una goma",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 2.043,
+      "fin_maestro": 2.914,
+      "transcripcion_confirmatoria": "una goma,",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_OBJ_04_v1.mp3",
+      "texto_esperado": "una regla",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 2.914,
+      "fin_maestro": 3.884,
+      "transcripcion_confirmatoria": "una regla,",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_OBJ_05_v1.mp3",
+      "texto_esperado": "un sacapuntas",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 3.884,
+      "fin_maestro": 5.27,
+      "transcripcion_confirmatoria": "un sacapuntas,",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_OBJ_06_v1.mp3",
+      "texto_esperado": "un estuche",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 5.27,
+      "fin_maestro": 6.39,
+      "transcripcion_confirmatoria": "un estuche,",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_OBJ_07_v1.mp3",
+      "texto_esperado": "un cuaderno",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 6.39,
+      "fin_maestro": 7.53,
+      "transcripcion_confirmatoria": "un cuaderno,",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_OBJ_08_v1.mp3",
+      "texto_esperado": "un libro",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 7.53,
+      "fin_maestro": 8.473,
+      "transcripcion_confirmatoria": "un libro,",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_OBJ_09_v1.mp3",
+      "texto_esperado": "una mochila",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 8.473,
+      "fin_maestro": 9.661,
+      "transcripcion_confirmatoria": "una mochila,",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_OBJ_10_v1.mp3",
+      "texto_esperado": "una carpeta",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 9.661,
+      "fin_maestro": 11.036,
+      "transcripcion_confirmatoria": "una carpeta,",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_OBJ_11_v1.mp3",
+      "texto_esperado": "unas tijeras",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 11.036,
+      "fin_maestro": 12.076,
+      "transcripcion_confirmatoria": "unas tijeras,",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_OBJ_12_v1.mp3",
+      "texto_esperado": "un pegamento",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 12.076,
+      "fin_maestro": 13.344,
+      "transcripcion_confirmatoria": "un pegamento,",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_OBJ_13_v1.mp3",
+      "texto_esperado": "una calculadora",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 13.344,
+      "fin_maestro": 14.737,
+      "transcripcion_confirmatoria": "una calculadora,",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_OBJ_14_v1.mp3",
+      "texto_esperado": "un rotulador",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 14.737,
+      "fin_maestro": 15.936,
+      "transcripcion_confirmatoria": "un rotulador,",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_OBJ_15_v1.mp3",
+      "texto_esperado": "un subrayador",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 15.936,
+      "fin_maestro": 17.346,
+      "transcripcion_confirmatoria": "Un subrayador.",
+      "metodo": "ASR local individual",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_OBJ_16_v1.mp3",
+      "texto_esperado": "una pizarra",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 17.346,
+      "fin_maestro": 18.84,
+      "transcripcion_confirmatoria": "una pizarra,",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_OBJ_17_v1.mp3",
+      "texto_esperado": "una mesa",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 18.84,
+      "fin_maestro": 19.703,
+      "transcripcion_confirmatoria": "una mesa,",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_OBJ_18_v1.mp3",
+      "texto_esperado": "una silla",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 19.703,
+      "fin_maestro": 20.787,
+      "transcripcion_confirmatoria": "una silla,",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_OBJ_19_v1.mp3",
+      "texto_esperado": "una hoja",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 20.787,
+      "fin_maestro": 21.961,
+      "transcripcion_confirmatoria": "una hoja,",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_OBJ_20_v1.mp3",
+      "texto_esperado": "un ordenador",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 21.961,
+      "fin_maestro": 23.173515,
+      "transcripcion_confirmatoria": "un ordenador.",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_DIA_01_v1.mp3",
+      "texto_esperado": "lunes",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 0.0,
+      "fin_maestro": 0.657,
+      "transcripcion_confirmatoria": "lunes,",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_DIA_02_v1.mp3",
+      "texto_esperado": "martes",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 0.657,
+      "fin_maestro": 1.335,
+      "transcripcion_confirmatoria": "martes,",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_DIA_03_v1.mp3",
+      "texto_esperado": "miércoles",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 1.335,
+      "fin_maestro": 2.124,
+      "transcripcion_confirmatoria": "miércoles,",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_DIA_04_v1.mp3",
+      "texto_esperado": "jueves",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 2.124,
+      "fin_maestro": 2.725,
+      "transcripcion_confirmatoria": "jueves,",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_DIA_05_v1.mp3",
+      "texto_esperado": "viernes",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 2.725,
+      "fin_maestro": 3.358,
+      "transcripcion_confirmatoria": "viernes,",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_DIA_06_v1.mp3",
+      "texto_esperado": "sábado",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 3.358,
+      "fin_maestro": 3.983,
+      "transcripcion_confirmatoria": "sábado,",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_DIA_07_v1.mp3",
+      "texto_esperado": "domingo",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 3.983,
+      "fin_maestro": 5.10839,
+      "transcripcion_confirmatoria": "domingo.",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_ASI_01_v1.mp3",
+      "texto_esperado": "español",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 0.0,
+      "fin_maestro": 0.758,
+      "transcripcion_confirmatoria": "español,",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_ASI_02_v1.mp3",
+      "texto_esperado": "inglés",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 0.758,
+      "fin_maestro": 1.762,
+      "transcripcion_confirmatoria": "inglés,",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_ASI_03_v1.mp3",
+      "texto_esperado": "matemáticas",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 1.762,
+      "fin_maestro": 2.991,
+      "transcripcion_confirmatoria": "matemáticas,",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_ASI_04_v1.mp3",
+      "texto_esperado": "ciencias",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 2.991,
+      "fin_maestro": 4.053,
+      "transcripcion_confirmatoria": "ciencias,",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_ASI_05_v1.mp3",
+      "texto_esperado": "historia",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 4.053,
+      "fin_maestro": 5.102,
+      "transcripcion_confirmatoria": "historia,",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_ASI_06_v1.mp3",
+      "texto_esperado": "geografía",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 5.102,
+      "fin_maestro": 6.286,
+      "transcripcion_confirmatoria": "geografía,",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_ASI_07_v1.mp3",
+      "texto_esperado": "educación física",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 6.286,
+      "fin_maestro": 7.746,
+      "transcripcion_confirmatoria": "educación física,",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_ASI_08_v1.mp3",
+      "texto_esperado": "música",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 7.746,
+      "fin_maestro": 8.629,
+      "transcripcion_confirmatoria": "música,",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_ASI_09_v1.mp3",
+      "texto_esperado": "arte",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 8.629,
+      "fin_maestro": 9.433,
+      "transcripcion_confirmatoria": "arte,",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_ASI_10_v1.mp3",
+      "texto_esperado": "economía doméstica",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 9.433,
+      "fin_maestro": 11.096,
+      "transcripcion_confirmatoria": "economía doméstica,",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_ASI_11_v1.mp3",
+      "texto_esperado": "empresariales",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 11.096,
+      "fin_maestro": 12.29,
+      "transcripcion_confirmatoria": "empresariales,",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_ASI_12_v1.mp3",
+      "texto_esperado": "tecnología",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 12.29,
+      "fin_maestro": 13.273,
+      "transcripcion_confirmatoria": "tecnología,",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_ASI_13_v1.mp3",
+      "texto_esperado": "educación personal, social y para la salud",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 13.273,
+      "fin_maestro": 16.728,
+      "transcripcion_confirmatoria": "educación personal, social y para la salud,",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_ASI_14_v1.mp3",
+      "texto_esperado": "educación cívica, social y política",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 16.728,
+      "fin_maestro": 20.108481,
+      "transcripcion_confirmatoria": "educación cívica, social y política.",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_TRA_01_v1.mp3",
+      "texto_esperado": "a pie",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 0.0,
+      "fin_maestro": 0.649,
+      "transcripcion_confirmatoria": "A pie,",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_TRA_02_v1.mp3",
+      "texto_esperado": "andando",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 0.649,
+      "fin_maestro": 1.746,
+      "transcripcion_confirmatoria": "andando,",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_TRA_03_v1.mp3",
+      "texto_esperado": "en autobús",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 1.746,
+      "fin_maestro": 2.488,
+      "transcripcion_confirmatoria": "en autobús",
+      "metodo": "ASR local individual",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_TRA_04_v1.mp3",
+      "texto_esperado": "en coche",
+      "estado": "clip separado; decodificación y trazabilidad verificadas; revisión auditiva pendiente",
+      "inicio_maestro": 2.488,
+      "fin_maestro": 2.927,
+      "transcripcion_confirmatoria": null,
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": "El reconocimiento automático de las versiones finales de TRA_04 y TRA_05 no es concluyente."
+    },
+    {
+      "archivo": "1Y_U02_AUD_TRA_05_v1.mp3",
+      "texto_esperado": "en bicicleta",
+      "estado": "clip separado; decodificación y trazabilidad verificadas; revisión auditiva pendiente",
+      "inicio_maestro": 2.927,
+      "fin_maestro": 3.557,
+      "transcripcion_confirmatoria": null,
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": "El reconocimiento automático de las versiones finales de TRA_04 y TRA_05 no es concluyente."
+    },
+    {
+      "archivo": "1Y_U02_AUD_TRA_06_v1.mp3",
+      "texto_esperado": "en tren",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 3.557,
+      "fin_maestro": 4.067,
+      "transcripcion_confirmatoria": "en tren,",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_TRA_07_v1.mp3",
+      "texto_esperado": "en moto",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 4.067,
+      "fin_maestro": 4.82,
+      "transcripcion_confirmatoria": "en moto.",
+      "metodo": "ASR local individual",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_TRA_08_v1.mp3",
+      "texto_esperado": "en patinete eléctrico",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 4.82,
+      "fin_maestro": 6.315828,
+      "transcripcion_confirmatoria": "en patinete eléctrico.",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_EXP_01_v1.mp3",
+      "texto_esperado": "¿Qué es esto?",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 0.0,
+      "fin_maestro": 0.927,
+      "transcripcion_confirmatoria": "¿Qué es esto?",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_EXP_02_v1.mp3",
+      "texto_esperado": "Es un lápiz.",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 0.927,
+      "fin_maestro": 1.891,
+      "transcripcion_confirmatoria": "Es un lápiz.",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_EXP_03_v1.mp3",
+      "texto_esperado": "¿Qué son?",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 1.891,
+      "fin_maestro": 2.697,
+      "transcripcion_confirmatoria": "¿Qué son?",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_EXP_04_v1.mp3",
+      "texto_esperado": "Son unos cuadernos.",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 2.697,
+      "fin_maestro": 4.348,
+      "transcripcion_confirmatoria": "Son unos cuadernos.",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_EXP_05_v1.mp3",
+      "texto_esperado": "¿Cuántos libros hay?",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 4.348,
+      "fin_maestro": 5.626,
+      "transcripcion_confirmatoria": "¿Cuántos libros hay?",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_EXP_06_v1.mp3",
+      "texto_esperado": "Hay tres libros.",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 5.626,
+      "fin_maestro": 7.617,
+      "transcripcion_confirmatoria": "Hay tres libros.",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_EXP_07_v1.mp3",
+      "texto_esperado": "No tengo regla.",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 7.617,
+      "fin_maestro": 8.701,
+      "transcripcion_confirmatoria": "No tengo regla.",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_EXP_08_v1.mp3",
+      "texto_esperado": "¿Qué día es hoy?",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 8.701,
+      "fin_maestro": 10.108,
+      "transcripcion_confirmatoria": "¿Qué día es hoy?",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_EXP_09_v1.mp3",
+      "texto_esperado": "Hoy es lunes.",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 10.108,
+      "fin_maestro": 11.478,
+      "transcripcion_confirmatoria": "Hoy es lunes.",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_EXP_10_v1.mp3",
+      "texto_esperado": "¿Cuál es tu asignatura favorita?",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 11.478,
+      "fin_maestro": 13.546,
+      "transcripcion_confirmatoria": "¿Cuál es tu asignatura favorita?",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_EXP_11_v1.mp3",
+      "texto_esperado": "Mi asignatura favorita es español.",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 13.546,
+      "fin_maestro": 16.504,
+      "transcripcion_confirmatoria": "Mi asignatura favorita es español.",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_EXP_12_v1.mp3",
+      "texto_esperado": "No me gustan las matemáticas.",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 16.504,
+      "fin_maestro": 18.314,
+      "transcripcion_confirmatoria": "No me gustan las matemáticas.",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_EXP_13_v1.mp3",
+      "texto_esperado": "¿Cómo vas al colegio?",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 18.314,
+      "fin_maestro": 19.921,
+      "transcripcion_confirmatoria": "¿Cómo vas al colegio?",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_EXP_14_v1.mp3",
+      "texto_esperado": "Voy a pie.",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 19.921,
+      "fin_maestro": 20.676,
+      "transcripcion_confirmatoria": "Voy a pie.",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_EXP_15_v1.mp3",
+      "texto_esperado": "Voy en patinete eléctrico.",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 20.676,
+      "fin_maestro": 22.693,
+      "transcripcion_confirmatoria": "Voy en patinete eléctrico.",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    },
+    {
+      "archivo": "1Y_U02_AUD_EXP_16_v1.mp3",
+      "texto_esperado": "No voy en coche.",
+      "estado": "clip separado; decodificación, trazabilidad y texto verificados automáticamente",
+      "inicio_maestro": 22.693,
+      "fin_maestro": 24.102313,
+      "transcripcion_confirmatoria": "No voy en coche.",
+      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
+      "nota": ""
+    }
+  ]
+}
