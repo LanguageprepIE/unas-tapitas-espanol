@@ -492,7 +492,7 @@
       "duracion_segundos": 0.992653,
       "bytes": 16344,
       "decodificacion": "OK",
-      "correlacion_con_recorte_original": 0.9998,
+      "correlacion_con_recorte_original": 0.999827,
       "muestras_esperadas": 42336,
       "muestras_decodificadas": 42336,
       "texto_confirmado_por_asr": "en coche"
@@ -503,7 +503,7 @@
       "duracion_segundos": 1.018776,
       "bytes": 16762,
       "decodificacion": "OK",
-      "correlacion_con_recorte_original": 0.9998,
+      "correlacion_con_recorte_original": 0.999936,
       "muestras_esperadas": 43218,
       "muestras_decodificadas": 43218,
       "texto_confirmado_por_asr": "en bicicleta"
