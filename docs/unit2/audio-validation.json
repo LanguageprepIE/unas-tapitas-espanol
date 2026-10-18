@@ -12,11 +12,11 @@
   "clips_separados": 65,
   "clips_verificados_automaticamente": 65,
   "clips_revision_auditiva_pendiente": 0,
-  "listenings_aprobados_integrados": 3,
-  "listenings_originales_pendientes": 1,
-  "recursos_presentes": 68,
-  "recursos_ausentes": 2,
-  "mp3_totales_incluyendo_maestros": 73,
+  "listenings_aprobados_integrados": 4,
+  "listenings_originales_pendientes": 0,
+  "recursos_presentes": 69,
+  "recursos_ausentes": 0,
+  "mp3_totales_incluyendo_maestros": 74,
   "tests": {
     "pass": 62,
     "fail": 0
@@ -53,6 +53,16 @@
       "decodificacion_completa": "OK",
       "origen": "archivo adjunto del docente, copiado byte a byte",
       "verificacion_linguistica": "ASR local confirma contenido sobre asignaturas; identificación del usuario como LIS_03"
+    },
+    {
+      "archivo": "assets/audio/unit2/listenings/1Y_U02_AUD_LIS_01_mochila_v1.mp3",
+      "sha256": "b137905ef116a245e9b17d09e3984411d4d738385b91d10ff4ce7db47510fe98",
+      "duracion_segundos": 23.588571,
+      "codec": "mp3",
+      "bytes": 395004,
+      "decodificacion_completa": "OK",
+      "origen": "archivo adjunto del docente, copiado byte a byte",
+      "verificacion_linguistica": "ASR local confirma contenido sobre mochila y material escolar; identificación del usuario como LIS_01"
     }
   ],
   "clips": [

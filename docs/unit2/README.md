@@ -11,13 +11,13 @@ Estado: entrega parcial para revisión, 18 de octubre de 2026. PR #6 en borrador
 | Clips separados | 65 de 65 |
 | Clips con texto confirmado automáticamente | 65 |
 | Clips pendientes de revisión auditiva | 0 |
-| Listenings aprobados incluidos | 3 de 4 |
-| Recursos presentes | 68 de 69 |
-| MP3 totales, incluidos los cinco maestros | 73 |
+| Listenings aprobados incluidos | 4 de 4 |
+| Recursos presentes | 69 de 69 |
+| MP3 totales, incluidos los cinco maestros | 74 |
 
 Los recortes inconsistentes anteriores de `1Y_U02_AUD_TRA_04_v1.mp3` (en coche) y `1Y_U02_AUD_TRA_05_v1.mp3` (en bicicleta) se descartaron y sustituyeron desde el maestro original. Los nuevos MP3 incluyen márgenes de silencio ampliados, se decodifican y mantienen trazabilidad; el ASR local coincide con “en coche” (reconocido unido como “ENGOCHE”) y “en bicicleta”. No se generó audio nuevo.
 
-Los listenings presentes son LIS_02 (estuche) y LIS_04 (transporte), recibidos en el ZIP, y LIS_03 (asignaturas), aportado ahora como archivo adjunto y copiado byte a byte. LIS_01 sigue pendiente de recuperación. Los cuatro conservan su aprobación docente. El ASR local del archivo nuevo confirma que trata de asignaturas; no se dispone de transcripción oficial completa.
+Los cuatro listenings aprobados están presentes. LIS_02 (estuche) y LIS_04 (transporte) proceden del ZIP; LIS_03 (asignaturas) y LIS_01 (mochila) se aportaron como archivos adjuntos y se copiaron byte a byte. El ASR local confirma los temas de los dos archivos adjuntos. El inventario no incluye las transcripciones oficiales completas.
 
 ## Archivos y organización
 
@@ -26,7 +26,7 @@ Todos los MP3 de esta unidad se encuentran en `assets/audio/unit2/`:
 | Carpeta | Categoría | Recursos presentes |
 | --- | --- | ---: |
 | `masters/` | originales completos, para trazabilidad | 5 |
-| `listenings/` | LIS | 3 |
+| `listenings/` | LIS | 4 |
 | `vocabulary/objects/` | OBJ | 20 |
 | `vocabulary/days/` | DIA | 7 |
 | `vocabulary/subjects/` | ASI | 14 |
@@ -53,11 +53,10 @@ Los 65 clips se decodifican completos sin errores con FFmpeg. Su correlación co
 
 La validación del habla utiliza faster-whisper small ejecutado localmente, sin llamadas de pago a ElevenLabs. Es automática y no equivale a una revisión auditiva humana. No se declara verificado ningún resultado no concluyente.
 
-LIS_02 y LIS_04 mantienen sus hashes del ZIP; LIS_03 conserva el hash del archivo adjunto recibido. Los tres se decodifican sin errores. Vértice solo aparece en LIS_04 como excepción previamente aprobada; no se ha usado para nuevas grabaciones. No se han gastado nuevos créditos ni ejecutado nodos de generación.
+LIS_02 y LIS_04 mantienen sus hashes del ZIP; LIS_01 y LIS_03 conservan los hashes de los archivos adjuntos recibidos. Los cuatro se decodifican sin errores. Vértice solo aparece en LIS_04 como excepción previamente aprobada; no se ha usado para nuevas grabaciones. No se han gastado nuevos créditos ni ejecutado nodos de generación.
 
 Las 62 pruebas existentes pasan. Solo cambian archivos de `assets/audio/unit2/` y `docs/unit2/`. La Unidad 1 permanece intacta. El PR continúa en borrador y no se fusiona con main.
 
 ## Pendientes
 
-1. Recuperación del original aprobado LIS_01.
 2. Completar velocidades originales y transcripciones completas de listenings cuando se disponga de esos datos.
