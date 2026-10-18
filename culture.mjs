@@ -1,0 +1,38 @@
+import {cultureCapsules} from './data/culture.mjs';
+
+const places=[
+ {id:'spain',name:'España',place:['Europe','Europa'],detail:['Spanish is spoken here alongside other languages, including Catalan, Galician and Basque.','Aquí se habla español junto a otras lenguas, como el catalán, el gallego y el euskera.']},
+ {id:'mexico',name:'México',place:['North America','América del Norte'],detail:['Spanish is widely spoken, and many Indigenous languages are spoken too.','Se habla mucho español y también numerosas lenguas indígenas.']},
+ {id:'colombia',name:'Colombia',place:['South America','América del Sur'],detail:['Spanish connects many communities, each with its own everyday life.','El español conecta muchas comunidades, cada una con su vida cotidiana.']},
+ {id:'guinea',name:'Guinea Ecuatorial',place:['Africa','África'],detail:['Spanish is one of the official languages, alongside French and Portuguese.','El español es una de las lenguas oficiales, junto con el francés y el portugués.']}
+];
+const nameCards=[
+ {id:'alba',given:'Alba',first:'Martín',second:'Vega',people:['one parent: Martín','another parent: Vega'],peopleEs:['un progenitor: Martín','otro progenitor: Vega']},
+ {id:'ines',given:'Inés',first:'Ruiz',second:'Soto',people:['one parent: Ruiz','another parent: Soto'],peopleEs:['un progenitor: Ruiz','otro progenitor: Soto']}
+];
+const greetings=[
+ {id:'peer',context:['A classmate after school','Un compañero después de clase'],spanish:'¡Hola! · ¡Hasta luego!',ireland:['Hi! · See you later!','¡Hola! · ¡Hasta luego!'],detail:['A casual greeting and farewell can fit here. People still have their own habits.','Un saludo y una despedida informales pueden encajar aquí. Cada persona tiene sus costumbres.']},
+ {id:'adult',context:['An unfamiliar adult in the morning','Una persona adulta desconocida por la mañana'],spanish:'¡Buenos días! · ¡Adiós!',ireland:['Good morning! · Goodbye!','¡Buenos días! · ¡Adiós!'],detail:['A time-of-day greeting can sound more courteous in this situation. Hola is also understood.','Un saludo según la hora puede sonar más cortés en esta situación. Hola también se entiende.']},
+ {id:'shop',context:['At a shop in the afternoon','En una tienda por la tarde'],spanish:'¡Buenas tardes! · ¡Hasta luego!',ireland:['Good afternoon! · See you!','¡Buenas tardes! · ¡Hasta luego!'],detail:['Words, tone and setting all shape an encounter. No gesture is required of everyone.','Las palabras, el tono y el contexto influyen. No se exige ningún gesto a todo el mundo.']}
+];
+export function newCultureState(){return {capsule:'spanish-world',place:'spain',name:'alba',greeting:'peer'};}
+export function updateCulture(s,action,value){
+ const fields={'culture-capsule':['capsule',cultureCapsules.map(x=>x.id)],'culture-place':['place',places.map(x=>x.id)],'culture-name':['name',nameCards.map(x=>x.id)],'culture-greeting':['greeting',greetings.map(x=>x.id)]};
+ const entry=fields[action];if(!entry||!entry[1].includes(value))return false;s[entry[0]]=value;return true;
+}
+export function renderCulture(s,{L,T,pair,button,E}){
+ const capsule=cultureCapsules.find(x=>x.id===s.capsule)??cultureCapsules[0];
+ const pick=(action,id,label,active)=>button(action,label,active?'culture-active':'culture-choice',`data-value="${E(id)}" aria-pressed="${active}"`);
+ let experiment='';
+ if(capsule.id==='spanish-world'){
+  const place=places.find(x=>x.id===s.place)??places[0];
+  experiment=`<p>${pair(['Tap a place to see one small detail. These are examples, not portraits of entire countries.','Toca un lugar para descubrir un detalle. Son ejemplos, no retratos de países enteros.'])}</p><div class="culture-places" role="group" aria-label="${E(T('Places to explore','Lugares para explorar'))}">${places.map(x=>pick('culture-place',x.id,x.name,s.place===x.id)).join('')}</div><div class="culture-display" aria-live="polite"><span class="culture-globe" aria-hidden="true">◎</span><div><p class="culture-label">${pair(place.place)}</p><h3 lang="es">${place.name}</h3><p>${pair(place.detail)}</p></div></div><p class="culture-small">${pair(['Spanish has many accents and local words. One country never has just one way to speak.','El español tiene muchos acentos y palabras locales. Un país nunca tiene una única forma de hablar.'])}</p>`;
+ }else if(capsule.id==='two-surnames'){
+  const card=nameCards.find(x=>x.id===s.name)??nameCards[0];
+  experiment=`<p>${pair(['Switch between two invented name cards. Notice the given name and two family names.','Cambia entre dos tarjetas ficticias. Observa el nombre y los dos apellidos.'])}</p><div class="culture-choices" role="group" aria-label="${E(T('Invented name cards','Tarjetas de nombres ficticios'))}">${nameCards.map(x=>pick('culture-name',x.id,x.given,s.name===x.id)).join('')}</div><div class="culture-name-card" aria-live="polite"><span>${pair(['Given name','Nombre'])}<strong>${card.given}</strong></span><span>${pair(['Family name 1','Apellido 1'])}<strong>${card.first}</strong></span><span>${pair(['Family name 2','Apellido 2'])}<strong>${card.second}</strong></span></div><p class="culture-small">${pair(['In this invented example, each surname comes from a parent. Families and naming choices differ. In Ireland, naming patterns also vary.','En este ejemplo ficticio, cada apellido viene de un progenitor. Las familias y sus decisiones varían. En Irlanda también hay distintas costumbres.'])}</p>`;
+ }else{
+  const scene=greetings.find(x=>x.id===s.greeting)??greetings[0];
+  experiment=`<p>${pair(['Change the everyday scene. Compare a possible Spanish exchange with one in Ireland.','Cambia la escena cotidiana. Compara un posible intercambio en español con otro en Irlanda.'])}</p><div class="culture-choices" role="group" aria-label="${E(T('Everyday scenes','Escenas cotidianas'))}">${greetings.map(x=>pick('culture-greeting',x.id,pair(x.context),s.greeting===x.id)).join('')}</div><div class="culture-greet-card" aria-live="polite"><h3>${pair(scene.context)}</h3><div class="culture-columns"><div><span class="culture-label">${pair(['One Spanish possibility','Una posibilidad en español'])}</span><p lang="es">${scene.spanish}</p></div><div><span class="culture-label">${pair(['One Irish possibility','Una posibilidad en Irlanda'])}</span><p>${pair(scene.ireland)}</p></div></div><p>${pair(scene.detail)}</p></div>`;
+ }
+ return `<div class="culture-shell"><p class="culture-eyebrow">${pair(['Did you know? · Culture and curiosity','¿Sabías que…? · Cultura y curiosidad'])}</p><p class="culture-intro">${pair(['Explore a small detail, then wonder about the people behind it. Choose any capsule at any time.','Descubre un detalle y piensa en las personas que hay detrás. Elige cualquier cápsula cuando quieras.'])}</p><nav class="culture-nav" aria-label="${E(T('Cultural capsules','Cápsulas culturales'))}">${cultureCapsules.filter(x=>x.year===1&&x.unit===1).map((x,i)=>pick('culture-capsule',x.id,`<span class="culture-number">0${i+1}</span><span>${pair(x.title)}<small>${pair(x.teaser)}</small></span>`,s.capsule===x.id)).join('')}</nav><article class="culture-article"><p class="culture-eyebrow">${T('1st Year · Unit 1','1st Year · Unidad 1')}</p><h2>${pair(capsule.title)}</h2><div class="culture-fact"><span aria-hidden="true">✦</span><p>${pair(capsule.fact)}</p></div><section class="culture-experiment"><h3>${pair(['Explore a little','Explora un poco'])}</h3>${experiment}</section><section class="culture-reflect"><h3>${pair(['Think about it','Piensa en ello'])}</h3><p>${pair(capsule.reflection)}</p><p class="culture-small">${pair(['Talk it over, or just keep the question in mind. No answer is scored or saved.','Coméntalo o simplemente piensa en ello. No se puntúa ni se guarda ninguna respuesta.'])}</p></section></article></div>`;
+}
