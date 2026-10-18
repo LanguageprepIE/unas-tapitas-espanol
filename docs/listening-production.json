@@ -1,0 +1,131 @@
+{
+  "created": "2026-10-17",
+  "provider": "ElevenLabs",
+  "model": "eleven_multilingual_v2",
+  "flow_id": "to0VzQjvc91nqgsB2WrE",
+  "voices": [
+    {
+      "voice_id": "yiWEefwu5z3DQCM79clN",
+      "name": "Laura López - Bright, Clear and Dynamic"
+    },
+    {
+      "voice_id": "J5hu7rFtEb1rgdJDH30E",
+      "name": "JR- Tranquila y amigable"
+    }
+  ],
+  "selected_clips": [
+    {
+      "key": "intro-sara",
+      "speaker": "Sara",
+      "text": "Hola. Me llamo Sara. Tengo doce años. Estoy fenomenal. Hasta luego.",
+      "node_id": "3hQOVlKb6u69uIuch3ss",
+      "generation_id": "fpIrIXLQNDi4lfYYPYEO"
+    },
+    {
+      "key": "intro-leo",
+      "speaker": "Leo",
+      "text": "Buenos días. Me llamo Leo. Tengo catorce años. Estoy fatal. Adiós.",
+      "node_id": "3JEJMSiE8re0mjXGm5lB",
+      "generation_id": "ujdKKcwRrYyLhzlJP17e"
+    },
+    {
+      "key": "d0",
+      "speaker": "Dani",
+      "text": "Buenas tardes. Me llamo Dani. ¿Cómo te llamas?",
+      "node_id": "JII5CrEks1zMJtHrzosi",
+      "generation_id": "5oWemSD4upHFeQSdcIGU"
+    },
+    {
+      "key": "d1",
+      "speaker": "Inés",
+      "text": "Me llamo Inés.",
+      "node_id": "bI4Pn28tqcMmmqdZy4wV",
+      "generation_id": "mhzFONu74fmqpv6qpCYw"
+    },
+    {
+      "key": "d2",
+      "speaker": "Dani",
+      "text": "¿Cómo se escribe tu nombre?",
+      "node_id": "fx9cdq0prDTiMzzrZ2L3",
+      "generation_id": "g5H5i74L7vzLbp4iCktA"
+    },
+    {
+      "key": "d3",
+      "speaker": "Inés",
+      "text": "Inés se escribe i, ene, e, ese. Con tilde en la e.",
+      "node_id": "0jfhqIZRZ34wyQPzxYWG",
+      "generation_id": "3jZDBtVYhU4aepUU5G65"
+    },
+    {
+      "key": "d4",
+      "speaker": "Dani",
+      "text": "Gracias. ¿Cuántos años tienes?",
+      "node_id": "NfIEtvRolE15F6f4sYH7",
+      "generation_id": "rpjFxFL6jJwqfg50c1FN"
+    },
+    {
+      "key": "d5",
+      "speaker": "Inés",
+      "text": "Tengo trece años. ¿Y tú?",
+      "node_id": "cT9E2e4TdOBhJgW65mBH",
+      "generation_id": "rmJcjLyXcUDGSB0i7qsz"
+    },
+    {
+      "key": "d6",
+      "speaker": "Dani",
+      "text": "Tengo quince años. ¿Cómo estás?",
+      "node_id": "UMMJ236VnUXIo1MCURGz",
+      "generation_id": "fGATt15zkjp2Tl0c1PFF"
+    },
+    {
+      "key": "d7",
+      "speaker": "Inés",
+      "text": "Estoy bien, gracias. ¿Y tú?",
+      "node_id": "6kPfCVTuVilv2HhzWT9c",
+      "generation_id": "0YZm8807gzTWP1eKwTdi"
+    },
+    {
+      "key": "d8",
+      "speaker": "Dani",
+      "text": "Estoy fenomenal.",
+      "node_id": "8p6Zg7FDSEeIY2zBHdGQ",
+      "generation_id": "qI1jPOsIYEHsqFb9EZ1z"
+    },
+    {
+      "key": "d9",
+      "speaker": "Inés",
+      "text": "Hasta mañana, Dani.",
+      "node_id": "GsN58O5AqhcdlW7qTRjn",
+      "generation_id": "XdGNR9vROHt2EEwhEfon"
+    },
+    {
+      "key": "d10",
+      "speaker": "Dani",
+      "text": "Hasta mañana, Inés.",
+      "node_id": "oV4DnmAUxepzpT3iD1Kt",
+      "generation_id": "pGiiH7MYCkYiyUu9dF3T"
+    }
+  ],
+  "processing": {
+    "tempo_factor": 0.75,
+    "pitch_preserved": true,
+    "loudness_target_lufs": -19,
+    "pauses_seconds": {
+      "intro_between_people": 4,
+      "dialogue_typical": 1.2,
+      "after_spelling": 2.4
+    }
+  },
+  "qa": [
+    {
+      "id": "l1",
+      "text": "Hola, me llamo Sara. Tengo 12 años. Estoy fenomenal. Hasta luego. Buenos días. Me llamo Leo. Tengo 14 años. Estoy fatal. Adiós",
+      "method": "ElevenLabs Scribe automatic transcription"
+    },
+    {
+      "id": "l2",
+      "text": "Buenas tardes. Me llamo Dani. ¿Cómo te llamas? Me llamo Inés. ¿Cómo se escribe tu nombre? Inés se escribe I-N-E-S, con tilde en la E. Gracias. ¿Cuántos años tienes? Tengo 13 años. ¿Y tú? Tengo 15 años. ¿Cómo estás? Estoy bien, gracias. ¿Y tú? Estoy fenomenal. Hasta mañana, Dani. Hasta mañana, Inés.",
+      "method": "ElevenLabs Scribe automatic transcription"
+    }
+  ]
+}
