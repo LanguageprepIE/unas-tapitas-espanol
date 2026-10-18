@@ -26,3 +26,13 @@ test('a language switch restores audio position, volume and playback intent',asy
 test('leaving the listening route does not request playback on the next render',async()=>{const h=await harness();h.route('listening');const old={dataset:{listening:'l1'},currentTime:3,playbackRate:1,volume:1,muted:false,paused:false};let played=false;const next={dataset:{listening:'l1'},currentTime:0,play(){played=true;return Promise.resolve();}};let n=0;h.get('#main').querySelectorAll=()=>++n===1?[old]:[next];h.route('home');assert(!played);});
 test('Explore navigation and controls respond within the existing route',async()=>{const h=await harness();h.route('explore');click(h,'ex-lab',{value:'numbers'});click(h,'ex-pick-number',{value:'20'});assert(h.get('#main').innerHTML.includes('veinte'));h.get('#main').listeners.change({target:{id:'ex-number',value:'16'}});assert(h.get('#main').innerHTML.includes('dieciséis'));click(h,'ex-lab',{value:'person'});h.get('#main').listeners.change({target:{id:'ex-person',value:'alba'}});assert(h.get('#main').innerHTML.includes('Alba <mark>tiene</mark> trece años.'));h.mode('es');assert(h.get('#main').innerHTML.includes('Alba <mark>tiene</mark> trece años.'));h.route('home');h.route('explore');assert(h.get('#main').innerHTML.includes('Alba <mark>tiene</mark> trece años.'));});
 test('a failed Explore recording reveals a visible fallback',async()=>{const h=await harness();const fallback={hidden:true},audio={hidden:false,nextElementSibling:fallback,matches:s=>s==='audio[data-explore-audio]'};h.get('#main').listeners.error({target:audio});assert.equal(audio.hidden,true);assert.equal(fallback.hidden,false);});
+
+test('Question Machine announces the actual question and feedback after either piece or a button changes',async()=>{
+ const h=await harness();h.route('explore');click(h,'ex-lab',{value:'questions'});
+ const change=(id,value)=>h.get('#main').listeners.change({target:{id,value}});
+ change('ex-q-lead','Cuántos');let message=h.get('#announcement').textContent;
+ assert(message.includes('¿Cuántos te llamas?'));assert(message.includes('Your question and answer don’t quite match.'));
+ change('ex-q-tail','años tienes');message=h.get('#announcement').textContent;assert(message.includes('The question itself works'));
+ click(h,'ex-q-goal',{value:'age'});assert(h.get('#announcement').textContent.includes('That works!'));
+ click(h,'ex-q-punct',{value:'open'});assert(h.get('#announcement').textContent.includes('needs both'));
+});

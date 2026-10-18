@@ -30,7 +30,7 @@ test('question machine connects words, answers, and both question marks',()=>{
  const s=newExploreState();s.lab='questions';
  assert.equal(questionScene(s).question,'¿Cómo te llamas?');assert.equal(questionScene(s).answer,'Me llamo Alba.');
  updateExplore(s,'ex-q-goal','age');assert.equal(questionScene(s).question,'¿Cuántos años tienes?');assert.equal(questionScene(s).answer,'Tengo trece años.');
- updateExplore(s,'ex-q-lead','Cómo');assert(questionScene(s).observation[0].includes('unfamiliar'));
+ updateExplore(s,'ex-q-lead','Cómo');assert.equal(questionScene(s).status,'unusual');
  updateExplore(s,'ex-q-lead','Cuántos');assert(questionScene(s).observation[0].includes('number'));
  updateExplore(s,'ex-q-punct','open');assert.equal(questionScene(s).question,'Cuántos años tienes?');assert(questionScene(s).punctuation[0].includes('both'));
  updateExplore(s,'ex-q-punct','close');assert.equal(questionScene(s).question,'Cuántos años tienes');
@@ -51,4 +51,31 @@ test('word and number audio controls point to their own labelled recordings',()=
  const s=newExploreState();s.lab='sounds';
  for(const item of soundWords){s.sound=item.letter;s.compare=item.word;const html=renderExplore(s,h);assert(html.includes(`src="${readyAudio.sounds[item.word]}"`),item.word);}
  s.lab='numbers';for(let n=0;n<=20;n++){s.number=n;const html=renderExplore(s,h);assert(html.includes(`src="${readyAudio.numbers[n]}"`),`number ${n}`);}
+});
+
+test('all 75 question, ending and answer combinations distinguish naturalness from answer fit',()=>{
+ const models=[['name','Cómo','te llamas'],['age','Cuántos','años tienes'],['feeling','Cómo','estás'],['spelling','Cómo','se escribe tu nombre'],['meaning','Qué','significa hola']];
+ const s=newExploreState();s.lab='questions';
+ for(const [goal] of models){updateExplore(s,'ex-q-goal',goal);
+  for(const lead of ['Cómo','Cuántos','Qué'])for(const [tailGoal,naturalLead,tail] of models){
+   updateExplore(s,'ex-q-lead',lead);updateExplore(s,'ex-q-tail',tail);
+   const scene=questionScene(s),natural=lead===naturalLead,fit=natural&&goal===tailGoal;
+   assert.equal(scene.natural,natural,scene.question);assert.equal(scene.matchesAnswer,fit,scene.question);
+   assert.equal(scene.status,!natural?'unusual':fit?'fits':'answer-mismatch');
+   const html=renderExplore(s,h);assert(html.includes(fit?'🙂':'🤔'));assert(html.includes('💡'));assert(html.includes('Try another combination!'));assert(html.includes('lang="en" aria-labelledby="ex-q-feedback-title"'));
+   if(fit)assert(html.includes('That works!'));
+   else if(natural)assert(scene.observation[0].includes('The question itself works'));
+   else assert(scene.observation[0].includes('Can you find out why?'));
+  }
+ }
+});
+test('Cuántos te llamas invites investigation without correction or blocking',()=>{
+ const s=newExploreState();s.lab='questions';updateExplore(s,'ex-q-lead','Cuántos');
+ const scene=questionScene(s);assert.equal(scene.question,'¿Cuántos te llamas?');assert.equal(scene.answer,'Me llamo Alba.');
+ assert.equal(scene.status,'unusual');assert.equal(scene.title[0],'Hmm… something sounds unusual!');
+ assert(scene.observation[0].includes('Your question and answer don’t quite match.'));
+ assert(!scene.observation[0].includes('Cómo'));assert(!scene.observation[0].includes('Incorrect'));
+ updateExplore(s,'ex-q-tail','años tienes');assert.equal(questionScene(s).status,'answer-mismatch');
+ updateExplore(s,'ex-q-goal','age');assert.equal(questionScene(s).status,'fits');
+ updateExplore(s,'ex-q-punct','open');assert.equal(questionScene(s).status,'fits');assert(!questionScene(s).question.includes('¿'));
 });
