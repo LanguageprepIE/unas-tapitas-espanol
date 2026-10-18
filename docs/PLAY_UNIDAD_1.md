@@ -31,10 +31,14 @@ All actions use native buttons, audio controls or details/summary: touch, mouse 
 
 ## Validation
 
-`npm test`: 51 automated tests, including all existing tests. New checks complete all six workshop orders and both stories; exercise repair, valid feelings, undo, premature unlock prevention, checkpoint constraints, all game/room views in three languages and app routing without academic completion.
+`npm test`: 53 automated tests, including all existing tests. New checks also verify the visible next objective, mission checklist and grouped translator. They complete all six workshop orders and both stories; exercise repair, valid feelings, undo, premature unlock prevention, checkpoint constraints, all game/room views in three languages and app routing without academic completion.
 
 All 31 existing MP3, educational data files, Explore modules and baseline stylesheet remain unchanged against the main commit used as the base. Browser, real iPad/mobile, screen-reader and classroom play testing remain pending: automated rendering is not a visual or accessibility certification.
 
 ## Teacher review
 
-Try each complete ending and an intentional misunderstanding. Check how independently a beginner can discover the purpose, whether scenes are enjoyable, and whether repetition feels worthwhile. This first playable set is deliberately small. No merge to main is performed before teacher review.
+Try each complete ending and an intentional misunderstanding. Check how independently a beginner can discover the purpose, whether scenes are enjoyable, and whether repetition feels worthwhile. This first playable set is deliberately small. Teacher reviewed all three games and approved integration after the conversation clarity changes.
+
+## Conversation clarity review
+
+Teacher requested clearer orientation after playing. The alien scene now keeps the next objective and six-item mission checklist visible, separates complete expressions from reply-building pieces, and offers a direct visit button when the next task is with another character. All expressions remain available; visits and experiments stay unrestricted. Visiting a different person clears the previous outgoing speech bubble. Greeting Alba again asks for the missing badge detail. The other two games and their audio are unchanged.

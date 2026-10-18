@@ -47,8 +47,9 @@ Otros motores potenciales: **El detective lingüístico** y **La fábrica de fra
 - [x] Integrar los seis laboratorios de Explore con el diseño existente (PR #2 fusionada).
 - [ ] Reemplazar los audios generados por el navegador; crear y validar audios de pronunciación si procede.
 - [x] Crear la primera versión jugable de Play y sus tres juegos en rama de revisión (ver PLAY_UNIDAD_1.md).
-- [ ] Revisión docente y pruebas en dispositivos reales de Play; integrar tras aprobación.
+- [x] Revisión docente de Play y aprobación para integrar tras aclarar Conversaciones imposibles.
+- [ ] Completar pruebas de accesibilidad y dispositivos reales.
 - [ ] Crear Game Zone y mecanismos de reutilización por curso.
 - [ ] Probar accesibilidad, móvil/iPad/PC y publicar.
 
-**Estado actualizado:** Explore está en `main` tras la PR #2. Play se presenta en una rama independiente para revisión docente. La PR #3 de cultura sigue siendo un trabajo separado; no se incluye ni modifica en esta entrega. La validación automatizada de Play no sustituye las pruebas visuales, de accesibilidad ni de aula.
+**Estado actualizado:** Explore está en `main` tras la PR #2. Play ha sido probado por el profesor, con mejora de orientación en Conversaciones imposibles y aprobación para integrar. La PR #3 de cultura sigue siendo un trabajo separado; no se incluye ni modifica en esta entrega. La validación automatizada de Play no sustituye las pruebas visuales, de accesibilidad ni de aula.

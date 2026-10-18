@@ -45,3 +45,10 @@ test('every game and room renders in all language modes, including locked and co
  for(const mode of ['en','bi','es'])for(const s of [newPlayState(),alienJourney(),codeJourney()])for(const game of [null,'anagrams','alien','code']){s.game=game;for(const obj of ['terminal','archive','voices','capsule']){s.code.object=obj;const html=renderPlay(s,ui(mode));assert(!html.includes('undefined'));assert(!html.includes('[object Object]'));assert(html.includes('<button'));}}
 });
 test('Play route can be restored without entering the academic completion set',()=>{const s=restoreSnapshot('{"schema":1,"section":"play","completed":["play","learn"]}');assert.equal(s.section,'play');assert.deepEqual(s.completed,['learn']);});
+
+test('alien orientation follows remaining tasks without restricting visits, and clears stale dialogue on a visit',async()=>{
+ const {alienGuidance}=await import('../play-engine.mjs');const s=newPlayState();act(s,'pg-open','alien');let g=alienGuidance(s.alien);assert.equal(g.target,'alba');assert.match(g.objective[0],/Greet Alba/);send(s,'Hola.');send(s,'Me llamo Nilo.');g=alienGuidance(s.alien);assert.equal(g.completed,1);assert.match(g.objective[0],/thirteen/);act(s,'pg-alien-person','leo');assert.equal(s.alien.last,'');g=alienGuidance(s.alien);assert.match(g.objective[0],/visit Alba/);const complete=alienJourney();g=alienGuidance(complete.alien);assert.equal(g.completed,6);assert.equal(g.target,null);
+});
+test('alien view displays a current objective, visible remaining tasks and every phrase in two clear groups',()=>{
+ const s=newPlayState();s.game='alien';for(const mode of ['en','bi','es']){const html=renderPlay(s,ui(mode));assert(html.includes('id="pg-objective"'));assert(html.includes('pg-progress-summary'));assert.equal((html.match(/class="pg-translator-group"/g)||[]).length,2);for(let i=0;i<alienPieces.length;i++)assert(html.includes(`data-value="${i}" lang="es"`));}
+});
