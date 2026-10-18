@@ -1,0 +1,722 @@
+{
+  "recursos": 69,
+  "categorias": {
+    "LIS": 4,
+    "OBJ": 20,
+    "DIA": 7,
+    "ASI": 14,
+    "TRA": 8,
+    "EXP": 16
+  },
+  "maestros_recuperados": 5,
+  "clips_separados": 65,
+  "clips_verificados_automaticamente": 65,
+  "clips_revision_auditiva_pendiente": 0,
+  "listenings_aprobados_integrados": 4,
+  "listenings_originales_pendientes": 0,
+  "recursos_presentes": 69,
+  "recursos_ausentes": 0,
+  "mp3_totales_incluyendo_maestros": 74,
+  "tests": {
+    "pass": 62,
+    "fail": 0
+  },
+  "metodo_recorte": "PCM mono 44100 Hz; segmentos en clip-cut-plan.json; clips anteriores TRA_04/05 descartados y recortados de nuevo con 180 ms de silencio inicial y 220 ms final; los otros 63 clips conservan su exportación previa; MP3 128 kbps; sin cambios de velocidad, normalización ni nuevas generaciones",
+  "verificacion_tecnica": "65 clips decodificados completos y trazables al maestro original; los dos recortes sustituidos tienen texto confirmado por ASR local. Correlación >0.97 con sus segmentos originales; longitud dentro de un frame MP3 de lo esperado.",
+  "listenings": [
+    {
+      "archivo": "assets/audio/unit2/listenings/1Y_U02_AUD_LIS_02_estuche_v1.mp3",
+      "sha256": "c67cdb0fb946db12693622f00ddbb381b6ad56b80bc695b030c25fd01a7f0c6a",
+      "duracion_segundos": 31.529796,
+      "codec": "mp3",
+      "bytes": 757385,
+      "decodificacion_completa": "OK",
+      "identico_al_zip": true,
+      "verificacion_linguistica": "aprobación docente conservada; no se ha comprobado con transcripción completa"
+    },
+    {
+      "archivo": "assets/audio/unit2/listenings/1Y_U02_AUD_LIS_04_transporte_v1.mp3",
+      "sha256": "3c734e8829b85ad67dcb23b57603e4e241e212ea26d528e8cd40822df9862a93",
+      "duracion_segundos": 21.368163,
+      "codec": "mp3",
+      "bytes": 342351,
+      "decodificacion_completa": "OK",
+      "identico_al_zip": true,
+      "verificacion_linguistica": "aprobación docente conservada; no se ha comprobado con transcripción completa"
+    },
+    {
+      "archivo": "assets/audio/unit2/listenings/1Y_U02_AUD_LIS_03_asignaturas_v1.mp3",
+      "sha256": "6523530e0a901265b82a23072fb91c422a0a7a970993e33edfa7fe7d718ce123",
+      "duracion_segundos": 29.753469,
+      "codec": "mp3",
+      "bytes": 493642,
+      "decodificacion_completa": "OK",
+      "origen": "archivo adjunto del docente, copiado byte a byte",
+      "verificacion_linguistica": "ASR local confirma contenido sobre asignaturas; identificación del usuario como LIS_03"
+    },
+    {
+      "archivo": "assets/audio/unit2/listenings/1Y_U02_AUD_LIS_01_mochila_v1.mp3",
+      "sha256": "b137905ef116a245e9b17d09e3984411d4d738385b91d10ff4ce7db47510fe98",
+      "duracion_segundos": 23.588571,
+      "codec": "mp3",
+      "bytes": 395004,
+      "decodificacion_completa": "OK",
+      "origen": "archivo adjunto del docente, copiado byte a byte",
+      "verificacion_linguistica": "ASR local confirma contenido sobre mochila y material escolar; identificación del usuario como LIS_01"
+    }
+  ],
+  "clips": [
+    {
+      "ruta": "assets/audio/unit2/vocabulary/objects/1Y_U02_AUD_OBJ_01_v1.mp3",
+      "sha256": "cc71ddcabf56d5ec7076faa30597bea66b21f7e851a63457865eced01c6519ab",
+      "duracion_segundos": 1.1119954648526078,
+      "bytes": 18852,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999837,
+      "muestras_esperadas": 49039,
+      "muestras_decodificadas": 49039
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/objects/1Y_U02_AUD_OBJ_02_v1.mp3",
+      "sha256": "4262717747688c1b5d407322f620338872ec2adc6246c0a64079b191bfcdf37f",
+      "duracion_segundos": 1.450997732426304,
+      "bytes": 24285,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999957,
+      "muestras_esperadas": 63989,
+      "muestras_decodificadas": 63989
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/objects/1Y_U02_AUD_OBJ_03_v1.mp3",
+      "sha256": "271e04260557d7ffb833f9a72bd6be8cc1f6fccceb1f6801ee2190dc01df0fb8",
+      "duracion_segundos": 1.1309977324263039,
+      "bytes": 19270,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999955,
+      "muestras_esperadas": 49877,
+      "muestras_decodificadas": 49877
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/objects/1Y_U02_AUD_OBJ_04_v1.mp3",
+      "sha256": "496ca1e5e06b369f06d0f7940aac88aa8c891ca8f561eb6518bcb5dce0a3d011",
+      "duracion_segundos": 1.23,
+      "bytes": 20942,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999943,
+      "muestras_esperadas": 54243,
+      "muestras_decodificadas": 54243
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/objects/1Y_U02_AUD_OBJ_05_v1.mp3",
+      "sha256": "c121d2f69ad719a91efd3bd4404540ce836c1960229f509f264d1730b00ff54d",
+      "duracion_segundos": 1.6467800453514738,
+      "bytes": 27629,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999873,
+      "muestras_esperadas": 72589,
+      "muestras_decodificadas": 72623
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/objects/1Y_U02_AUD_OBJ_06_v1.mp3",
+      "sha256": "1121e09c28cb4016896f165468e8e75146316bc48a9e2fa3f0e550c0162fba58",
+      "duracion_segundos": 1.38,
+      "bytes": 23031,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999773,
+      "muestras_esperadas": 60858,
+      "muestras_decodificadas": 60858
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/objects/1Y_U02_AUD_OBJ_07_v1.mp3",
+      "sha256": "6ed174b7bbeab6c5b726c609ee31f1cc4370a4fc0fb0bc8da24394112d012e0b",
+      "duracion_segundos": 1.4,
+      "bytes": 23449,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999963,
+      "muestras_esperadas": 61740,
+      "muestras_decodificadas": 61740
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/objects/1Y_U02_AUD_OBJ_08_v1.mp3",
+      "sha256": "390cf37b5754fb272f61de50dd55d68595aa790a2d7518fecb455acc69730ce0",
+      "duracion_segundos": 1.2029931972789116,
+      "bytes": 20524,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999976,
+      "muestras_esperadas": 53052,
+      "muestras_decodificadas": 53052
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/objects/1Y_U02_AUD_OBJ_09_v1.mp3",
+      "sha256": "041d55b2a11d6b4a60e195f24b4c833db40b22f2a24bc7acc2982640fa56624f",
+      "duracion_segundos": 1.4480045351473922,
+      "bytes": 24285,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999875,
+      "muestras_esperadas": 63857,
+      "muestras_decodificadas": 63857
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/objects/1Y_U02_AUD_OBJ_10_v1.mp3",
+      "sha256": "a00c2654e7345ce5e1206eb840a2cdb5dd820c47e74394ec220dc88c09bc5edb",
+      "duracion_segundos": 1.6350113378684807,
+      "bytes": 27211,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999885,
+      "muestras_esperadas": 72104,
+      "muestras_decodificadas": 72104
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/objects/1Y_U02_AUD_OBJ_11_v1.mp3",
+      "sha256": "8ab38957cdfad04699cf3b4a00658f928fa549568669a34d3e44990901826c06",
+      "duracion_segundos": 1.3,
+      "bytes": 21777,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999756,
+      "muestras_esperadas": 57330,
+      "muestras_decodificadas": 57330
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/objects/1Y_U02_AUD_OBJ_12_v1.mp3",
+      "sha256": "db1e43874da0bea7895bce346d6225b9e178e700cfb05dec621fcc377056317d",
+      "duracion_segundos": 1.5279818594104309,
+      "bytes": 25539,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999917,
+      "muestras_esperadas": 67384,
+      "muestras_decodificadas": 67384
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/objects/1Y_U02_AUD_OBJ_13_v1.mp3",
+      "sha256": "8d25348df5016373061f4e51b3c887a9744b3d518e5960d008bda57095bbb8dd",
+      "duracion_segundos": 1.653015873015873,
+      "bytes": 27629,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999959,
+      "muestras_esperadas": 72898,
+      "muestras_decodificadas": 72898
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/objects/1Y_U02_AUD_OBJ_14_v1.mp3",
+      "sha256": "025a0337830bcc5b263836e9ef64ee44b36fbcac23b71f954044cdae410c3335",
+      "duracion_segundos": 1.4590022675736962,
+      "bytes": 24285,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999942,
+      "muestras_esperadas": 64342,
+      "muestras_decodificadas": 64342
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/objects/1Y_U02_AUD_OBJ_15_v1.mp3",
+      "sha256": "b98c451567dc577902ef67ab0e86341e104a35f729c3ddfde2a929a96c4871a4",
+      "duracion_segundos": 1.67,
+      "bytes": 27629,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999873,
+      "muestras_esperadas": 73647,
+      "muestras_decodificadas": 73647
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/objects/1Y_U02_AUD_OBJ_16_v1.mp3",
+      "sha256": "f9fbbab2bcfe391aa824fea69b7d33bc4138d5f2f828b5f59fe40ec4c39051bd",
+      "duracion_segundos": 1.7539909297052154,
+      "bytes": 29301,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999938,
+      "muestras_esperadas": 77351,
+      "muestras_decodificadas": 77351
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/objects/1Y_U02_AUD_OBJ_17_v1.mp3",
+      "sha256": "5b2c004a1f2ddc27e92ae4b17d64e02f1b6a6755d5ae1c77191899b1bbb15195",
+      "duracion_segundos": 1.1229931972789116,
+      "bytes": 18852,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999829,
+      "muestras_esperadas": 49524,
+      "muestras_decodificadas": 49524
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/objects/1Y_U02_AUD_OBJ_18_v1.mp3",
+      "sha256": "b5f987bfbe5804f252d36d78437f5820f239194ad6188fa6cb5475be433efa91",
+      "duracion_segundos": 1.344013605442177,
+      "bytes": 22613,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999806,
+      "muestras_esperadas": 59271,
+      "muestras_decodificadas": 59271
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/objects/1Y_U02_AUD_OBJ_19_v1.mp3",
+      "sha256": "9f0f9ef3bd742559a32df4df6e2c600b168351fda3aa783d72f851e9d7b678a4",
+      "duracion_segundos": 1.4339909297052154,
+      "bytes": 23867,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999911,
+      "muestras_esperadas": 63239,
+      "muestras_decodificadas": 63239
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/objects/1Y_U02_AUD_OBJ_20_v1.mp3",
+      "sha256": "3a0fa997e558348f86a176b73bde2cb768cd58415c6110cb9fbe61079c91d69c",
+      "duracion_segundos": 1.4725170068027211,
+      "bytes": 24703,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999926,
+      "muestras_esperadas": 64938,
+      "muestras_decodificadas": 64938
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/days/1Y_U02_AUD_DIA_01_v1.mp3",
+      "sha256": "cf2fde0264bef245c33c88c9fb92f8c7200e035d86da6590c7c4c5dc4b8c67c0",
+      "duracion_segundos": 0.9170068027210885,
+      "bytes": 15926,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999981,
+      "muestras_esperadas": 40440,
+      "muestras_decodificadas": 40440
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/days/1Y_U02_AUD_DIA_02_v1.mp3",
+      "sha256": "80889f5529db635fc605838928e17b3852550ee0dfc36de80eafb768228e7dae",
+      "duracion_segundos": 0.9380045351473922,
+      "bytes": 15926,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999937,
+      "muestras_esperadas": 41366,
+      "muestras_decodificadas": 41366
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/days/1Y_U02_AUD_DIA_03_v1.mp3",
+      "sha256": "de3438229b0588709c8cdf3fb447df11b6c2c6854eb42b797d566d17ada8d9c9",
+      "duracion_segundos": 1.0489795918367346,
+      "bytes": 18016,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999963,
+      "muestras_esperadas": 46260,
+      "muestras_decodificadas": 46260
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/days/1Y_U02_AUD_DIA_04_v1.mp3",
+      "sha256": "7be91bf439f0b83ae7396a7fb08f95e7d3c2d044ddc01ed97bff0e80ee56ddba",
+      "duracion_segundos": 0.8609977324263038,
+      "bytes": 14672,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999959,
+      "muestras_esperadas": 37970,
+      "muestras_decodificadas": 37970
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/days/1Y_U02_AUD_DIA_05_v1.mp3",
+      "sha256": "418dd673c1c98c3c5fba17dcc23bed0b6fc2689ea7c16ddcd188632ba6902b15",
+      "duracion_segundos": 0.893015873015873,
+      "bytes": 15508,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999954,
+      "muestras_esperadas": 39382,
+      "muestras_decodificadas": 39382
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/days/1Y_U02_AUD_DIA_06_v1.mp3",
+      "sha256": "17c7a5a09802811882145546b105e13e25e5be75e6ed8688adc0e60d6b05d9ee",
+      "duracion_segundos": 0.8849886621315193,
+      "bytes": 15090,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999934,
+      "muestras_esperadas": 39028,
+      "muestras_decodificadas": 39028
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/days/1Y_U02_AUD_DIA_07_v1.mp3",
+      "sha256": "39941e3a81dbddf326eb0cbc7bdb4f0ce6077ae5c93433f145700ac0de038cf0",
+      "duracion_segundos": 1.3855555555555557,
+      "bytes": 23449,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999985,
+      "muestras_esperadas": 61096,
+      "muestras_decodificadas": 61103
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/subjects/1Y_U02_AUD_ASI_01_v1.mp3",
+      "sha256": "14743337b6c8e900c96092e956bb58932a5d7b7e090080657db59834137840a6",
+      "duracion_segundos": 1.0180045351473923,
+      "bytes": 17180,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999798,
+      "muestras_esperadas": 44894,
+      "muestras_decodificadas": 44894
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/subjects/1Y_U02_AUD_ASI_02_v1.mp3",
+      "sha256": "262555ebdda3ec8daf0f2c68e981830e6fbdc1afb09cf4ad4ca2e1c47539eb42",
+      "duracion_segundos": 1.2639909297052154,
+      "bytes": 21359,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999866,
+      "muestras_esperadas": 55742,
+      "muestras_decodificadas": 55742
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/subjects/1Y_U02_AUD_ASI_03_v1.mp3",
+      "sha256": "10cc375390c68e9b28a6771223f22b961cf2e154bce1d68a4f4fdf37ca039895",
+      "duracion_segundos": 1.490045351473923,
+      "bytes": 25121,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.99987,
+      "muestras_esperadas": 65665,
+      "muestras_decodificadas": 65711
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/subjects/1Y_U02_AUD_ASI_04_v1.mp3",
+      "sha256": "2270b309de22b45f96ad2861de81f028227e79e63007a89809497fb7795f578c",
+      "duracion_segundos": 1.3219954648526078,
+      "bytes": 22195,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999946,
+      "muestras_esperadas": 58300,
+      "muestras_decodificadas": 58300
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/subjects/1Y_U02_AUD_ASI_05_v1.mp3",
+      "sha256": "c966d75f3415985f25bdef06bf116c94a43865e6afdb75bb08053ceaa54b2307",
+      "duracion_segundos": 1.309002267573696,
+      "bytes": 22195,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999599,
+      "muestras_esperadas": 57727,
+      "muestras_decodificadas": 57727
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/subjects/1Y_U02_AUD_ASI_06_v1.mp3",
+      "sha256": "c98a0a9f9c5066b5944e198b00949390a2ccd96a3f77be2ba434b5a8897b1d63",
+      "duracion_segundos": 1.4440136054421768,
+      "bytes": 24285,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999897,
+      "muestras_esperadas": 63681,
+      "muestras_decodificadas": 63681
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/subjects/1Y_U02_AUD_ASI_07_v1.mp3",
+      "sha256": "498c04e96917d8bb9be4f905a60da77141dc00a2621a639dfdbbd0fb912d26dc",
+      "duracion_segundos": 1.72,
+      "bytes": 28465,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999909,
+      "muestras_esperadas": 75852,
+      "muestras_decodificadas": 75852
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/subjects/1Y_U02_AUD_ASI_08_v1.mp3",
+      "sha256": "e7575655fd38ab5ffd30b3eea2eb2a47a43be16f1bbb6c74be055d733d8be7b3",
+      "duracion_segundos": 1.1429931972789116,
+      "bytes": 19270,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999869,
+      "muestras_esperadas": 50406,
+      "muestras_decodificadas": 50406
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/subjects/1Y_U02_AUD_ASI_09_v1.mp3",
+      "sha256": "4719e18830c3091ef6702567a1f68708ab20a2dd2bc425707e26e244a4d5c0b4",
+      "duracion_segundos": 1.0639909297052155,
+      "bytes": 18016,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999963,
+      "muestras_esperadas": 46922,
+      "muestras_decodificadas": 46922
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/subjects/1Y_U02_AUD_ASI_10_v1.mp3",
+      "sha256": "a7b2c571582d70eacb972fdff58ba1e5a206477ece7d0bb0f9254cc485a12f12",
+      "duracion_segundos": 1.923015873015873,
+      "bytes": 31808,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999957,
+      "muestras_esperadas": 84805,
+      "muestras_decodificadas": 84805
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/subjects/1Y_U02_AUD_ASI_11_v1.mp3",
+      "sha256": "2126aba79975edcc2e6efe1ae5a69eec3c8d61a7906e52ed82f452b3ca06a147",
+      "duracion_segundos": 1.4539909297052154,
+      "bytes": 24285,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999834,
+      "muestras_esperadas": 64121,
+      "muestras_decodificadas": 64121
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/subjects/1Y_U02_AUD_ASI_12_v1.mp3",
+      "sha256": "0dc8015284e51f774647469ab64e6ecb6d74c68ff2792d34186a933efe1386ce",
+      "duracion_segundos": 1.2429931972789117,
+      "bytes": 20942,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999954,
+      "muestras_esperadas": 54816,
+      "muestras_decodificadas": 54816
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/subjects/1Y_U02_AUD_ASI_13_v1.mp3",
+      "sha256": "485896bd14d077208f8d0059177878049c6e23b2e7bbb3617a956eea77a81931",
+      "duracion_segundos": 3.715011337868481,
+      "bytes": 60648,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999907,
+      "muestras_esperadas": 163832,
+      "muestras_decodificadas": 163832
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/subjects/1Y_U02_AUD_ASI_14_v1.mp3",
+      "sha256": "44960ecea0c07c310511b084004b7b447c8e831d83bd13b548f00dcfad2ec19e",
+      "duracion_segundos": 3.6404761904761904,
+      "bytes": 59394,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.99993,
+      "muestras_esperadas": 160545,
+      "muestras_decodificadas": 160545
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/transport/1Y_U02_AUD_TRA_01_v1.mp3",
+      "sha256": "663ed45e58d69ac84b053d534cec2127f03ebb76ea84672d7193459eae244363",
+      "duracion_segundos": 0.9090022675736962,
+      "bytes": 15508,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999774,
+      "muestras_esperadas": 40087,
+      "muestras_decodificadas": 40087
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/transport/1Y_U02_AUD_TRA_02_v1.mp3",
+      "sha256": "fbb78eba2dca1475e58ad774cb16c5f782af6db5028b700c2aa2f9a4e881088e",
+      "duracion_segundos": 1.3570068027210884,
+      "bytes": 22613,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.99959,
+      "muestras_esperadas": 59844,
+      "muestras_decodificadas": 59844
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/transport/1Y_U02_AUD_TRA_03_v1.mp3",
+      "sha256": "05ef2d0cc63d09ab5256bc74e34cd1935aef07037f3d4678f2d20e503e09ba09",
+      "duracion_segundos": 1.0019954648526077,
+      "bytes": 17180,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999942,
+      "muestras_esperadas": 44188,
+      "muestras_decodificadas": 44188
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/transport/1Y_U02_AUD_TRA_04_v1.mp3",
+      "sha256": "f6fc4e726c37712ee558d48411ba4167174cbcb6bddc31463e1b9f2e89ca4b3c",
+      "duracion_segundos": 0.992653,
+      "bytes": 16344,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999827,
+      "muestras_esperadas": 42336,
+      "muestras_decodificadas": 42336,
+      "texto_confirmado_por_asr": "en coche"
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/transport/1Y_U02_AUD_TRA_05_v1.mp3",
+      "sha256": "b5ee0c5369b7a24b47e48afbaa5fe78fdacf10b5b10fb05bce5cd16a4ee521b4",
+      "duracion_segundos": 1.018776,
+      "bytes": 16762,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999936,
+      "muestras_esperadas": 43218,
+      "muestras_decodificadas": 43218,
+      "texto_confirmado_por_asr": "en bicicleta"
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/transport/1Y_U02_AUD_TRA_06_v1.mp3",
+      "sha256": "71c6336bcbc4fe777d07103b377c8cb8aa14291407e27fdfdaf763f986aaeeab",
+      "duracion_segundos": 0.77,
+      "bytes": 13418,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999879,
+      "muestras_esperadas": 33957,
+      "muestras_decodificadas": 33957
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/transport/1Y_U02_AUD_TRA_07_v1.mp3",
+      "sha256": "d80c62eae642cba83821b065a65d5b6e1febf5e00d422655c08378a45b524c2c",
+      "duracion_segundos": 1.0129931972789115,
+      "bytes": 17180,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999957,
+      "muestras_esperadas": 44673,
+      "muestras_decodificadas": 44673
+    },
+    {
+      "ruta": "assets/audio/unit2/vocabulary/transport/1Y_U02_AUD_TRA_08_v1.mp3",
+      "sha256": "8e0bb903077d62b1525123abb3b772ff643574591ab8da6ec34d4668aca4c172",
+      "duracion_segundos": 1.7558276643990929,
+      "bytes": 29301,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999941,
+      "muestras_esperadas": 77432,
+      "muestras_decodificadas": 77432
+    },
+    {
+      "ruta": "assets/audio/unit2/expressions/1Y_U02_AUD_EXP_01_v1.mp3",
+      "sha256": "f2b30a1474072250d4f5fcdc37b1a27c6fa6b6d0b05d84b7fe22deb70fe688d6",
+      "duracion_segundos": 1.1870068027210885,
+      "bytes": 20106,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999784,
+      "muestras_esperadas": 52347,
+      "muestras_decodificadas": 52347
+    },
+    {
+      "ruta": "assets/audio/unit2/expressions/1Y_U02_AUD_EXP_02_v1.mp3",
+      "sha256": "367c3d2268477ee749cf6a1deb83f767917d31b5dffc5c61fd9616220d4f6ac8",
+      "duracion_segundos": 1.2239909297052154,
+      "bytes": 20524,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999859,
+      "muestras_esperadas": 53978,
+      "muestras_decodificadas": 53978
+    },
+    {
+      "ruta": "assets/audio/unit2/expressions/1Y_U02_AUD_EXP_03_v1.mp3",
+      "sha256": "286670187a69dbebed7ddab0da9dbc4392efc356fd32675d18251995f56abcc8",
+      "duracion_segundos": 1.0660090702947846,
+      "bytes": 18016,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999766,
+      "muestras_esperadas": 47011,
+      "muestras_decodificadas": 47011
+    },
+    {
+      "ruta": "assets/audio/unit2/expressions/1Y_U02_AUD_EXP_04_v1.mp3",
+      "sha256": "0929555de8486bd5a19013f08d953cd2f43aadf84511f9afc8b8b857524055ff",
+      "duracion_segundos": 1.9109977324263039,
+      "bytes": 31808,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999959,
+      "muestras_esperadas": 84275,
+      "muestras_decodificadas": 84275
+    },
+    {
+      "ruta": "assets/audio/unit2/expressions/1Y_U02_AUD_EXP_05_v1.mp3",
+      "sha256": "0ce5731909b03b6ef29f85abbee58c7bd858183aa7cda08fb2ee8978f141080d",
+      "duracion_segundos": 1.5380045351473923,
+      "bytes": 25539,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999967,
+      "muestras_esperadas": 67826,
+      "muestras_decodificadas": 67826
+    },
+    {
+      "ruta": "assets/audio/unit2/expressions/1Y_U02_AUD_EXP_06_v1.mp3",
+      "sha256": "b5c224f38467848ec52ec0c9bb6c891e4cd67906d29977aaaae65a2bfa9968d2",
+      "duracion_segundos": 2.250997732426304,
+      "bytes": 37242,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999977,
+      "muestras_esperadas": 99269,
+      "muestras_decodificadas": 99269
+    },
+    {
+      "ruta": "assets/audio/unit2/expressions/1Y_U02_AUD_EXP_07_v1.mp3",
+      "sha256": "f0ca25b8c7e7903bc2de7e6c59ed1f93f74b9a9df7e23eab11a438459c1ab69c",
+      "duracion_segundos": 1.3439909297052155,
+      "bytes": 22613,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999961,
+      "muestras_esperadas": 59270,
+      "muestras_decodificadas": 59270
+    },
+    {
+      "ruta": "assets/audio/unit2/expressions/1Y_U02_AUD_EXP_08_v1.mp3",
+      "sha256": "49970ec84a6422bd1e63bdaff627cc4dddcb4432d5d87a48994c2e18cfcacf2d",
+      "duracion_segundos": 1.6670068027210885,
+      "bytes": 27629,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999958,
+      "muestras_esperadas": 73515,
+      "muestras_decodificadas": 73515
+    },
+    {
+      "ruta": "assets/audio/unit2/expressions/1Y_U02_AUD_EXP_09_v1.mp3",
+      "sha256": "39aa95bf28053bd86904bff5aea22506bd477803250e1b37b5751d4c2ee0183e",
+      "duracion_segundos": 1.63,
+      "bytes": 27211,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999985,
+      "muestras_esperadas": 71883,
+      "muestras_decodificadas": 71883
+    },
+    {
+      "ruta": "assets/audio/unit2/expressions/1Y_U02_AUD_EXP_10_v1.mp3",
+      "sha256": "eaf0996b79bf5cf4081f774cb07309e9053d8baf8275e1572b10c7a9c5c696a3",
+      "duracion_segundos": 2.328004535147392,
+      "bytes": 38496,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999946,
+      "muestras_esperadas": 102665,
+      "muestras_decodificadas": 102665
+    },
+    {
+      "ruta": "assets/audio/unit2/expressions/1Y_U02_AUD_EXP_11_v1.mp3",
+      "sha256": "5b0259860fc666f83fb44649089e966823f5a1ccfbe50d0337fc9d731baf942d",
+      "duracion_segundos": 3.217981859410431,
+      "bytes": 52706,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999957,
+      "muestras_esperadas": 141913,
+      "muestras_decodificadas": 141913
+    },
+    {
+      "ruta": "assets/audio/unit2/expressions/1Y_U02_AUD_EXP_12_v1.mp3",
+      "sha256": "814dd3909f90df7aa9630348c8e683de2b116cf9ebc59e190344c810516024d5",
+      "duracion_segundos": 2.07,
+      "bytes": 34316,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999904,
+      "muestras_esperadas": 91287,
+      "muestras_decodificadas": 91287
+    },
+    {
+      "ruta": "assets/audio/unit2/expressions/1Y_U02_AUD_EXP_13_v1.mp3",
+      "sha256": "c50487ad66f68fe8fdbd9994de5b7bc256671cb0e281922a437903a9af36632d",
+      "duracion_segundos": 1.8670068027210884,
+      "bytes": 30973,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999969,
+      "muestras_esperadas": 82335,
+      "muestras_decodificadas": 82335
+    },
+    {
+      "ruta": "assets/audio/unit2/expressions/1Y_U02_AUD_EXP_14_v1.mp3",
+      "sha256": "cd5ec40a4cdee35e7260f4e3e420dee8d52bbce57daf274f40f551e6aad1713f",
+      "duracion_segundos": 1.0150113378684806,
+      "bytes": 17180,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999961,
+      "muestras_esperadas": 44762,
+      "muestras_decodificadas": 44762
+    },
+    {
+      "ruta": "assets/audio/unit2/expressions/1Y_U02_AUD_EXP_15_v1.mp3",
+      "sha256": "e14bb06fc7788057dcde2b48eee474ce209d02b833f400555d106413c956cac3",
+      "duracion_segundos": 2.276984126984127,
+      "bytes": 37660,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.999972,
+      "muestras_esperadas": 100415,
+      "muestras_decodificadas": 100415
+    },
+    {
+      "ruta": "assets/audio/unit2/expressions/1Y_U02_AUD_EXP_16_v1.mp3",
+      "sha256": "ad1dfe0e56af61b8b5256beea525a87292b07e340cde2d5246bee402e01614e2",
+      "duracion_segundos": 1.6693197278911565,
+      "bytes": 27629,
+      "decodificacion": "OK",
+      "correlacion_con_recorte_original": 0.99992,
+      "muestras_esperadas": 73617,
+      "muestras_decodificadas": 73617
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+[
+  {
+    "categoria": "OBJ",
+    "flow_id": "v3T02k3VecbZ31hAJQbq",
+    "session_id": "wt50JccpOUrhmvjJdx6z",
+    "generation_id": "6kyZJlOznTk9yebH2Gmw",
+    "voice_id": "GB7fZx4ubHWxbBE05abF",
+    "voz": "Marina - Clear, Velvety and Articulated",
+    "texto": "Un lápiz. Un bolígrafo. Una goma. Una regla. Un sacapuntas. Un estuche. Un cuaderno. Un libro. Una mochila. Una carpeta. Unas tijeras. Un pegamento. Una calculadora. Un rotulador. Un subrayador. Una pizarra. Una mesa. Una silla. Una hoja. Un ordenador.",
+    "duracion_segundos": 23.173514739229024,
+    "estado": "MP3 original descargado; decodificación verificada",
+    "ruta": "assets/audio/unit2/masters/1Y_U02_MASTER_OBJ_v1.mp3",
+    "sha256": "777c043694490a8f307ce1423f667dd9d35c8f0ae413665b57ceae2c5c27d083",
+    "velocidad": null
+  },
+  {
+    "categoria": "DIA",
+    "flow_id": "8Q0lI3mid0psapnjMAlO",
+    "session_id": "CRrdUAQh5uWguOLmV5R7",
+    "generation_id": "k8BjYZwcnnl1GzZXlBoo",
+    "voice_id": "yiWEefwu5z3DQCM79clN",
+    "voz": "Laura López - Bright, Clear and Dynamic",
+    "texto": "Lunes. Martes. Miércoles. Jueves. Viernes. Sábado. Domingo.",
+    "duracion_segundos": 5.108390022675737,
+    "estado": "MP3 original descargado; decodificación verificada",
+    "ruta": "assets/audio/unit2/masters/1Y_U02_MASTER_DIA_v1.mp3",
+    "sha256": "63a2f27977b2939b74e3a3f714ada7d62ab4d9f2097bef00394d6bd385ff08e9",
+    "velocidad": null
+  },
+  {
+    "categoria": "ASI",
+    "flow_id": "lNfJVImznSxunX0tCAph",
+    "session_id": "gmZteRxlXz9wcowaQsKR",
+    "generation_id": "BF173UKRGxzHMVqUaKLN",
+    "voice_id": "GB7fZx4ubHWxbBE05abF",
+    "voz": "Marina - Clear, Velvety and Articulated",
+    "texto": "Español. Inglés. Matemáticas. Ciencias. Historia. Geografía. Educación física. Música. Arte. Economía doméstica. Empresariales. Tecnología. Educación personal, social y para la salud. Educación cívica, social y política.",
+    "duracion_segundos": 20.108480725623583,
+    "estado": "MP3 original descargado; decodificación verificada",
+    "ruta": "assets/audio/unit2/masters/1Y_U02_MASTER_ASI_v1.mp3",
+    "sha256": "a97ef074e8f798179f950164b8417d7a514f5f6ff8de873056b93a82f279bf0b",
+    "velocidad": null
+  },
+  {
+    "categoria": "TRA",
+    "flow_id": "ZcG5x51uCd5RMm9h2FuR",
+    "session_id": "SSXVlQ1ES5vgyeGAmCA8",
+    "generation_id": "FZJtCvAMD5ilkHnAegyp",
+    "voice_id": "J5hu7rFtEb1rgdJDH30E",
+    "voz": "JR- Tranquila y amigable",
+    "texto": "A pie. Andando. En autobús. En coche. En bicicleta. En tren. En moto. En patinete eléctrico.",
+    "duracion_segundos": 6.315827664399093,
+    "estado": "MP3 original descargado; decodificación verificada",
+    "ruta": "assets/audio/unit2/masters/1Y_U02_MASTER_TRA_v1.mp3",
+    "sha256": "90c722578267f80efab5a0471856468df0c85eed27ea9fb8235ebb15ea80850a",
+    "velocidad": null
+  },
+  {
+    "categoria": "EXP",
+    "flow_id": "FQ5991ivLV9ADIxto78A",
+    "session_id": "MlwzXAJzTB868xk4raI2",
+    "generation_id": "cmj4ZhGR8l9XlsSjFQ0v",
+    "voice_id": "yiWEefwu5z3DQCM79clN",
+    "voz": "Laura López - Bright, Clear and Dynamic",
+    "texto": "¿Qué es esto? Es un lápiz. ¿Qué son? Son unos cuadernos. ¿Cuántos libros hay? Hay tres libros. No tengo regla. ¿Qué día es hoy? Hoy es lunes. ¿Cuál es tu asignatura favorita? Mi asignatura favorita es español. No me gustan las matemáticas. ¿Cómo vas al colegio? Voy a pie. Voy en patinete eléctrico. No voy en coche.",
+    "duracion_segundos": 24.102312925170068,
+    "estado": "MP3 original descargado; decodificación verificada",
+    "ruta": "assets/audio/unit2/masters/1Y_U02_MASTER_EXP_v1.mp3",
+    "sha256": "321908b9f790eadeda1927a041884c3b68b1ce64fa044252feb0ec0b61fb97eb",
+    "velocidad": null
+  }
+]
