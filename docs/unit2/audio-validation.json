@@ -12,11 +12,11 @@
   "clips_separados": 65,
   "clips_verificados_automaticamente": 65,
   "clips_revision_auditiva_pendiente": 0,
-  "listenings_aprobados_integrados": 2,
-  "listenings_originales_pendientes": 2,
-  "recursos_presentes": 67,
+  "listenings_aprobados_integrados": 3,
+  "listenings_originales_pendientes": 1,
+  "recursos_presentes": 68,
   "recursos_ausentes": 2,
-  "mp3_totales_incluyendo_maestros": 72,
+  "mp3_totales_incluyendo_maestros": 73,
   "tests": {
     "pass": 62,
     "fail": 0
@@ -43,6 +43,16 @@
       "decodificacion_completa": "OK",
       "identico_al_zip": true,
       "verificacion_linguistica": "aprobación docente conservada; no se ha comprobado con transcripción completa"
+    },
+    {
+      "archivo": "assets/audio/unit2/listenings/1Y_U02_AUD_LIS_03_asignaturas_v1.mp3",
+      "sha256": "6523530e0a901265b82a23072fb91c422a0a7a970993e33edfa7fe7d718ce123",
+      "duracion_segundos": 29.753469,
+      "codec": "mp3",
+      "bytes": 493642,
+      "decodificacion_completa": "OK",
+      "origen": "archivo adjunto del docente, copiado byte a byte",
+      "verificacion_linguistica": "ASR local confirma contenido sobre asignaturas; identificación del usuario como LIS_03"
     }
   ],
   "clips": [
