@@ -1,0 +1,57 @@
+[
+  {
+    "categoria": "OBJ",
+    "flow_id": "v3T02k3VecbZ31hAJQbq",
+    "node_id": "p8Mtcge8dleNZTGDhtd8",
+    "texto": "Un lápiz. Un bolígrafo. Una goma. Una regla. Un sacapuntas. Un estuche. Un cuaderno. Un libro. Una mochila. Una carpeta. Unas tijeras. Un pegamento. Una calculadora. Un rotulador. Un subrayador. Una pizarra. Una mesa. Una silla. Una hoja. Un ordenador.",
+    "voice_id": "GB7fZx4ubHWxbBE05abF",
+    "modelo": "eleven_multilingual_v2",
+    "formato": "mp3_44100_128",
+    "velocidad": null,
+    "estado": "completed; descarga bloqueada: conexión sin sesiones ni URL del audio"
+  },
+  {
+    "categoria": "DIA",
+    "flow_id": "8Q0lI3mid0psapnjMAlO",
+    "node_id": "mZjZdrFHmhKLk24Y0M13",
+    "texto": "Lunes. Martes. Miércoles. Jueves. Viernes. Sábado. Domingo.",
+    "voice_id": "yiWEefwu5z3DQCM79clN",
+    "modelo": "eleven_multilingual_v2",
+    "formato": "mp3_44100_128",
+    "velocidad": null,
+    "estado": "completed; descarga bloqueada: conexión sin sesiones ni URL del audio"
+  },
+  {
+    "categoria": "ASI",
+    "flow_id": "lNfJVImznSxunX0tCAph",
+    "node_id": "fHykCYcHfJgGOqgOPzeR",
+    "texto": "Español. Inglés. Matemáticas. Ciencias. Historia. Geografía. Educación física. Música. Arte. Economía doméstica. Empresariales. Tecnología. Educación personal, social y para la salud. Educación cívica, social y política.",
+    "voice_id": "GB7fZx4ubHWxbBE05abF",
+    "modelo": "eleven_multilingual_v2",
+    "formato": "mp3_44100_128",
+    "velocidad": null,
+    "estado": "completed; descarga bloqueada: conexión sin sesiones ni URL del audio"
+  },
+  {
+    "categoria": "TRA",
+    "flow_id": "ZcG5x51uCd5RMm9h2FuR",
+    "node_id": "oyL0gejQOaOQ6BGur1fE",
+    "texto": "A pie. Andando. En autobús. En coche. En bicicleta. En tren. En moto. En patinete eléctrico.",
+    "voice_id": "J5hu7rFtEb1rgdJDH30E",
+    "modelo": "eleven_multilingual_v2",
+    "formato": "mp3_44100_128",
+    "velocidad": null,
+    "estado": "completed; descarga bloqueada: conexión sin sesiones ni URL del audio"
+  },
+  {
+    "categoria": "EXP",
+    "flow_id": "FQ5991ivLV9ADIxto78A",
+    "node_id": "jTb8jYg3C8DlOlT5za58",
+    "texto": "¿Qué es esto? Es un lápiz. ¿Qué son? Son unos cuadernos. ¿Cuántos libros hay? Hay tres libros. No tengo regla. ¿Qué día es hoy? Hoy es lunes. ¿Cuál es tu asignatura favorita? Mi asignatura favorita es español. No me gustan las matemáticas. ¿Cómo vas al colegio? Voy a pie. Voy en patinete eléctrico. No voy en coche.",
+    "voice_id": "yiWEefwu5z3DQCM79clN",
+    "modelo": "eleven_multilingual_v2",
+    "formato": "mp3_44100_128",
+    "velocidad": null,
+    "estado": "completed; descarga bloqueada: conexión sin sesiones ni URL del audio"
+  }
+]
