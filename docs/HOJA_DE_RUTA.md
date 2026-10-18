@@ -1,6 +1,6 @@
 # Hoja de ruta y decisiones — Unas Tapitas de Español
 
-**Fecha:** 17 de octubre de 2026  
+**Fecha:** 18 de octubre de 2026  
 **Repositorio:** `LanguageprepIE/unas-tapitas-espanol` (público)
 
 ## Arquitectura pedagógica acordada
@@ -42,12 +42,12 @@ Otros motores potenciales: **El detective lingüístico** y **La fábrica de fra
 - [x] Elegir repositorio público sin el sufijo «2».
 - [x] Salvar proyecto anterior en una rama de seguridad y limpiar `main`.
 - [x] Verificar que los dos MP3 originales ya están en `assets/audio/`.
-- [ ] Importar el código original del ZIP (sin sobrescribir MP3).
-- [ ] Comprobar rutas de audio y pasar los tests originales.
+- [x] Importar el código original del ZIP (sin sobrescribir MP3).
+- [x] Comprobar rutas de audio y pasar los tests originales.
 - [ ] Integrar los seis laboratorios de Explore con el diseño existente.
 - [ ] Reemplazar los audios generados por el navegador; crear y validar audios de pronunciación si procede.
 - [ ] Desarrollar Play y sus tres primeros juegos.
 - [ ] Crear Game Zone y mecanismos de reutilización por curso.
 - [ ] Probar accesibilidad, móvil/iPad/PC y publicar.
 
-**Estado importante:** el prototipo de Explore existe como HTML independiente; aún no se ha integrado en el código fuente recuperado. Ninguna actividad debe declararse publicada antes de probarla en el proyecto conjunto.
+**Estado importante:** el prototipo original (incluido Explore en su versión inicial) está en `main` y ha superado sus pruebas. Los seis nuevos laboratorios de Explore aún no se han integrado. Ninguna actividad nueva debe declararse publicada antes de probarla en el proyecto conjunto.
