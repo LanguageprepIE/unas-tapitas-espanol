@@ -21,7 +21,10 @@ test('person changes the short phrase while retaining its detail',()=>{
  const s=newExploreState();s.personKind='age';s.personDetail='trece';assert.equal(personScene(s).sentence,'Tengo trece años.');updateExplore(s,'ex-person','tu');assert.equal(personScene(s).sentence,'Tienes trece años.');updateExplore(s,'ex-person','alba');assert.equal(personScene(s).sentence,'Alba tiene trece años.');updateExplore(s,'ex-person-kind','name');assert.equal(personScene(s).sentence,'Alba se llama Alba.');
 });
 test('conversation turns move and full answer responds to a change of question',()=>{
- const s=newExploreState();updateExplore(s,'ex-turn','answer:up');assert.deepEqual(s.turns,['greeting','answer','question','goodbye']);assert(conversationScene(s).tip[0].includes('immediately after'));updateExplore(s,'ex-turn','answer:down');updateExplore(s,'ex-question','age');assert.equal(conversationScene(s).text.answer,'Tengo trece años.');assert(conversationScene(s).tip[0].includes('now sit together'));
+ const s=newExploreState();assert.deepEqual(s.turns,['greeting','question','goodbye','answer']);assert(conversationScene(s).tip[0].includes('shuffled'));updateExplore(s,'ex-turn','answer:up');assert.deepEqual(s.turns,['greeting','question','answer','goodbye']);assert(conversationScene(s).tip[0].includes('full answer now sit together'));updateExplore(s,'ex-turn','answer:down');updateExplore(s,'ex-question','age');assert.equal(conversationScene(s).text.answer,'Tengo trece años.');assert(conversationScene(s).tip[0].includes('shuffled'));
+});
+test('conversation builder makes the reordering task visible and explains each move',()=>{
+ const s=newExploreState();s.lab='conversation';const html=renderExplore(s,h);assert(html.includes('This exchange has been shuffled.'));assert(html.includes('Move up one place'));assert(html.includes('Move down one place'));assert(html.indexOf('¡Hasta luego!')<html.indexOf('Me llamo Alba.'));
 });
 test('country comparison includes context and disallows unexpected keys',()=>{
  const s=newExploreState();s.lab='world';updateExplore(s,'ex-country','argentina');updateExplore(s,'ex-compare-country','spain');const html=renderExplore(s,h);assert(html.includes('Buenos Aires')&&html.includes('Madrid'));updateExplore(s,'ex-country','not-a-place');assert.equal(s.country,'argentina');
