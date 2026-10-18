@@ -488,8 +488,8 @@
     "archivo": "1Y_U02_AUD_TRA_04_v1.mp3",
     "ruta": "assets/audio/unit2/vocabulary/transport/1Y_U02_AUD_TRA_04_v1.mp3",
     "texto": "en coche",
-    "inicio": 2.488,
-    "fin": 2.927,
+    "inicio": 2.48,
+    "fin": 3.04,
     "asr_inicio": 2.56,
     "asr_fin": 2.96,
     "asr_texto": "en coche"
@@ -499,8 +499,8 @@
     "archivo": "1Y_U02_AUD_TRA_05_v1.mp3",
     "ruta": "assets/audio/unit2/vocabulary/transport/1Y_U02_AUD_TRA_05_v1.mp3",
     "texto": "en bicicleta",
-    "inicio": 2.927,
-    "fin": 3.557,
+    "inicio": 3.04,
+    "fin": 3.62,
     "asr_inicio": 3.08,
     "asr_fin": 3.54,
     "asr_texto": "en bicicleta"

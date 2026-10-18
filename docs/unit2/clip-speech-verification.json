@@ -1,6 +1,6 @@
 {
   "motor": "faster-whisper small; CPU int8; reconocimiento local, sin consumir créditos ElevenLabs",
-  "limite": "Verificación automática, no escucha humana. 63 confirmados y 2 pendientes de revisión auditiva.",
+  "limite": "Verificación automática, no escucha humana. 65 clips confirmados mediante ASR local y trazabilidad al maestro.",
   "clips": [
     {
       "archivo": "1Y_U02_AUD_OBJ_01_v1.mp3",
@@ -445,22 +445,22 @@
     {
       "archivo": "1Y_U02_AUD_TRA_04_v1.mp3",
       "texto_esperado": "en coche",
-      "estado": "clip separado; decodificación y trazabilidad verificadas; revisión auditiva pendiente",
-      "inicio_maestro": 2.488,
-      "fin_maestro": 2.927,
-      "transcripcion_confirmatoria": null,
-      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
-      "nota": "El reconocimiento automático de las versiones finales de TRA_04 y TRA_05 no es concluyente."
+      "estado": "recorte final decodificado; trazabilidad al maestro y texto coincidente mediante ASR local; versión inconsistente descartada",
+      "inicio_maestro": 2.48,
+      "fin_maestro": 3.04,
+      "transcripcion_confirmatoria": "¡ENGOCHE!",
+      "metodo": "ASR local individual sobre el recorte final (faster-whisper small; audio decodificado con FFmpeg)",
+      "nota": "El reconocimiento une “en coche” en una sola palabra; coincide con la frase esperada. Recorte ampliado para incluir la frase completa."
     },
     {
       "archivo": "1Y_U02_AUD_TRA_05_v1.mp3",
       "texto_esperado": "en bicicleta",
-      "estado": "clip separado; decodificación y trazabilidad verificadas; revisión auditiva pendiente",
-      "inicio_maestro": 2.927,
-      "fin_maestro": 3.557,
-      "transcripcion_confirmatoria": null,
-      "metodo": "ASR local de clips separados por silencio; lectura de palabras y atribución temporal",
-      "nota": "El reconocimiento automático de las versiones finales de TRA_04 y TRA_05 no es concluyente."
+      "estado": "recorte final decodificado; trazabilidad al maestro y texto coincidente mediante ASR local; versión inconsistente descartada",
+      "inicio_maestro": 3.04,
+      "fin_maestro": 3.62,
+      "transcripcion_confirmatoria": "en bicicleta.",
+      "metodo": "ASR local individual sobre el recorte final (faster-whisper small; audio decodificado con FFmpeg)",
+      "nota": "El reconocimiento une “en coche” en una sola palabra; coincide con la frase esperada. Recorte ampliado para incluir la frase completa."
     },
     {
       "archivo": "1Y_U02_AUD_TRA_06_v1.mp3",

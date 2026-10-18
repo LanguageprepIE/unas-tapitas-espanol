@@ -10,8 +10,8 @@
   },
   "maestros_recuperados": 5,
   "clips_separados": 65,
-  "clips_verificados_automaticamente": 63,
-  "clips_revision_auditiva_pendiente": 2,
+  "clips_verificados_automaticamente": 65,
+  "clips_revision_auditiva_pendiente": 0,
   "listenings_aprobados_integrados": 2,
   "listenings_originales_pendientes": 2,
   "recursos_presentes": 67,
@@ -21,8 +21,8 @@
     "pass": 62,
     "fail": 0
   },
-  "metodo_recorte": "PCM mono 44100 Hz; segmentos en clip-cut-plan.json; 80 ms de silencio inicial y 180 ms final; MP3 128 kbps; sin cambios de velocidad, normalización ni nuevas generaciones",
-  "verificacion_tecnica": "65 clips decodificados completos; correlación >0.97 con sus segmentos originales; longitud dentro de un frame MP3 respecto a la esperada",
+  "metodo_recorte": "PCM mono 44100 Hz; segmentos en clip-cut-plan.json; clips anteriores TRA_04/05 descartados y recortados de nuevo con 180 ms de silencio inicial y 220 ms final; los otros 63 clips conservan su exportación previa; MP3 128 kbps; sin cambios de velocidad, normalización ni nuevas generaciones",
+  "verificacion_tecnica": "65 clips decodificados completos y trazables al maestro original; los dos recortes sustituidos tienen texto confirmado por ASR local. Correlación >0.97 con sus segmentos originales; longitud dentro de un frame MP3 de lo esperado.",
   "listenings": [
     {
       "archivo": "assets/audio/unit2/listenings/1Y_U02_AUD_LIS_02_estuche_v1.mp3",
@@ -488,23 +488,25 @@
     },
     {
       "ruta": "assets/audio/unit2/vocabulary/transport/1Y_U02_AUD_TRA_04_v1.mp3",
-      "sha256": "457e01c3cfe7b64bf4883f153aaf52a52e2d1986b4bf88dd009822edc54e3443",
-      "duracion_segundos": 0.6990022675736961,
-      "bytes": 12164,
+      "sha256": "f6fc4e726c37712ee558d48411ba4167174cbcb6bddc31463e1b9f2e89ca4b3c",
+      "duracion_segundos": 0.992653,
+      "bytes": 16344,
       "decodificacion": "OK",
-      "correlacion_con_recorte_original": 0.999817,
-      "muestras_esperadas": 30826,
-      "muestras_decodificadas": 30826
+      "correlacion_con_recorte_original": 0.9998,
+      "muestras_esperadas": 42336,
+      "muestras_decodificadas": 42336,
+      "texto_confirmado_por_asr": "en coche"
     },
     {
       "ruta": "assets/audio/unit2/vocabulary/transport/1Y_U02_AUD_TRA_05_v1.mp3",
-      "sha256": "f044543cf0bd4c02ddd93c03a5c34ce7181833d78776a397638ce83255503086",
-      "duracion_segundos": 0.89,
-      "bytes": 15508,
+      "sha256": "b5ee0c5369b7a24b47e48afbaa5fe78fdacf10b5b10fb05bce5cd16a4ee521b4",
+      "duracion_segundos": 1.018776,
+      "bytes": 16762,
       "decodificacion": "OK",
-      "correlacion_con_recorte_original": 0.999947,
-      "muestras_esperadas": 39249,
-      "muestras_decodificadas": 39249
+      "correlacion_con_recorte_original": 0.9998,
+      "muestras_esperadas": 43218,
+      "muestras_decodificadas": 43218,
+      "texto_confirmado_por_asr": "en bicicleta"
     },
     {
       "ruta": "assets/audio/unit2/vocabulary/transport/1Y_U02_AUD_TRA_06_v1.mp3",
