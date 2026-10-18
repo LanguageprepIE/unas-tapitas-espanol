@@ -6,7 +6,7 @@ import {newExploreState,updateExplore,renderExplore,greetingScene,personScene,co
 const h={T:(en)=>en,L:(en)=>en,pair:(x)=>x[0],E:(s)=>String(s).replaceAll('&','&amp;').replaceAll('"','&quot;'),button:(action,label,cls='',extra='')=>`<button data-action="${action}" class="${cls}" ${extra}>${label}</button>`};
 test('each laboratory renders distinct controls in the original Explore route',()=>{
  const s=newExploreState();const controls={greetings:'ex-time',sounds:'ex-select-sound',numbers:'ex-number',person:'ex-person-kind',conversation:'ex-turn',world:'ex-country'};
- for(const [lab,action] of Object.entries(controls)){updateExplore(s,'ex-lab',lab);const html=renderExplore(s,h);assert(html.includes(action),lab);assert(html.includes('ex-nav'),lab);assert(!html.includes('undefined'),lab);assert(!html.includes('<audio'),`unverified audio in ${lab}`);}
+ for(const [lab,action] of Object.entries(controls)){updateExplore(s,'ex-lab',lab);const html=renderExplore(s,h);assert(html.includes(action),lab);assert(html.includes('ex-nav'),lab);assert(!html.includes('undefined'),lab);if(lab==='numbers')assert(html.includes('audio[data-explore-audio]')||html.includes('data-explore-audio'),`number audio missing in ${lab}`);else if(lab!=='sounds')assert(!html.includes('<audio'),`unexpected audio in ${lab}`);}
 });
 test('greeting variables change the encounter without declaring a single correct answer',()=>{
  const s=newExploreState();assert.equal(greetingScene(s).greeting,'Hola');updateExplore(s,'ex-other','adult');assert.equal(greetingScene(s).greeting,'Buenos días');updateExplore(s,'ex-time','night');assert.equal(greetingScene(s).greeting,'Buenas noches');assert.equal(greetingScene(s).departure,'Hasta mañana');
@@ -28,8 +28,14 @@ test('country comparison includes context and disallows unexpected keys',()=>{
 });
 test('only verified packaged audio can enter the ready registry',async()=>{
  assert.equal(pendingAudio.sounds.length,soundWords.length);assert.equal(pendingAudio.numbers.length,21);
+ assert.deepEqual(Object.keys(readyAudio.sounds).sort(),soundWords.map(x=>x.word).sort());assert.deepEqual(Object.keys(readyAudio.numbers).map(Number).sort((a,b)=>a-b),Array.from({length:21},(_,i)=>i));
  for(const group of ['sounds','numbers'])for(const [key,path] of Object.entries(readyAudio[group])){
-  const planned=pendingAudio[group].find(x=>String(x.word===undefined?x.number:x.word)===String(key));assert.equal(path,planned?.expected);
+  const planned=pendingAudio[group].find(x=>String(group==='sounds'?x.word:x.number)===String(key));assert.equal(path,planned?.expected);
   const bytes=await readFile(new URL('../'+path,import.meta.url));assert(bytes.length>1000&&bytes[0]===0x49&&bytes[1]===0x44&&bytes[2]===0x33,`${key} must be a real ID3 MP3`);
  }
+});
+test('word and number audio controls point to their own labelled recordings',()=>{
+ const s=newExploreState();s.lab='sounds';
+ for(const item of soundWords){s.sound=item.letter;s.compare=item.word;const html=renderExplore(s,h);assert(html.includes(`src="${readyAudio.sounds[item.word]}"`),item.word);}
+ s.lab='numbers';for(let n=0;n<=20;n++){s.number=n;const html=renderExplore(s,h);assert(html.includes(`src="${readyAudio.numbers[n]}"`),`number ${n}`);}
 });

@@ -1,16 +1,24 @@
-# Explore Unit 1 — individual audio still needed
+# Explore Unit 1 audio
 
-The two existing listening MP3s are full conversations and are not word or number recordings. Explore therefore uses written and visual discovery for now. Its audio registry, `readyAudio` in `explore.mjs`, is empty: no playback control appears without a matching packaged file. Once files are approved, register each exact path; the tests check every declared file. A playback error shows an on-page message.
+Spanish Sounds Lab and Number Machine each use short, word-specific MP3 files. The files are generated with ElevenLabs Multilingual v2 using the same Spanish voice (Laura López, voice ID `yiWEefwu5z3DQCM79clN`). Each audio button is registered only to the MP3 for the displayed word or number; if a file is missing, the interface does not render a player.
 
-Please create and review these **eight separate word files** for Spanish Sounds Lab, with a clear natural peninsular voice and no unrelated spoken material:
+## Spanish Sounds Lab
 
-| Pattern | Words | Expected paths |
+| Pattern | Word | File |
 | --- | --- | --- |
-| J | jamón, joven | `assets/audio/explore/sounds/jamón.mp3`, `assets/audio/explore/sounds/joven.mp3` |
-| Ñ | niño, mañana | `assets/audio/explore/sounds/niño.mp3`, `assets/audio/explore/sounds/mañana.mp3` |
-| LL | llamo, calle | `assets/audio/explore/sounds/llamo.mp3`, `assets/audio/explore/sounds/calle.mp3` |
-| Silent H | hola, hermano | `assets/audio/explore/sounds/hola.mp3`, `assets/audio/explore/sounds/hermano.mp3` |
+| J | jamón | `assets/audio/explore/sounds/jamón.mp3` |
+| J | joven | `assets/audio/explore/sounds/joven.mp3` |
+| Ñ | niño | `assets/audio/explore/sounds/niño.mp3` |
+| Ñ | mañana | `assets/audio/explore/sounds/mañana.mp3` |
+| LL | llamo | `assets/audio/explore/sounds/llamo.mp3` |
+| LL | calle | `assets/audio/explore/sounds/calle.mp3` |
+| Silent H | hola | `assets/audio/explore/sounds/hola.mp3` |
+| Silent H | hermano | `assets/audio/explore/sounds/hermano.mp3` |
 
-Number Machine needs **21 separate files**, one spoken number per file, from `cero` to `veinte`. Paths follow `assets/audio/explore/numbers/00.mp3` through `20.mp3`, where the two-digit filename matches the number spoken. The canonical order and spellings are in `numberWords` in `explore.mjs`; in particular `16.mp3` must say *dieciséis*.
+## Number Machine
 
-Before registering a file, listen to it, confirm that the spoken word matches the label, verify playback on Android, iPad and desktop, and run `npm test`. Do not reuse the listening dialogues as if they were individual clips. The remaining UI experiments need no audio or paid API.
+Each file contains one spoken number, with the two-digit filename matching the number: `assets/audio/explore/numbers/00.mp3` (*cero*) through `assets/audio/explore/numbers/20.mp3` (*veinte*). The canonical spellings are in `numberWords` in `explore.mjs`.
+
+All 29 files are packaged locally and use the normal HTML audio player; playback does not call ElevenLabs or depend on `speechSynthesis`. The player reports a visible error if a browser cannot play a file. The original listening files in `assets/audio/` are unchanged.
+
+Automated checks confirm that every registered file exists, has an MP3 ID3 header, and is connected to its matching word or number. Browser/device playback still merits a spot-check on Android and iPad when the pull request is reviewed.
