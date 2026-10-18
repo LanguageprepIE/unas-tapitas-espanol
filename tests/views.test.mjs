@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 import vm from 'node:vm';
 import {readFile} from 'node:fs/promises';
 import * as content from '../data/unit1.mjs';
+import * as catalogue from '../catalogue.mjs';
+import * as progress from '../progress.mjs';
 import * as engine from '../engine.mjs';
 import * as explore from '../explore.mjs';
 import * as playEngine from '../play-engine.mjs';
@@ -10,7 +12,7 @@ import * as playViews from '../play.mjs';
 import * as playData from '../data/play-unit1.mjs';
 // A rendering harness, not a browser or an accessibility audit.
 function element(){return {innerHTML:'',textContent:'',value:'',listeners:{},classList:{toggle(){}},addEventListener(k,fn){this.listeners[k]=fn;},setAttribute(){},contains(){return false;},append(){},focus(){},scrollIntoView(){},closest(){return this;}};}
-async function harness(){const elements=new Map();const get=s=>{if(!elements.has(s))elements.set(s,element());return elements.get(s);};const document={activeElement:null,documentElement:element(),body:element(),querySelector:get,createElement:()=>element()};const window={listeners:{},addEventListener(k,fn){this.listeners[k]=fn;},scrollTo(){}};const location={hash:''};const storage=new Map();const localStorage={getItem:k=>storage.get(k),setItem:(k,v)=>storage.set(k,v),removeItem:k=>storage.delete(k)};const source=(await readFile(new URL('../app.js',import.meta.url),'utf8')).replace(/^import .*;\n/gm,'');vm.runInNewContext(source,{...content,...engine,...explore,...playEngine,...playViews,...playData,document,window,location,localStorage,console,setTimeout,Blob,URL});return {get,document,window,location,route(id){location.hash='#'+id;window.listeners.hashchange();},mode(value){get('#mode').listeners.change({target:{value}});}};}
+async function harness({initialHash='',initialStorage=new Map(),blockedStorage=false}={}){const elements=new Map();const get=s=>{if(!elements.has(s))elements.set(s,element());return elements.get(s);};const document={activeElement:null,documentElement:element(),body:element(),querySelector:get,createElement:()=>element()};const window={listeners:{},addEventListener(k,fn){this.listeners[k]=fn;},scrollTo(){}};const location={hash:initialHash};window.history={replaceState(_s,_t,hash){location.hash=hash;}};const storage=initialStorage;const localStorage={get length(){return storage.size;},key:i=>[...storage.keys()][i],getItem:k=>{if(blockedStorage)throw Error('blocked');return storage.get(k);},setItem:(k,v)=>{if(blockedStorage)throw Error('blocked');storage.set(k,v);},removeItem:k=>{if(blockedStorage)throw Error('blocked');storage.delete(k);}};const source=(await readFile(new URL('../app.js',import.meta.url),'utf8')).replace(/^import .*;\n/gm,'');vm.runInNewContext(source,{...content,...engine,...catalogue,...progress,...explore,...playEngine,...playViews,...playData,document,window,location,localStorage,console,setTimeout,Blob,URL});return {get,document,window,location,storage,route(id){location.hash='#'+id;window.listeners.hashchange();},mode(value){get('#mode').listeners.change({target:{value}});}};}
 test('all eight views render in all three language modes without runtime failures',async()=>{const h=await harness();for(const mode of ['en','bi','es']){h.mode(mode);for(const route of ['home','learn','explore','practise','communicate','grammar','vocabulary','listening']){h.route(route);const html=h.get('#main').innerHTML;assert(html.includes('<h1>'),`${mode}/${route}`);assert(!html.includes('undefined'),`${mode}/${route}`);if(mode==='bi')assert(html.includes('lang="en"')&&html.includes('lang="es"'));}}});
 test('language switches and route changes preserve text and escape entered markup',async()=>{const h=await harness();h.route('communicate');const input=h.get('#main').listeners.input;input({target:{id:'draft',value:'Hola <script>private</script>'}});input({target:{id:'reflection',value:'Puedo pedir ayuda.'}});for(const mode of ['bi','es','en']){h.mode(mode);const html=h.get('#main').innerHTML;assert(html.includes('Hola &lt;script&gt;private&lt;/script&gt;'));assert(html.includes('Puedo pedir ayuda.'));}h.route('home');h.route('communicate');assert(h.get('#main').innerHTML.includes('Hola &lt;script&gt;private&lt;/script&gt;'));});
 test('a practice answer survives language switching and contextual help',async()=>{const h=await harness();h.route('practise');h.document.body.listeners.click({target:{closest:()=>({dataset:{action:'q-choice',value:'Me llamo Leo.'}})}});h.mode('es');assert(h.get('#main').innerHTML.includes('aria-pressed="true"'));h.route('grammar');h.route('practise');assert(h.get('#main').innerHTML.includes('aria-pressed="true"'));});
@@ -42,6 +44,37 @@ test('Question Machine announces the actual question and feedback after either p
 
 test('Play is reachable without changing academic progress and all games retain state across language switches',async()=>{
  const h=await harness();h.route('play');assert(h.get('#main').innerHTML.includes('pg-catalogue'));
- click(h,'pg-open',{value:'anagrams'});click(h,'pg-letter',{value:'0'});h.mode('bi');assert(h.get('#main').innerHTML.includes('pg-built'));h.route('home');assert(h.get('#main').innerHTML.includes('No sections marked yet.'));h.route('play');assert(h.get('#main').innerHTML.includes('pg-workbench'));
+ click(h,'pg-open',{value:'anagrams'});click(h,'pg-letter',{value:'0'});h.mode('bi');assert(h.get('#main').innerHTML.includes('pg-built'));h.route('unit');assert(h.get('#main').innerHTML.includes('No sections marked yet.'));h.route('play');assert(h.get('#main').innerHTML.includes('pg-workbench'));
  click(h,'pg-menu');click(h,'pg-open',{value:'alien'});click(h,'pg-alien-token',{value:'0'});click(h,'pg-alien-send');h.mode('es');assert(h.get('#main').innerHTML.includes('Hola. ¿Cómo te llamas?'));click(h,'pg-menu');click(h,'pg-open',{value:'code'});click(h,'pg-room',{value:'voices'});assert(h.get('#main').innerHTML.includes('Panel de voces en espera'));
+});
+
+test('catalogue, all courses, LC levels and U1 sections render in three modes',async()=>{
+ const h=await harness();
+ for(const mode of ['en','es','bi']){h.mode(mode);for(const route of ['home',...catalogue.courses.map(c=>catalogue.courseHash(c.id)),'course/lc/hl','course/lc/ol',...catalogue.sections.map(s=>catalogue.unitHash(s))]){h.route(route);const html=h.get('#main').innerHTML;assert(html.includes('<h1>'),mode+'/'+route);assert(!html.includes('undefined'));if(mode==='bi')assert(html.includes('lang="en"')&&html.includes('lang="es"'));}}
+ h.mode('en');h.route('home');assert.equal((h.get('#main').innerHTML.match(/class="panel course-card"/g)??[]).length,4);
+ h.route('course/1st-year');const html=h.get('#main').innerHTML;assert(html.includes('El aula'));assert(html.includes('In development'));assert(!html.includes('/unit/2/'));
+ h.route('course/lc');assert(h.get('#main').innerHTML.includes('#course/lc/hl'));assert(h.get('#main').innerHTML.includes('#course/lc/ol'));
+});
+test('every generated navigation link resolves and unavailable deep links stay outside U1',async()=>{
+ const h=await harness();for(const route of ['home','course/1st-year','course/2nd-year','course/3rd-year','course/lc','course/lc/hl','course/lc/ol',...catalogue.sections.map(s=>catalogue.unitHash(s))]){h.route(route);for(const region of ['#main','#nav'])for(const [,hash] of h.get(region).innerHTML.matchAll(/href="#([^"]+)"/g)){const parsed=catalogue.parseRoute(hash);assert.equal(catalogue.routeHash(parsed),hash,route+' → '+hash);}}
+ for(const route of ['course/1st-year/unit/2/learn','course/2nd-year/unit/1/play','course/lc/hl/unit/1/learn']){h.route(route);assert(!h.get('#main').innerHTML.includes('step-nav'));assert(!h.get('#main').innerHTML.includes('pg-catalogue'));assert.equal(catalogue.parseRoute(h.location.hash).kind,'course');}
+});
+test('navigation away and back retains answers, writing, games and U1 completion without leaking into another course',async()=>{
+ const h=await harness();h.route('communicate');h.get('#main').listeners.input({target:{id:'draft',value:'Fictional draft'}});click(h,'mission-complete');h.route('play');click(h,'pg-open',{value:'anagrams'});click(h,'pg-letter',{value:'0'});
+ h.route('course/2nd-year');assert(!h.get('#main').innerHTML.includes('Fictional draft'));h.route('course/lc/ol');h.route('communicate');assert(h.get('#main').innerHTML.includes('Fictional draft'));h.route('unit');assert(h.get('#main').innerHTML.includes('1 of 4 sections'));h.route('play');assert(h.get('#main').innerHTML.includes('pg-built'));
+});
+test('legacy U1 data migrates with checkpoints, survives reload, and is never written to a pending unit',async()=>{
+ const play=playEngine.newPlayState();playEngine.updatePlay(play,'pg-open','code');play.code.terminal=true;
+ const old=JSON.stringify(engine.savedSnapshot({mode:'bi',section:'play',completed:new Set(['learn','explore'])}));const storage=new Map([['tapitas-orilla-v1',old],['tapitas-play-v1',JSON.stringify(playEngine.playSnapshot(play))]]);
+ let h=await harness({initialStorage:storage});assert(h.get('#main').innerHTML.includes('Your Spanish journey'));h.route('unit');assert(h.get('#main').innerHTML.includes('2 of 4 sections'));h.route('play');assert(h.get('#main').innerHTML.includes('pg-catalogue'));assert.equal(progress.loadUnitProgress({getItem:k=>storage.get(k)},'1st-year','1').play.code.terminal,true);assert(storage.has(progress.progressKey('1st-year','1')));assert.equal(storage.get('tapitas-orilla-v1'),old);
+ h.route('course/1st-year/unit/2/learn');assert(!storage.has(progress.progressKey('1st-year','2')));
+ h=await harness({initialStorage:storage,initialHash:'#'+catalogue.unitHash('play')});assert(h.get('#main').innerHTML.includes('pg-catalogue'));assert.equal(progress.loadUnitProgress({getItem:k=>storage.get(k)},'1st-year','1').play.code.terminal,true);
+});
+test('saving stays opt-in; disabling or forgetting removes only Tapitas practice, including old backups',async()=>{
+ const storage=new Map([['other-app','keep']]);const h=await harness({initialStorage:storage});h.route('learn');click(h,'learn-done');assert.equal(storage.size,1);
+ const toggle=checked=>h.get('#options').listeners.change({target:{id:'save-progress',checked}});toggle(true);assert(storage.has(progress.progressKey('1st-year','1')));storage.set(progress.progressKey('lc','1','hl'),'{}');storage.set('tapitas-orilla-v1','old');toggle(false);assert.deepEqual([...storage],[['other-app','keep']]);
+ toggle(true);h.get('#options').close=()=>{};click(h,'forget');assert.deepEqual([...storage],[['other-app','keep']]);h.route('unit');assert(h.get('#main').innerHTML.includes('No sections marked yet.'));
+});
+test('blocked and corrupt storage allow learning and show the storage notice',async()=>{
+ for(const args of [{blockedStorage:true},{initialStorage:new Map([['tapitas-orilla-v1','broken JSON']])}]){const h=await harness(args);h.route('learn');assert(h.get('#main').innerHTML.includes('Your first Spanish toolkit'));h.get('#options').showModal=()=>{};click(h,'options');assert(h.get('#options-content').innerHTML.includes('could not read or save practice'));}
 });

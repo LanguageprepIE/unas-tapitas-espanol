@@ -53,3 +53,13 @@ Otros motores potenciales: **El detective lingüístico** y **La fábrica de fra
 - [ ] Probar accesibilidad, móvil/iPad/PC y publicar.
 
 **Estado actualizado:** Explore está en `main` tras la PR #2. Play ha sido probado por el profesor, con mejora de orientación en Conversaciones imposibles y aprobación para integrar. La PR #3 de cultura sigue siendo un trabajo separado; no se incluye ni modifica en esta entrega. La validación automatizada de Play no sustituye las pruebas visuales, de accesibilidad ni de aula.
+
+
+## Preparación multicurso — rama de revisión
+
+Portada de cuatro itinerarios (1st, 2nd, 3rd Year y LC con HL/OL), catálogo
+ampliable, U1 completa y U2 «El aula» en desarrollo sin actividades. El progreso
+se aísla por curso/unidad/nivel y mantiene compatibilidad con U1.
+Ver [arquitectura y regresiones](ARQUITECTURA_NAVEGACION.md).
+62 pruebas automatizadas superadas en la rama; vista previa independiente para
+revisión. No fusionar en main sin aprobación docente.

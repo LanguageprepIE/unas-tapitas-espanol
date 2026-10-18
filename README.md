@@ -2,7 +2,23 @@
 
 Plataforma educativa gratuita, accesible e interactiva para aprender español en secundaria en Irlanda, de 1st Year a 6th Year, incluyendo Leaving Certificate Higher Level y Ordinary Level.
 
-## Estado del proyecto (18 de octubre de 2026)
+## Navegación por cursos y unidades (rama de revisión)
+
+La portada presenta **1st Year, 2nd Year, 3rd Year y Leaving Certificate (LC)**.
+LC se divide en **HL y OL**, con una futura progresión común entre 5th y 6th Year.
+
+- **1st Year · U1: Hola y bienvenidos**: completa, con Learn, Explore, Practise,
+  Communicate y Play; sus contenidos y 31 MP3 se conservan intactos.
+- **1st Year · U2: El aula**: ficha en desarrollo (objetos de clase), sin actividades
+  ni enlaces de acceso. Los demás cursos y niveles muestran «Próximamente».
+- Rutas por curso/unidad y compatibilidad con los antiguos enlaces de U1.
+- Progreso opcional separado por curso/unidad/nivel y lectura del guardado anterior
+  de U1; no se guardan textos ni respuestas personales.
+
+Ver [arquitectura, rutas y ampliación](docs/ARQUITECTURA_NAVEGACION.md).
+Esta propuesta se revisa en una rama independiente; no supone una fusión en main.
+
+## Estado de los contenidos aprobados (18 de octubre de 2026)
 
 - El proyecto anterior se conserva en la rama `backup-before-tapitas-migration-2026-10-17`; el prototipo original se migró a `main`.
 - **1st Year · Unidad 1: Hola y bienvenidos**: desarrollo pedagógico completado, revisado y aprobado por el docente. Las cinco secciones están integradas en `main`: **Learn, Explore, Practise, Communicate y Play**.
@@ -23,10 +39,17 @@ Evitar enseñar **ser = permanente / estar = temporal** como regla: es una simpl
 
 ## Verificación técnica
 
-- La suite automatizada documentada en la PR #4 registró **53 pruebas superadas** antes de fusionarse; incluye recorridos de los tres juegos.
-- La incorporación de Play preservó los contenidos de Learn, Explore, Practise y Communicate y los 31 MP3 existentes.
-- El docente confirmó pruebas satisfactorias en dispositivos reales y aprobó las actividades de la Unidad 1.
-- **Pendiente de verificación independiente:** ejecutar de nuevo `npm test` sobre el estado actual de `main` y efectuar una auditoría formal de accesibilidad y compatibilidad si se requiere. No se debe presentar como ya realizada.
+Ejecutar `npm test` con Node.js; no requiere instalar dependencias.
+`npm run build` prepara `dist/` con la web estática y todos sus recursos para
+alojamiento; no modifica los archivos fuente.
+
+- **62 pruebas superadas** en esta rama: las 53 anteriores y 9 regresiones nuevas
+  de navegación, guardado, migración, privacidad y aislamiento de unidades/niveles.
+- Datos de U1, motores de actividades, juegos y 31 MP3 sin cambios respecto a la base.
+- La nueva navegación se comprueba con renderizado simulado en Node. Sigue pendiente
+  la revisión manual de esta rama en móvil, iPad y ordenador; las pruebas previas
+  del docente corresponden a U1 antes de este cambio.
+- No se ha realizado una auditoría formal de accesibilidad.
 
 ## Mantenimiento
 
