@@ -31,9 +31,12 @@ export const journeyReviewAudio=[
   'Mi hermana va en bicicleta.','Voy en bicicleta.','Normalmente voy en coche con mi padre.'
  ].map((text,index)=>[text,file('EXP',index+17)])
 ];
-export const newJourneyState=()=>({open:false,stage:0,arrival:null,transport:'walk',walking:'pie',person:'yo',distance:'near',minutes:10,level:1,timeStyle:'exact',answer:null,sayIntent:'routine',sayStep:0});
+export const newJourneyState=()=>({open:false,stage:0,phase:'listen',listenIndex:0,listenChoice:null,arrival:null,transport:'walk',walking:'pie',person:'yo',distance:'near',minutes:10,level:1,timeStyle:'exact',answer:null,sayIntent:'routine',sayStep:0});
 export function updateJourneyState(s,action,value){
  if(action==='u2c-open'){s.open=true;return true;}
+ if(action==='u2c-phase'&&['listen','personal'].includes(value)){s.phase=value;return true;}
+ if(action==='u2c-listen-choice'){s.listenChoice=value;return true;}
+ if(action==='u2c-listen-next'){s.listenIndex=(s.listenIndex+1)%5;s.listenChoice=null;return true;}
  if(action==='u2c-stage'&&/^[0-4]$/.test(value)){s.stage=Number(value);return true;}
  if(action==='u2c-arrival'&&journeyMode(value)){s.arrival=value;return true;}
  if(action==='u2c-transport'&&journeyMode(value)){s.transport=value;if(value==='walk')s.walking='pie';return true;}
