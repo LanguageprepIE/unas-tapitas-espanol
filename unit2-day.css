@@ -6,6 +6,11 @@
 .u2d-panel{background:#fff;border:1px solid #d6e2e3;border-radius:22px;padding:clamp(1rem,3vw,2rem);margin:1rem 0}
 .u2d-intro{display:flex;gap:1rem;align-items:center;background:#edf3e9;border-radius:18px;padding:1rem}
 .u2d-intro svg{width:150px;height:125px;flex:none}
+.u2d-cultural{background:#fff6e5;border:1px solid #e7d5ae;border-left:5px solid #ba8040;border-radius:14px;padding:1rem 1.2rem;margin:1rem 0}
+.u2d-cultural h3{margin:0 0 .4rem}.u2d-cultural p{margin:.3rem 0 .8rem}
+.u2d-path{list-style:none;margin:0;padding:0;display:flex;align-items:stretch;gap:1.4rem}
+.u2d-path li{position:relative;flex:1;background:#fff;border:1px solid #e7d5ae;border-radius:10px;padding:.6rem .7rem;text-align:center;font-weight:700;display:flex;align-items:center;justify-content:center}
+.u2d-path li:not(:last-child)::after{content:'→';position:absolute;left:calc(100% + .3rem);top:50%;transform:translateY(-50%);color:#865c2e}
 .u2d-library{border-top:1px solid #d8e4e4;margin-top:1.5rem;padding-top:1rem}
 .u2d-library header .activity-kicker{font-weight:700;color:#38685b}
 .u2d-library .activity-choices{display:flex;flex-wrap:wrap;gap:1rem;margin:1.25rem 0}
@@ -33,4 +38,5 @@
 .u2d-sort article{background:#f4f8f7;border:1px solid #d4e2e0;border-radius:14px;padding:1rem}
 .u2d-sort article>p:first-child{font-weight:700}
 @media(max-width:780px){.u2d-stages{grid-template-columns:repeat(2,minmax(0,1fr))}.u2d-pair,.u2d-sort{grid-template-columns:1fr}}
+@media(max-width:600px){.u2d-path{flex-direction:column;gap:1.25rem}.u2d-path li:not(:last-child)::after{left:50%;top:calc(100% + .15rem);transform:translateX(-50%) rotate(90deg)}}
 @media(max-width:460px){.u2d-stages{grid-template-columns:1fr}.u2d-intro{flex-direction:column}.u2d-slot{grid-template-columns:1fr}.u2d-slot time{font-size:.85rem}.u2d-library .activity-choices button{flex:1 1 40%;min-width:120px}}

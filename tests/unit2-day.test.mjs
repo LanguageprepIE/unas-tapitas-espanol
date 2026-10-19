@@ -28,6 +28,24 @@ test('activity 1 reuses the discovery contract, exact approved recordings and ex
   assert(view(s).includes('historia'));
   assert.equal(updateDayState(s,'select','nonexistent','discovery'),false);
 });
+test('activity 1 explains the Spanish pathway briefly in all modes, without adding an activity',()=>{
+  const s=newDayState();
+  for(const mode of ['en','bi','es']){
+    const html=view(s,mode);
+    assert(html.includes('u2d-cultural'));
+    assert(html.indexOf('u2d-intro')<html.indexOf('u2d-cultural'));
+    assert(html.indexOf('u2d-cultural')<html.indexOf('u2d-library'));
+    assert(html.includes('u2d-path'));
+    assert.equal((html.match(/data-action="u2d-stage"/g)??[]).length,5);
+    assert(!html.includes('Irish Year'));
+  }
+  assert(view(s,'en').includes('Did you know?'));
+  assert(view(s,'en').includes('roughly from ages 12 to 16'));
+  assert(view(s,'es').includes('¿Sabías que…?'));
+  assert(view(s,'es').includes('aproximadamente entre los 12 y los 16 años'));
+  assert(view(s,'bi').includes('Bachillerato · dos cursos / FP'));
+  s.stage=1;assert(!view(s).includes('u2d-cultural'));
+});
 test('activity 2 uses the approved Irish week and contrasts both schedules including Friday',()=>{
   assert.equal(irishModel.week,schoolWeek);assert.equal(irishModel.times,classTimes);
   assert.deepEqual(irishModel.week.map(day=>day.length),[6,6,6,6,4]);
