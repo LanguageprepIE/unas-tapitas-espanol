@@ -1,6 +1,6 @@
 # Hoja de ruta y decisiones — Unas Tapitas de Español
 
-**Fecha:** 18 de octubre de 2026  
+**Fecha:** 19 de octubre de 2026
 **Repositorio:** `LanguageprepIE/unas-tapitas-espanol` (público)
 
 ## Arquitectura pedagógica acordada
@@ -55,11 +55,64 @@ Otros motores potenciales: **El detective lingüístico** y **La fábrica de fra
 **Estado actualizado:** Explore está en `main` tras la PR #2. Play ha sido probado por el profesor, con mejora de orientación en Conversaciones imposibles y aprobación para integrar. La PR #3 de cultura sigue siendo un trabajo separado; no se incluye ni modifica en esta entrega. La validación automatizada de Play no sustituye las pruebas visuales, de accesibilidad ni de aula.
 
 
-## Preparación multicurso — rama de revisión
+## Preparación multicurso — integrada
 
 Portada de cuatro itinerarios (1st, 2nd, 3rd Year y LC con HL/OL), catálogo
-ampliable, U1 completa y U2 «El aula» en desarrollo sin actividades. El progreso
+ampliable, U1 completa y U2 «El aula» con Learn A y B. El progreso
 se aísla por curso/unidad/nivel y mantiene compatibilidad con U1.
 Ver [arquitectura y regresiones](ARQUITECTURA_NAVEGACION.md).
-62 pruebas automatizadas superadas en la rama; vista previa independiente para
-revisión. No fusionar en main sin aprobación docente.
+La navegación multicurso ya está integrada. La ampliación de Learn B cuenta con
+77 pruebas automatizadas y aprobación docente en iPad, además de una vista previa
+independiente. Las nuevas entregas requieren revisión y aprobación docente.
+
+## 1st Year · Unidad 2: El aula
+
+### Learn — estado consolidado el 19 de octubre de 2026
+
+- **Bloque A — ¿Qué hay en mi mochila?:** desarrollado y aprobado. Se conservan
+  su contenido, ilustraciones y audios.
+- **Bloque B — Mi semana escolar (PR #8):** probado y aprobado por el profesor
+  en iPad; autorizada su fusión tras las comprobaciones finales. Incluye 18
+  asignaturas con audio, días, preferencias y el horario ficticio de Álex: seis
+  clases de lunes a jueves y cuatro el viernes, con descansos diferenciados.
+- **Listening 3 — Lucía / Mi semana de clases:** original aprobado restaurado
+  byte a byte, con Matilda Paz según confirmación del profesor. En Learn se
+  mantiene como primera exposición al idioma y reconocimiento de palabras,
+  sin añadir ahora preguntas ni modificar su grabación.
+- **Bloque C:** pendiente de diseño pedagógico con el profesor antes de comenzar
+  su implementación.
+
+### Explore — futuro laboratorio de horarios personalizables
+
+Decisión acordada, **pendiente de diseño e implementación**. El alumnado podrá
+manipular un horario de ejemplo, elegir asignaturas y cambiar su distribución
+entre los días para observar cómo cambian frases como «El martes tengo español
+y matemáticas» y «Tengo cuatro clases». El propósito será experimentar y
+descubrir patrones con apoyo, antes de trabajar sobre su propio horario.
+
+Las horas se mostrarán **solo en formato digital**, por ejemplo `09:00–10:00`,
+como referencia visual. En esta fase no se enseñará cómo decir las horas en
+español ni se exigirá producir expresiones como «a las nueve».
+
+### Practise — futura comprensión auditiva de Lucía
+
+Reutilizar el **mismo Listening 3 original** que aparece en Learn B para crear
+actividades de comprensión auditiva con preguntas y feedback después de
+responder. Trabajar datos presentes en la grabación: días, asignaturas y
+preferencias de Lucía. Permitir volver a escuchar y evitar revelar las respuestas
+antes de que el estudiante conteste. La grabación es la misma; no se regenerará
+ni se adaptará para estas actividades. Las preguntas y el feedback se diseñarán
+al desarrollar Practise, sin añadirlos ahora a Learn.
+
+### Communicate — continuación con el horario real del alumnado
+
+Tras el laboratorio de Explore y la consolidación en Practise, el alumnado
+creará su **horario escolar real** con sus días y asignaturas, incluidas las
+optativas que efectivamente curse. Utilizará ese horario para preguntar y
+responder sobre sus clases, cantidades y preferencias, con modelos accesibles
+como «¿Qué asignaturas tienes el martes?» y «El viernes tengo cuatro clases».
+
+También aquí las horas aparecerán únicamente en formato digital: comprender
+y comunicar días, asignaturas y cantidades será el objetivo, sin enseñar todavía
+cómo decir la hora en español. Esta continuación queda documentada para su
+futuro diseño; no se implementa en el PR #8.
