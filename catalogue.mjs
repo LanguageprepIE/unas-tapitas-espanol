@@ -8,7 +8,7 @@ export const courses=[
 ];
 export const units=[
  {course:'1st-year',id:'1',title:'Hola y bienvenidos',status:'available',runtime:'unit1',description:['Meet someone new and introduce yourself.','Conoce a alguien y preséntate.']},
- {course:'1st-year',id:'2',title:'El aula',status:'partial',runtime:'unit2',description:['Learn · A: What is in my school bag? · B: My school week','Learn · A: ¿Qué hay en mi mochila? · B: Mi semana escolar']}
+ {course:'1st-year',id:'2',title:'El aula',status:'partial',runtime:'unit2',description:['Learn · A: What is in my school bag? · B: My school week · C: How do I get to school?','Learn · A: ¿Qué hay en mi mochila? · B: Mi semana escolar · C: ¿Cómo voy al colegio?']}
 ];
 // Match approved unit metadata to its renderer; placeholders cannot become routes.
 export const unitRuntimes=new Set(['unit1','unit2']);

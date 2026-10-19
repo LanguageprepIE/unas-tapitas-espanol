@@ -1,0 +1,104 @@
+{
+  "checked": "2026-10-19",
+  "base_main": "2ede0c779825ef04dc290f5e4a0080b30c6cd998",
+  "scope": "12 approved references, including two transport segments superseded in the player by complete approved sentence recordings",
+  "audio_mutations": 0,
+  "files": [
+    {
+      "file": "assets/audio/unit2/vocabulary/transport/1Y_U02_AUD_TRA_01_v1.mp3",
+      "bytes": 15508,
+      "sha256": "663ed45e58d69ac84b053d534cec2127f03ebb76ea84672d7193459eae244363",
+      "inventory_sha256_match": true,
+      "duration_seconds": 0.940408,
+      "full_decode": "passed"
+    },
+    {
+      "file": "assets/audio/unit2/vocabulary/transport/1Y_U02_AUD_TRA_05_v1.mp3",
+      "bytes": 16762,
+      "sha256": "b5ee0c5369b7a24b47e48afbaa5fe78fdacf10b5b10fb05bce5cd16a4ee521b4",
+      "inventory_sha256_match": true,
+      "duration_seconds": 1.018776,
+      "full_decode": "passed"
+    },
+    {
+      "file": "assets/audio/unit2/vocabulary/transport/1Y_U02_AUD_TRA_03_v1.mp3",
+      "bytes": 17180,
+      "sha256": "05ef2d0cc63d09ab5256bc74e34cd1935aef07037f3d4678f2d20e503e09ba09",
+      "inventory_sha256_match": true,
+      "duration_seconds": 1.044898,
+      "full_decode": "passed"
+    },
+    {
+      "file": "assets/audio/unit2/vocabulary/transport/1Y_U02_AUD_TRA_04_v1.mp3",
+      "bytes": 16344,
+      "sha256": "f6fc4e726c37712ee558d48411ba4167174cbcb6bddc31463e1b9f2e89ca4b3c",
+      "inventory_sha256_match": true,
+      "duration_seconds": 0.992653,
+      "full_decode": "passed"
+    },
+    {
+      "file": "assets/audio/unit2/vocabulary/transport/1Y_U02_AUD_TRA_06_v1.mp3",
+      "bytes": 13418,
+      "sha256": "71c6336bcbc4fe777d07103b377c8cb8aa14291407e27fdfdaf763f986aaeeab",
+      "inventory_sha256_match": true,
+      "duration_seconds": 0.809796,
+      "full_decode": "passed"
+    },
+    {
+      "file": "assets/audio/unit2/vocabulary/transport/1Y_U02_AUD_TRA_08_v1.mp3",
+      "bytes": 29301,
+      "sha256": "8e0bb903077d62b1525123abb3b772ff643574591ab8da6ec34d4668aca4c172",
+      "inventory_sha256_match": true,
+      "duration_seconds": 1.802449,
+      "full_decode": "passed"
+    },
+    {
+      "file": "assets/audio/unit2/expressions/1Y_U02_AUD_EXP_14_v1.mp3",
+      "bytes": 17180,
+      "sha256": "cd5ec40a4cdee35e7260f4e3e420dee8d52bbce57daf274f40f551e6aad1713f",
+      "inventory_sha256_match": true,
+      "duration_seconds": 1.044898,
+      "full_decode": "passed"
+    },
+    {
+      "file": "assets/audio/unit2/expressions/1Y_U02_AUD_EXP_15_v1.mp3",
+      "bytes": 37660,
+      "sha256": "e14bb06fc7788057dcde2b48eee474ce209d02b833f400555d106413c956cac3",
+      "inventory_sha256_match": true,
+      "duration_seconds": 2.324898,
+      "full_decode": "passed"
+    },
+    {
+      "file": "assets/audio/unit2/expressions/1Y_U02_AUD_EXP_13_v1.mp3",
+      "bytes": 30973,
+      "sha256": "c50487ad66f68fe8fdbd9994de5b7bc256671cb0e281922a437903a9af36632d",
+      "inventory_sha256_match": true,
+      "duration_seconds": 1.906939,
+      "full_decode": "passed"
+    },
+    {
+      "file": "assets/audio/unit2/expressions/1Y_U02_AUD_EXP_16_v1.mp3",
+      "bytes": 27629,
+      "sha256": "ad1dfe0e56af61b8b5256beea525a87292b07e340cde2d5246bee402e01614e2",
+      "inventory_sha256_match": true,
+      "duration_seconds": 1.697959,
+      "full_decode": "passed"
+    },
+    {
+      "file": "assets/audio/unit2/vocabulary/transport/1Y_U02_AUD_TRA_02_v1.mp3",
+      "bytes": 22613,
+      "sha256": "fbb78eba2dca1475e58ad774cb16c5f782af6db5028b700c2aa2f9a4e881088e",
+      "inventory_sha256_match": true,
+      "duration_seconds": 1.38449,
+      "full_decode": "passed"
+    },
+    {
+      "file": "assets/audio/unit2/listenings/1Y_U02_AUD_LIS_04_transporte_v1.mp3",
+      "bytes": 342351,
+      "sha256": "3c734e8829b85ad67dcb23b57603e4e241e212ea26d528e8cd40822df9862a93",
+      "inventory_sha256_match": true,
+      "duration_seconds": 21.368163,
+      "full_decode": "passed"
+    }
+  ]
+}

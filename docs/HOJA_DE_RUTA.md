@@ -79,8 +79,10 @@ independiente. Las nuevas entregas requieren revisión y aprobación docente.
   byte a byte, con Matilda Paz según confirmación del profesor. En Learn se
   mantiene como primera exposición al idioma y reconocimiento de palabras,
   sin añadir ahora preguntas ni modificar su grabación.
-- **Bloque C:** pendiente de diseño pedagógico con el profesor antes de comenzar
-  su implementación.
+- **Bloque C — ¿Cómo voy al colegio?:** implementación en rama independiente
+  siguiendo el diseño solicitado por el profesor; pendiente de revisión docente.
+  Cinco momentos de descubrimiento, modelos graduados y Listening 4 original
+  de Marcos. Ver [alcance, audios y comprobaciones](unit2/learn-block-c.md).
 
 ### Explore — futuro laboratorio de horarios personalizables
 
@@ -116,3 +118,24 @@ También aquí las horas aparecerán únicamente en formato digital: comprender
 y comunicar días, asignaturas y cantidades será el objetivo, sin enseñar todavía
 cómo decir la hora en español. Esta continuación queda documentada para su
 futuro diseño; no se implementa en el PR #8.
+
+### Continuidad de Learn C — decisiones para implementar más adelante
+
+- **Explore:** laboratorio de `voy`, `vas`, `va`, transportes y duraciones.
+  Cambiar componentes para observar cómo cambia el significado. Usar minutos
+  de duración; no enseñar aún cómo decir la hora del reloj.
+- **Practise:** comprensión auditiva del **Listening 4 original de Marcos**, con
+  preguntas y feedback posterior a responder, sin anticipar las respuestas.
+  Preguntar solo por datos realmente presentes: transportes, personas y motivos;
+  el audio no proporciona tiempos de trayecto. Consolidar por separado preguntas
+  y respuestas de transporte, distancia y duración con ejemplos identificados
+  como tales, sin atribuirlos a Marcos.
+- **Communicate — «Mi camino al colegio»:** explicar el trayecto real con
+  respuestas completas: cómo voy, cuánto tardo, si vivo cerca o lejos y,
+  opcionalmente, con quién voy. Ofrecer apoyos de distintos niveles; no exigir
+  a todos la misma complejidad. Diseñar sin cuentas ni recogida de datos personales.
+- **Play:** valorar un juego original sobre desplazamientos al colegio, evitando
+  repetir mecánicamente los ejercicios anteriores. Pendiente de diseño pedagógico.
+
+Esta entrega implementa **solo Learn C**. Las cuatro continuaciones anteriores
+quedan documentadas y no añaden actividades ni rutas funcionales nuevas.
