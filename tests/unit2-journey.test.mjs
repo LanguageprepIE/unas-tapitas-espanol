@@ -29,14 +29,14 @@ test('all five discoveries and every guided duration render in three instruction
  s.stage=3;s.level=3;for(const minutes of [5,10,15,20,30]){s.minutes=minutes;assert(render(s).includes(journeyModel(s)));}
  s.stage=2;for(const person of ['yo','tu','ella']){s.person=person;assert(!render(s).includes('undefined'));}
 });
-test('activity 1 preserves the scene while removing the teacher-rejected bicycle take',()=>{
+test('activity 1 preserves the scene and uses only the teacher-supplied replacement for bicycle',()=>{
  const s=newJourneyState();s.stage=0;
- for(const x of journeyModes){s.arrival=x.id;const html=render(s);assert(html.includes('u2c-arrivals'));if(x.id==='bike'){assert(!html.includes('1Y_U02_AUD_TRA_05_v1.mp3'));assert(html.includes('earlier take was removed'));}else assert(html.includes(`src="${x.fullAudio??x.segmentAudio}"`));}
- s.stage=3;assert(!render(s).includes('<audio'));assert(render(s).includes('not facts from Marcos'));
+ for(const x of journeyModes){s.arrival=x.id;const html=render(s);assert(html.includes('u2c-arrivals'));assert(html.includes(`src="${x.fullAudio??x.segmentAudio}"`));assert(!html.includes('1Y_U02_AUD_TRA_05_v1.mp3'));assert(!html.includes('earlier take was removed'));}
+ s.stage=3;assert(render(s).includes('not facts from Marcos'));
 });
 test('activity 2 builds three complete communicative answers instead of repeating transport cards',()=>{
  const s=newJourneyState();s.stage=1;
- for(const response of journeyResponses){assert(updateJourneyState(s,'u2c-say-intent',response.id));for(let step=0;step<3;step++){assert(updateJourneyState(s,'u2c-say-step',String(step)));const html=render(s);assert(html.includes(response.steps[step]));assert(html.includes('u2c-ladder'));assert(!html.includes('u2c-mode-picks'));assert(!html.includes(response.audio));}assert(render(s).includes('not active until it has been heard and approved'));}
+ for(const response of journeyResponses){assert(updateJourneyState(s,'u2c-say-intent',response.id));for(let step=0;step<3;step++){assert(updateJourneyState(s,'u2c-say-step',String(step)));const html=render(s);assert(html.includes(response.steps[step]));assert(html.includes('u2c-ladder'));assert(!html.includes('u2c-mode-picks'));if(step===2)assert(html.includes(`src="${response.audio}"`));}}
  assert(render(s).includes('1Y_U02_AUD_EXP_13_v1.mp3'));assert(render(s).includes('1Y_U02_AUD_EXP_14_v1.mp3'));assert(!render(s).includes('1Y_U02_AUD_TRA_05_v1.mp3'));
 });
 test('Marcos recognition hides feedback until selection and keeps picture options label-free',()=>{
@@ -45,16 +45,17 @@ test('Marcos recognition hides feedback until selection and keeps picture option
  s.answer='bus';html=render(s);assert(html.includes('Listen again to the first sentence'));assert(!html.includes('Marcos says he walks'));
  s.answer='walk';assert(render(s).includes('Marcos says he walks because he lives nearby'));
 });
-test('all 11 active MP3s match the approved inventory and decode fully; the rejected take is inactive and Marcos stays original',async()=>{
+test('all 26 active MP3s match the inventory and decode fully; the rejected take is inactive and Marcos stays original',async()=>{
  const inventory=await readFile(new URL('../docs/unit2/audio-inventory.csv',import.meta.url),'utf8');
- assert.equal(new Set(journeyAudioFiles).size,11);assert(!journeyAudioFiles.some(x=>x.endsWith('TRA_05_v1.mp3')));
+ assert.equal(new Set(journeyAudioFiles).size,26);assert(!journeyAudioFiles.some(x=>x.endsWith('TRA_05_v1.mp3')));
  for(const file of journeyAudioFiles){const url=new URL('../'+file,import.meta.url),bytes=await readFile(url),sha=createHash('sha256').update(bytes).digest('hex');assert(bytes.length>1000,file);const row=inventory.split('\n').find(line=>line.startsWith(file.split('/').pop()+','));assert(row,file);assert(row.includes(sha),file);execFileSync('ffmpeg',['-v','error','-xerror','-i',url.pathname,'-f','null','-'],{stdio:'pipe'});}
  assert.equal(createHash('sha256').update(await readFile(new URL('../'+marcosListening.file,import.meta.url))).digest('hex'),marcosListening.sha256);
  const duration=Number(execFileSync('ffprobe',['-v','error','-show_entries','format=duration','-of','csv=p=0',new URL('../'+marcosListening.file,import.meta.url).pathname],{encoding:'utf8'}));assert(Math.abs(duration-marcosListening.duration)<.01);
 });
-test('the pending audio manifest has exact unique text, filenames and paths without placeholder files',async()=>{
+test('the audio manifest has one teacher-supplied and fourteen provisional clips without placeholders',async()=>{
  const manifest=JSON.parse(await readFile(new URL('../docs/unit2/learn-block-c-audio-manifest.json',import.meta.url),'utf8'));assert.equal(manifest.items.length,15);assert.equal(new Set(manifest.items.map(x=>x.text)).size,15);assert.equal(new Set(manifest.items.map(x=>x.filename)).size,15);
- for(const item of manifest.items){assert.equal(item.status,'pending');assert(item.path.endsWith(item.filename));await assert.rejects(readFile(new URL('../'+item.path,import.meta.url)));}
+ for(const item of manifest.items){assert(item.path.endsWith(item.filename));assert.equal(item.status,item.filename==='1Y_U02_AUD_TRA_05_v2.mp3'?'teacher_supplied_integrated':'provisional_for_teacher_listening_review');const bytes=await readFile(new URL('../'+item.path,import.meta.url));assert.equal(createHash('sha256').update(bytes).digest('hex'),item.sha256);}
+ const s=newJourneyState();s.stage=0;const html=render(s);assert(html.includes('Teacher audio review · 15 recordings'));for(const item of manifest.items)assert(html.includes(`src="${item.path}"`));
 });
 test('each illustrated mode has an original colour SVG symbol and CSS has tablet/mobile layouts',async()=>{
  const svg=await readFile(new URL('../assets/illustrations/unit2-journeys.svg',import.meta.url),'utf8');for(const x of journeyModes)assert(svg.includes(`id="${x.id}"`));assert(svg.includes('id="school"'));assert(!svg.includes('currentColor'));const css=await readFile(new URL('../unit2-journey.css',import.meta.url),'utf8');assert(css.includes('max-width:760px'));assert(css.includes('max-width:450px'));assert(css.includes(':focus-visible'));

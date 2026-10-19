@@ -79,6 +79,14 @@ las comprobaciones automáticas anteriores. El archivo se conserva sin cambios y
 es recuperable en Git, pero Learn C ya no lo referencia. Su sustituto tendrá el
 nombre `1Y_U02_AUD_TRA_05_v2.mp3`; solo se activará después de escucharlo.
 
+Actualización: el profesor proporcionó un MP3 individual con la voz María Díaz.
+La v2 se decodifica íntegramente (1,149375 s), SHA-256
+`b7a9af5fd4ddbc13af579fc973673d995a20fd4580a357103ea87c720fcf0b3b`.
+Learn C reproduce la v2 para la expresión «en bicicleta»; la v1 rechazada
+permanece intacta y sin referencias activas. La frase visual «Voy en bicicleta»
+es un modelo escrito y el reproductor identifica expresamente que solo dice
+«en bicicleta». Las otras 14 grabaciones del manifiesto siguen pendientes.
+
 ### Marcos — comprobación de contenido
 
 Duración **21.368163 s**, SHA-256
@@ -94,26 +102,25 @@ automática usada para cotejar contenido (no se muestra en la actividad):
 No contiene duraciones. Solo se pregunta cómo va Marcos; los tiempos inventados
 de otros momentos no se atribuyen al audio. Voz, velocidad y bytes intactos.
 
-### Manifiesto definitivo de grabaciones pendientes
+### Manifiesto de grabaciones disponibles para revisión
 
 El manifiesto estructurado `learn-block-c-audio-manifest.json` contiene **15 MP3**:
-la corrección TRA 05 v2 y 14 expresiones completas EXP 17–30. Incluye texto exacto,
-nombre, ruta prevista, finalidad y cuatro grabaciones existentes que no deben
-duplicarse. Es el conjunto mínimo reutilizable que cubre la nueva Actividad 2,
+la corrección TRA 05 v2 aportada por el profesor y 14 expresiones completas EXP 17–30
+generadas por separado con María Díaz. Incluye texto exacto, nombre, ruta, finalidad,
+hash y cuatro grabaciones existentes que no deben duplicarse. Es el conjunto mínimo reutilizable que cubre la nueva Actividad 2,
 `vivo/vives`, `tardo/tardas`, `voy/vas/va` y los modelos prioritarios.
 
-Mientras estén pendientes, se presentan por escrito y no aparece ningún botón que
-prometa reproducirlos. La nueva Actividad 2 conserva los reproductores existentes
-para «¿Cómo vas al colegio?» y «Voy a pie», cuyo texto coincide exactamente.
+Todos están disponibles en un panel desplegable de revisión docente dentro de Learn C,
+con el texto exacto al lado de cada reproductor. Los 14 EXP son provisionales hasta
+que el profesor los escuche; no se confunden con las grabaciones ya aprobadas.
 
 Se produjo y recuperó un único maestro en ElevenLabs, flujo
 `LD8AZgKualXT9mM3OBEG`, con Alberto (`PFT8NrCPtO9yltPvubes`). El entorno permite
 inspeccionar su formato y transcripción, pero no realizar una escucha humana real.
-Como el requisito docente exige escuchar cada sustituto antes de activarlo, ese
-maestro **no se divide, no se integra y no se presenta como aprobado**. No se hizo
-un segundo intento. Para completar el banco, el profesor puede adjuntar los 15
-originales exactos indicados en el manifiesto; no hace falta buscar ni renombrar
-ningún recurso anterior.
+Ese maestro **no se dividió ni se integró**. Posteriormente se generaron catorce
+archivos individuales con María Díaz para que el profesor pueda escucharlos y
+señalar los que requieran una nueva toma. La v1 defectuosa de «en bicicleta» no
+aparece en la interfaz; la v2 aportada por el profesor se mantiene separada.
 
 ## Continuidad documentada, sin implementar
 
@@ -126,9 +133,9 @@ Se conserva también lo acordado para horarios y Lucía del Bloque B.
 
 - `npm test`: **89 pruebas correctas**, incluidas regresiones U1/A/B, navegación
   C en los tres idiomas, diferenciación de las Actividades 1 y 2, retirada de
-  TRA 05, manifiesto sin archivos vacíos, límites de estado y feedback.
+  TRA 05 v1, integridad de las tomas provisionales, límites de estado y feedback.
 - `npm run build`: correcto; distribuye módulos, CSS, ilustraciones y MP3.
-- `git diff --check`: correcto. Decodificación FFmpeg y hashes de 11 referencias
+- `git diff --check`: correcto. Decodificación FFmpeg y hashes de 26 referencias
   correctos. Los cuatro listenings y todo el banco existente se mantienen iguales.
 - Ilustraciones revisadas en una lámina renderizada: colores propios, transporte
   reconocible, conductor/pasajero y cascos en bicicleta/patinete. CSS local a C con
