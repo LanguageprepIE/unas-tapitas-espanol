@@ -52,10 +52,10 @@ test('all 26 active MP3s match the inventory and decode fully; the rejected take
  assert.equal(createHash('sha256').update(await readFile(new URL('../'+marcosListening.file,import.meta.url))).digest('hex'),marcosListening.sha256);
  const duration=Number(execFileSync('ffprobe',['-v','error','-show_entries','format=duration','-of','csv=p=0',new URL('../'+marcosListening.file,import.meta.url).pathname],{encoding:'utf8'}));assert(Math.abs(duration-marcosListening.duration)<.01);
 });
-test('the audio manifest has one teacher-supplied and fourteen provisional clips without placeholders',async()=>{
+test('the audio manifest has fifteen teacher-approved clips without placeholders',async()=>{
  const manifest=JSON.parse(await readFile(new URL('../docs/unit2/learn-block-c-audio-manifest.json',import.meta.url),'utf8'));assert.equal(manifest.items.length,15);assert.equal(new Set(manifest.items.map(x=>x.text)).size,15);assert.equal(new Set(manifest.items.map(x=>x.filename)).size,15);
- for(const item of manifest.items){assert(item.path.endsWith(item.filename));assert.equal(item.status,item.filename==='1Y_U02_AUD_TRA_05_v2.mp3'?'teacher_supplied_integrated':'provisional_for_teacher_listening_review');const bytes=await readFile(new URL('../'+item.path,import.meta.url));assert.equal(createHash('sha256').update(bytes).digest('hex'),item.sha256);}
- const s=newJourneyState();s.stage=0;const html=render(s);assert(html.includes('Teacher audio review · 15 recordings'));for(const item of manifest.items)assert(html.includes(`src="${item.path}"`));
+ for(const item of manifest.items){assert(item.path.endsWith(item.filename));assert.equal(item.status,'teacher_approved');const bytes=await readFile(new URL('../'+item.path,import.meta.url));assert.equal(createHash('sha256').update(bytes).digest('hex'),item.sha256);}
+ const s=newJourneyState();s.stage=0;const html=render(s);assert(html.includes('School-journey audio · 15 recordings'));for(const item of manifest.items)assert(html.includes(`src="${item.path}"`));
 });
 test('each illustrated mode has an original colour SVG symbol and CSS has tablet/mobile layouts',async()=>{
  const svg=await readFile(new URL('../assets/illustrations/unit2-journeys.svg',import.meta.url),'utf8');for(const x of journeyModes)assert(svg.includes(`id="${x.id}"`));assert(svg.includes('id="school"'));assert(!svg.includes('currentColor'));const css=await readFile(new URL('../unit2-journey.css',import.meta.url),'utf8');assert(css.includes('max-width:760px'));assert(css.includes('max-width:450px'));assert(css.includes(':focus-visible'));

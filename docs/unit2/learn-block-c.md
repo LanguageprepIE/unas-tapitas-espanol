@@ -102,7 +102,7 @@ automática usada para cotejar contenido (no se muestra en la actividad):
 No contiene duraciones. Solo se pregunta cómo va Marcos; los tiempos inventados
 de otros momentos no se atribuyen al audio. Voz, velocidad y bytes intactos.
 
-### Manifiesto de grabaciones disponibles para revisión
+### Manifiesto de grabaciones aprobadas
 
 El manifiesto estructurado `learn-block-c-audio-manifest.json` contiene **15 MP3**:
 la corrección TRA 05 v2 aportada por el profesor y 14 expresiones completas EXP 17–30
@@ -110,16 +110,16 @@ generadas por separado con María Díaz. Incluye texto exacto, nombre, ruta, fin
 hash y cuatro grabaciones existentes que no deben duplicarse. Es el conjunto mínimo reutilizable que cubre la nueva Actividad 2,
 `vivo/vives`, `tardo/tardas`, `voy/vas/va` y los modelos prioritarios.
 
-Todos están disponibles en un panel desplegable de revisión docente dentro de Learn C,
-con el texto exacto al lado de cada reproductor. Los 14 EXP son provisionales hasta
-que el profesor los escuche; no se confunden con las grabaciones ya aprobadas.
+Los 15 están disponibles en un panel desplegable dentro de Learn C, con el texto
+exacto al lado de cada reproductor. El docente escuchó y aprobó todas las tomas
+el 19 de octubre de 2026.
 
 Se produjo y recuperó un único maestro en ElevenLabs, flujo
 `LD8AZgKualXT9mM3OBEG`, con Alberto (`PFT8NrCPtO9yltPvubes`). El entorno permite
 inspeccionar su formato y transcripción, pero no realizar una escucha humana real.
 Ese maestro **no se dividió ni se integró**. Posteriormente se generaron catorce
-archivos individuales con María Díaz para que el profesor pueda escucharlos y
-señalar los que requieran una nueva toma. La v1 defectuosa de «en bicicleta» no
+archivos individuales con María Díaz, posteriormente escuchados y aprobados por
+el docente. La v1 defectuosa de «en bicicleta» no
 aparece en la interfaz; la v2 aportada por el profesor se mantiene separada.
 
 ## Continuidad documentada, sin implementar
@@ -133,7 +133,7 @@ Se conserva también lo acordado para horarios y Lucía del Bloque B.
 
 - `npm test`: **89 pruebas correctas**, incluidas regresiones U1/A/B, navegación
   C en los tres idiomas, diferenciación de las Actividades 1 y 2, retirada de
-  TRA 05 v1, integridad de las tomas provisionales, límites de estado y feedback.
+  TRA 05 v1, integridad de las tomas aprobadas, límites de estado y feedback.
 - `npm run build`: correcto; distribuye módulos, CSS, ilustraciones y MP3.
 - `git diff --check`: correcto. Decodificación FFmpeg y hashes de 26 referencias
   correctos. Los cuatro listenings y todo el banco existente se mantienen iguales.
