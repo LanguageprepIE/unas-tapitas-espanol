@@ -1,7 +1,7 @@
 {
   "checked": "2026-10-19",
   "base_main": "2ede0c779825ef04dc290f5e4a0080b30c6cd998",
-  "scope": "12 approved references, including two transport segments superseded in the player by complete approved sentence recordings",
+  "scope": "11 active approved references; teacher-rejected TRA 05 v1 is preserved but no longer referenced by Learn C",
   "audio_mutations": 0,
   "files": [
     {
@@ -10,14 +10,6 @@
       "sha256": "663ed45e58d69ac84b053d534cec2127f03ebb76ea84672d7193459eae244363",
       "inventory_sha256_match": true,
       "duration_seconds": 0.940408,
-      "full_decode": "passed"
-    },
-    {
-      "file": "assets/audio/unit2/vocabulary/transport/1Y_U02_AUD_TRA_05_v1.mp3",
-      "bytes": 16762,
-      "sha256": "b5ee0c5369b7a24b47e48afbaa5fe78fdacf10b5b10fb05bce5cd16a4ee521b4",
-      "inventory_sha256_match": true,
-      "duration_seconds": 1.018776,
       "full_decode": "passed"
     },
     {

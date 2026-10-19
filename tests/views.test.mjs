@@ -114,6 +114,7 @@ test('Learn C discovery navigation and selections survive modes while A, B and U
  click(h,'u2c-open');h.route('course/1st-year/unit/2/learn');
  for(const mode of ['en','es','bi']){h.mode(mode);for(let n=0;n<5;n++){click(h,'u2c-stage',{value:String(n)});assert(h.get('#main').innerHTML.includes('Learn C'));assert(!h.get('#main').innerHTML.includes('undefined'));}}
  click(h,'u2c-stage',{value:'0'});click(h,'u2c-arrival',{value:'car'});assert(h.get('#main').innerHTML.includes('Normalmente voy en coche con mi padre.'));
+ click(h,'u2c-stage',{value:'1'});assert(h.get('#main').innerHTML.includes('Construye la respuesta'));assert(!h.get('#main').innerHTML.includes('u2c-mode-picks'));click(h,'u2c-say-intent',{value:'reason'});click(h,'u2c-say-step',{value:'2'});assert(h.get('#main').innerHTML.includes('Voy andando porque vivo cerca.'));assert(!h.get('#main').innerHTML.includes('1Y_U02_AUD_EXP_18_v1.mp3'));assert(!h.get('#main').innerHTML.includes('1Y_U02_AUD_TRA_05_v1.mp3'));
  click(h,'u2c-stage',{value:'3'});for(const [action,value] of [['u2c-transport','bus'],['u2c-distance','far'],['u2c-minutes','20'],['u2c-level','3']])click(h,action,{value});h.mode('es');assert(h.get('#main').innerHTML.includes('Tardo veinte minutos en llegar.'));
  click(h,'u2b-open');assert(h.get('#main').innerHTML.includes('Learn B'));assert(!h.get('#main').innerHTML.includes('u2c-content'));
  click(h,'u2b-back');assert(h.get('#main').innerHTML.includes('u2-scene-objects'));

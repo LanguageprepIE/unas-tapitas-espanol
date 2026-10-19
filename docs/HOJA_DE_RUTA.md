@@ -81,8 +81,11 @@ independiente. Las nuevas entregas requieren revisión y aprobación docente.
   sin añadir ahora preguntas ni modificar su grabación.
 - **Bloque C — ¿Cómo voy al colegio?:** implementación en rama independiente
   siguiendo el diseño solicitado por el profesor; pendiente de revisión docente.
-  Cinco momentos de descubrimiento, modelos graduados y Listening 4 original
-  de Marcos. Ver [alcance, audios y comprobaciones](unit2/learn-block-c.md).
+  Cinco momentos de descubrimiento, Actividad 2 revisada como laboratorio de
+  construcción de respuestas, modelos graduados y Listening 4 original de Marcos.
+  El audio defectuoso «en bicicleta» está retirado de la interfaz y existe un
+  [manifiesto de 15 originales pendientes](unit2/learn-block-c-audio-manifest.json).
+  Ver [alcance, audios y comprobaciones](unit2/learn-block-c.md).
 
 ### Explore — futuro laboratorio de horarios personalizables
 

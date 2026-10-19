@@ -16,8 +16,11 @@ adelantar la enseñanza de la hora reservada para una unidad posterior.
 
 1. **Una mañana en el instituto:** escena original a color. Seis estudiantes
    ficticios seleccionables; aparece su modelo y la grabación disponible.
-2. **¿Cómo vas al colegio?:** seis modos contextualizados, a pie / andando,
-   pregunta grabada y contraste opcional «No voy en coche».
+2. **¿Cómo lo dices?:** laboratorio de construcción de respuestas, diferenciado
+   de la escena visual. El alumnado elige si quiere expresar rutina, motivo o
+   contraste y hace crecer una expresión aislada en tres pasos: `en autobús` →
+   `Voy en autobús` → `Normalmente voy en autobús`. No puntúa ni funciona como
+   cuestionario. El feedback explica qué significado añade cada componente.
 3. **Voy, vas, va:** situaciones de primera, segunda y tercera persona;
    también `vivo/vives/vive` y `tardo/tardas/tarda` dentro de frases. Se leen
    modelos completos sin tablas de conjugación. La hermana y los tiempos son
@@ -39,8 +42,10 @@ Learn → Explore → Practise → Communicate → Play; los posteriores de U2 s
 
 ## Audios existentes utilizados
 
-El inventario original permanece intacto. Rutas verificadas contra sus SHA-256 y
-decodificación completa con FFmpeg, sin recodificar, cortar ni cambiar velocidad.
+El inventario original permanece intacto. Tras la revisión auditiva docente, el
+clip TRA 05 deja de considerarse utilizable pese a superar ASR y decodificación.
+Las 11 referencias todavía activas se verifican contra sus SHA-256 y se decodifican
+completas con FFmpeg, sin recodificar, cortar ni cambiar velocidad.
 El informe reproducible está en `learn-block-c-audio-validation.json`.
 
 | Archivo | Texto grabado | Uso |
@@ -49,7 +54,6 @@ El informe reproducible está en `learn-block-c-audio-validation.json`.
 | `1Y_U02_AUD_TRA_02_v1.mp3` | andando | Alternativa al modelo escrito «Voy andando» |
 | `1Y_U02_AUD_TRA_03_v1.mp3` | en autobús | Expresión, no frase completa |
 | `1Y_U02_AUD_TRA_04_v1.mp3` | en coche | Clip aprobado corregido; expresión |
-| `1Y_U02_AUD_TRA_05_v1.mp3` | en bicicleta | Clip aprobado corregido; expresión |
 | `1Y_U02_AUD_TRA_06_v1.mp3` | en tren | Expresión, no frase completa |
 | `1Y_U02_AUD_TRA_08_v1.mp3` | en patinete eléctrico | Expresión existente, referencia del banco |
 | `1Y_U02_AUD_EXP_13_v1.mp3` | ¿Cómo vas al colegio? | Pregunta completa |
@@ -58,12 +62,22 @@ El informe reproducible está en `learn-block-c-audio-validation.json`.
 | `1Y_U02_AUD_EXP_16_v1.mp3` | No voy en coche. | Contraste negativo completo |
 | `1Y_U02_AUD_LIS_04_transporte_v1.mp3` | Marcos | Listening original |
 
-Son 12 recursos referenciados (incluidas las expresiones de a pie y patinete
+Son 11 recursos activos (incluidas las expresiones de a pie y patinete
 cuyo modelo completo tiene prioridad en el reproductor); no son audios nuevos.
 Los TRA están en `assets/audio/unit2/vocabulary/transport/`, EXP en
 `assets/audio/unit2/expressions/`, LIS en `assets/audio/unit2/listenings/`.
 JR consta en el inventario para TRA, Laura López para EXP y Vértice para este
-Listening 4 ya aprobado. Solo se reutiliza su original; no hay generación nueva.
+Listening 4 ya aprobado. Solo se reutiliza el original de Marcos.
+
+### Retirada de «en bicicleta»
+
+La interfaz cargaba realmente `1Y_U02_AUD_TRA_05_v1.mp3`, SHA-256
+`b5ee0c5369b7a24b47e48afbaa5fe78fdacf10b5b10fb05bce5cd16a4ee521b4`.
+El inventario decía expresamente «sin revisión auditiva humana». El profesor ha
+oído una vocal añadida al final, parecida a «bicicletae»; esta escucha invalida
+las comprobaciones automáticas anteriores. El archivo se conserva sin cambios y
+es recuperable en Git, pero Learn C ya no lo referencia. Su sustituto tendrá el
+nombre `1Y_U02_AUD_TRA_05_v2.mp3`; solo se activará después de escucharlo.
 
 ### Marcos — comprobación de contenido
 
@@ -80,21 +94,26 @@ automática usada para cotejar contenido (no se muestra en la actividad):
 No contiene duraciones. Solo se pregunta cómo va Marcos; los tiempos inventados
 de otros momentos no se atribuyen al audio. Voz, velocidad y bytes intactos.
 
-### Recursos sin grabación equivalente completa
+### Manifiesto definitivo de grabaciones pendientes
 
-No bloquean la exploración escrita. No se crean sustitutos ni se combinan clips
-para aparentar nuevas frases.
+El manifiesto estructurado `learn-block-c-audio-manifest.json` contiene **15 MP3**:
+la corrección TRA 05 v2 y 14 expresiones completas EXP 17–30. Incluye texto exacto,
+nombre, ruta prevista, finalidad y cuatro grabaciones existentes que no deben
+duplicarse. Es el conjunto mínimo reutilizable que cubre la nueva Actividad 2,
+`vivo/vives`, `tardo/tardas`, `voy/vas/va` y los modelos prioritarios.
 
-- «Voy andando», «Voy en bicicleta», «Voy en autobús», «Voy en coche» y «Voy en
-  tren»: se ofrece la expresión exacta existente, claramente rotulada, junto al
-  modelo escrito completo. «Normalmente voy en coche con mi padre» se lee y el
-  reproductor identifica únicamente «en coche».
-- Los intercambios nuevos de `voy/vas/va`, `vivo/vives/vive` y `tardo/tardas/tarda`
-  (excepto la pregunta EXP 13), preguntas de duración/distancia, `normalmente`,
-  `porque`, modelos de cerca/lejos y duraciones de 5/10/15/20/30 minutos,
-  «unos…» y «media hora»: presentación escrita, sin botón que prometa su lectura.
-  El listening contiene algunos de estos patrones en su contexto original, sin
-  extraer ni atribuirle un modelo nuevo.
+Mientras estén pendientes, se presentan por escrito y no aparece ningún botón que
+prometa reproducirlos. La nueva Actividad 2 conserva los reproductores existentes
+para «¿Cómo vas al colegio?» y «Voy a pie», cuyo texto coincide exactamente.
+
+Se produjo y recuperó un único maestro en ElevenLabs, flujo
+`LD8AZgKualXT9mM3OBEG`, con Alberto (`PFT8NrCPtO9yltPvubes`). El entorno permite
+inspeccionar su formato y transcripción, pero no realizar una escucha humana real.
+Como el requisito docente exige escuchar cada sustituto antes de activarlo, ese
+maestro **no se divide, no se integra y no se presenta como aprobado**. No se hizo
+un segundo intento. Para completar el banco, el profesor puede adjuntar los 15
+originales exactos indicados en el manifiesto; no hace falta buscar ni renombrar
+ningún recurso anterior.
 
 ## Continuidad documentada, sin implementar
 
@@ -105,10 +124,11 @@ Se conserva también lo acordado para horarios y Lucía del Bloque B.
 
 ## Comprobaciones y revisión pendiente
 
-- `npm test`: **87 pruebas correctas**, incluidas regresiones U1/A/B, navegación
-  C en los tres idiomas, modelos, límites de estado y feedback sin anticipación.
+- `npm test`: **89 pruebas correctas**, incluidas regresiones U1/A/B, navegación
+  C en los tres idiomas, diferenciación de las Actividades 1 y 2, retirada de
+  TRA 05, manifiesto sin archivos vacíos, límites de estado y feedback.
 - `npm run build`: correcto; distribuye módulos, CSS, ilustraciones y MP3.
-- `git diff --check`: correcto. Decodificación FFmpeg y hashes de 12 referencias
+- `git diff --check`: correcto. Decodificación FFmpeg y hashes de 11 referencias
   correctos. Los cuatro listenings y todo el banco existente se mantienen iguales.
 - Ilustraciones revisadas en una lámina renderizada: colores propios, transporte
   reconocible, conductor/pasajero y cascos en bicicleta/patinete. CSS local a C con
