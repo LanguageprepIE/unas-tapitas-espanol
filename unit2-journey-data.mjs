@@ -15,7 +15,14 @@ export const marcosListening={file:'assets/audio/unit2/listenings/1Y_U02_AUD_LIS
 export const journeyMinutes=[5,10,15,20,30];
 const numberWords={5:'cinco',10:'diez',15:'quince',20:'veinte',30:'treinta'};
 export const journeyDistances=[{id:'near',text:'cerca',en:'near'},{id:'far',text:'lejos',en:'far'},{id:'quite-far',text:'bastante lejos',en:'quite far'}];
-export const journeyStages=[['A school morning','Una mañana en el instituto'],['How do you say it?','¿Cómo lo dices?'],['Who is speaking?','Voy, vas, va'],['How long does it take?','¿Cuánto tardas?'],['Listen to Marcos','Escucha a Marcos']];
+export const journeyStages=[['A school morning','Una mañana en el instituto'],['How do you say it?','¿Cómo lo dices?'],['Who is speaking?','Voy, vas, va'],['Listen and talk about yourself','Escucha y habla de ti'],['Listen to Marcos','Escucha a Marcos']];
+export const journeyListeningTasks=[
+ {audio:20,question:['Where does the speaker live?','¿Dónde vive?'],choices:[['near','Cerca'],['far','Lejos'],['quite-far','Bastante lejos']],correct:'near',transcript:'Vivo cerca del colegio.'},
+ {audio:21,question:['Where does the speaker live?','¿Dónde vive?'],choices:[['near','Cerca'],['far','Lejos'],['quite-far','Bastante lejos']],correct:'far',transcript:'Vivo lejos del colegio.'},
+ {audio:25,question:['How long does the journey take?','¿Cuánto tarda?'],choices:[['5','5 min'],['10','10 min'],['20','20 min']],correct:'10',transcript:'Normalmente tardo diez minutos.'},
+ {audio:26,question:['How long does the journey take?','¿Cuánto tarda?'],choices:[['10','10 min'],['20','Unos 20 min'],['30','30 min']],correct:'20',transcript:'Tardo unos veinte minutos.'},
+ {audio:27,question:['How long does the journey take?','¿Cuánto tarda?'],choices:[['10','10 min'],['20','20 min'],['30','30 min']],correct:'30',transcript:'Tardo media hora.'}
+].map(task=>({...task,file:file('EXP',task.audio)}));
 export const journeyResponses=[
  {id:'routine',en:'Describe a routine',es:'Habla de una rutina',steps:['en autobús','Voy en autobús.','Normalmente voy en autobús.'],audio:file('EXP',17),available:true},
  {id:'reason',en:'Give a reason',es:'Explica el motivo',steps:['andando','Voy andando.','Voy andando porque vivo cerca.'],audio:file('EXP',18),available:true},
@@ -35,8 +42,8 @@ export const newJourneyState=()=>({open:false,stage:0,phase:'listen',listenIndex
 export function updateJourneyState(s,action,value){
  if(action==='u2c-open'){s.open=true;return true;}
  if(action==='u2c-phase'&&['listen','personal'].includes(value)){s.phase=value;return true;}
- if(action==='u2c-listen-choice'){s.listenChoice=value;return true;}
- if(action==='u2c-listen-next'){s.listenIndex=(s.listenIndex+1)%5;s.listenChoice=null;return true;}
+ if(action==='u2c-listen-choice'&&s.phase==='listen'&&journeyListeningTasks[s.listenIndex]?.choices.some(([id])=>id===value)){s.listenChoice=value;return true;}
+ if(action==='u2c-listen-next'&&s.phase==='listen'&&value==='next'&&s.listenChoice===journeyListeningTasks[s.listenIndex]?.correct){if(s.listenIndex===journeyListeningTasks.length-1)s.phase='personal';else s.listenIndex++;s.listenChoice=null;return true;}
  if(action==='u2c-stage'&&/^[0-4]$/.test(value)){s.stage=Number(value);return true;}
  if(action==='u2c-arrival'&&journeyMode(value)){s.arrival=value;return true;}
  if(action==='u2c-transport'&&journeyMode(value)){s.transport=value;if(value==='walk')s.walking='pie';return true;}

@@ -110,9 +110,11 @@ generadas por separado con María Díaz. Incluye texto exacto, nombre, ruta, fin
 hash y cuatro grabaciones existentes que no deben duplicarse. Es el conjunto mínimo reutilizable que cubre la nueva Actividad 2,
 `vivo/vives`, `tardo/tardas`, `voy/vas/va` y los modelos prioritarios.
 
-Los 15 están disponibles en un panel desplegable dentro de Learn C, con el texto
-exacto al lado de cada reproductor. El docente escuchó y aprobó todas las tomas
-el 19 de octubre de 2026.
+El docente escuchó y aprobó las 15 tomas el 19 de octubre de 2026. El banco
+permanece en el manifiesto y el inventario; Learn C usa las grabaciones que
+corresponden a cada actividad y ya no muestra el panel desplegable completo.
+La actividad 4 permite descubrir cinco frases grabadas antes de mostrar su
+texto y construir una respuesta personal para leer y decir en voz alta.
 
 Se produjo y recuperó un único maestro en ElevenLabs, flujo
 `LD8AZgKualXT9mM3OBEG`, con Alberto (`PFT8NrCPtO9yltPvubes`). El entorno permite
