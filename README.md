@@ -47,8 +47,11 @@ alojamiento; no modifica los archivos fuente.
 - **67 pruebas automáticas**: navegación, estado, accesibilidad básica del marcado,
   correspondencia entre 27 audios de Learn A y el inventario, y regresiones de U1.
 - Datos de U1, motores de actividades, juegos y sus MP3 sin cambios respecto a la base.
-- Learn A usa los 20 MP3 de objetos y siete expresiones ya verificadas de U2;
-  cada imagen es una ilustración SVG original. No se generan audios.
+- Learn A usa los 20 MP3 de objetos y siete expresiones ya verificadas de U2.
+  Una escena de mochila, mesa y aula permite descubrir los objetos antes de leer
+  su nombre. Las 20 ilustraciones SVG originales llevan su color directamente
+  en cada forma. Tres escuchas breves proponen elegir solo entre dibujos y
+  muestran el texto y la explicación después de responder. No se generan audios.
 - La nueva navegación se comprueba con renderizado simulado en Node. Sigue pendiente
   la revisión manual de esta rama en móvil, iPad y ordenador; las pruebas previas
   del docente corresponden a U1 antes de este cambio.

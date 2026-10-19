@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile,stat} from 'node:fs/promises';
-import {unit2Objects,unit2Expressions,newUnit2State,updateUnit2State,renderUnit2Learn} from '../unit2-learn.mjs';
+import {unit2Objects,unit2Expressions,unit2Checks,newUnit2State,updateUnit2State,renderUnit2Learn} from '../unit2-learn.mjs';
 import {parseRoute} from '../catalogue.mjs';
 const root=new URL('../',import.meta.url);
 const button=(action,label,cls='',extra='')=>`<button data-action="${action}" class="${cls}" ${extra}>${label}</button>`;
@@ -25,11 +25,14 @@ test('all 20 object and 7 expression recordings match their approved inventory r
 test('every object has a distinct original icon in the packaged SVG sprite',async()=>{
  const svg=await readFile(new URL('assets/illustrations/unit2-objects.svg',root),'utf8');
  for(const id of new Set([...unit2Objects.map(o=>o.icon),'notebooks']))assert(svg.includes(`<symbol id="${id}"`),id);
+ assert(!svg.includes('class="line"')&&!svg.includes('<style>'),'paint must live on SVG shapes, including external use instances');
+ assert((svg.match(/fill="#[0-9a-f]{6}"/g)??[]).length>40,'illustrations carry their own colours');
  assert(!svg.includes('<image'));assert(!svg.includes('http://www.w3.org/1999/xlink" href="http'));
 });
 test('pictures, recorded phrases, articles and number scenes use the intended sources',()=>{
  const state=newUnit2State();let html=render(state);
- assert(html.includes('un lápiz')&&html.includes('una goma')&&html.includes('un cuaderno'));
+ assert(html.includes('u2-scene-objects')&&html.includes('u2-discovery-item'));
+ assert(html.includes('un lápiz')&&html.includes('una goma'));
  assert(!html.includes('speechSynthesis'));
  updateUnit2State(state,'u2-object','pencil');html=render(state);
  assert(html.includes(`id="u2-object-audio" controls preload="none" src="${unit2Objects[0].audio}"`));
@@ -41,8 +44,25 @@ test('pictures, recorded phrases, articles and number scenes use the intended so
  assert(html.includes('Hay dos libros.'));assert(!html.includes('Hay dos libros.</strong><p></p><audio'));
  updateUnit2State(state,'u2-quantity','3');html=render(state);
  assert(html.includes('Hay tres libros.'));assert(html.includes(unit2Expressions[5].audio));
- updateUnit2State(state,'u2-check','notebook');html=render(state);
- assert(html.includes('cuadernos means notebooks'));
+ assert.equal(unit2Checks.length,3);
+ let listening=html.slice(html.indexOf('id="u2-check-title"'));
+ assert(listening.includes('Listen and choose the correct picture'));
+ assert(!listening.includes('Es un lápiz.')&&!listening.includes('Son unos cuadernos.')&&!listening.includes('Hay tres libros.'));
+ assert(!listening.includes('role="status"'));
+ assert(listening.includes('class="visually-hidden"'));
+ updateUnit2State(state,'u2-check','pen');html=render(state);
+ assert(html.includes('Listen for the object at the end.'));
+ updateUnit2State(state,'u2-check','pencil');html=render(state);
+ assert(html.includes('A single pencil: es un lápiz.'));
+ updateUnit2State(state,'u2-next-check');html=render(state);
+ listening=html.slice(html.indexOf('id="u2-check-title"'));
+ assert(listening.includes(unit2Expressions[3].audio)&&!listening.includes('Son unos cuadernos.'));
+ updateUnit2State(state,'u2-check','notebooks');html=render(state);
+ assert(html.includes('Several notebooks: son unos cuadernos.'));
+ updateUnit2State(state,'u2-next-check');html=render(state);
+ assert(html.includes(unit2Expressions[5].audio));
+ updateUnit2State(state,'u2-check','three');html=render(state);
+ assert(html.includes('There are three books: hay tres libros.'));
 });
 test('only the implemented Unit 2 routes are available, without entering U1 sections',()=>{
  for(const section of ['learn','overview'])assert.equal(parseRoute(`#course/1st-year/unit/2/${section}`).unit,'2');

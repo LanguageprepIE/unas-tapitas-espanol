@@ -82,14 +82,16 @@ test('blocked and corrupt storage allow learning and show the storage notice',as
 
 test('Unit 2 Learn A works in every language mode and retains its object selection',async()=>{
  const h=await harness();h.route('course/1st-year/unit/2/learn');
- for(const mode of ['en','bi','es']){h.mode(mode);const html=h.get('#main').innerHTML;assert(html.includes('¿Qué hay en mi mochila?'));assert(html.includes('u2-object-grid'));assert(!html.includes('pg-catalogue'));assert(!html.includes('undefined'));}
+ for(const mode of ['en','bi','es']){h.mode(mode);const html=h.get('#main').innerHTML;assert(html.includes('¿Qué hay en mi mochila?'));assert(html.includes('u2-scene-objects'));assert(!html.includes('pg-catalogue'));assert(!html.includes('undefined'));}
  click(h,'u2-object',{value:'pencil'});assert(h.get('#main').innerHTML.includes('id="u2-object-audio"'));
  h.mode('bi');assert(h.get('#main').innerHTML.includes('1Y_U02_AUD_OBJ_01_v1.mp3'));
  click(h,'u2-group',{value:'tools'});click(h,'u2-object',{value:'scissors'});
  assert(h.get('#main').innerHTML.includes('1Y_U02_AUD_OBJ_11_v1.mp3'));
  click(h,'u2-phrase',{value:'plural'});assert(h.get('#main').innerHTML.includes('id="u2-phrase-audio"'));
  click(h,'u2-quantity',{value:'3'});assert(h.get('#main').innerHTML.includes('Hay tres libros.'));
- click(h,'u2-check',{value:'notebook'});assert(h.get('#main').innerHTML.includes('cuadernos means notebooks'));
- h.route('course/1st-year/unit/1/learn');assert(!h.get('#main').innerHTML.includes('u2-object-grid'));
+ click(h,'u2-check',{value:'pencil'});assert(h.get('#main').innerHTML.includes('A single pencil: es un lápiz.'));
+ click(h,'u2-next-check');assert(h.get('#main').innerHTML.includes('1Y_U02_AUD_EXP_04_v1.mp3'));
+ click(h,'u2-check',{value:'notebooks'});assert(h.get('#main').innerHTML.includes('Several notebooks: son unos cuadernos.'));
+ h.route('course/1st-year/unit/1/learn');assert(!h.get('#main').innerHTML.includes('u2-scene-objects'));
  h.route('course/1st-year/unit/2/learn');assert(h.get('#main').innerHTML.includes('1Y_U02_AUD_OBJ_11_v1.mp3'));
 });
