@@ -13,9 +13,11 @@ import * as playData from '../data/play-unit1.mjs';
 import * as unit2 from '../unit2-learn.mjs';
 import * as week from '../unit2-week.mjs';
 import * as journey from '../unit2-journey.mjs';
+import * as day from '../unit2-day.mjs';
+import {createAudioController} from '../activity-library/renderer.mjs';
 // A rendering harness, not a browser or an accessibility audit.
-function element(){return {innerHTML:'',textContent:'',value:'',listeners:{},classList:{toggle(){}},addEventListener(k,fn){this.listeners[k]=fn;},setAttribute(){},contains(){return false;},append(){},focus(){},scrollIntoView(){},closest(){return this;}};}
-async function harness({initialHash='',initialStorage=new Map(),blockedStorage=false}={}){const elements=new Map();const get=s=>{if(!elements.has(s))elements.set(s,element());return elements.get(s);};const document={activeElement:null,documentElement:element(),body:element(),querySelector:get,createElement:()=>element()};const window={listeners:{},addEventListener(k,fn){this.listeners[k]=fn;},scrollTo(){}};const location={hash:initialHash};window.history={replaceState(_s,_t,hash){location.hash=hash;}};const storage=initialStorage;const localStorage={get length(){return storage.size;},key:i=>[...storage.keys()][i],getItem:k=>{if(blockedStorage)throw Error('blocked');return storage.get(k);},setItem:(k,v)=>{if(blockedStorage)throw Error('blocked');storage.set(k,v);},removeItem:k=>{if(blockedStorage)throw Error('blocked');storage.delete(k);}};const source=(await readFile(new URL('../app.js',import.meta.url),'utf8')).replace(/^import .*;\n/gm,'');vm.runInNewContext(source,{...content,...engine,...catalogue,...progress,...explore,...playEngine,...playViews,...playData,...unit2,...week,...journey,document,window,location,localStorage,console,setTimeout,Blob,URL});return {get,document,window,location,storage,route(id){location.hash='#'+id;window.listeners.hashchange();},mode(value){get('#mode').listeners.change({target:{value}});}};}
+function element(){return {innerHTML:'',textContent:'',value:'',listeners:{},classList:{toggle(){}},addEventListener(k,fn){this.listeners[k]=fn;},setAttribute(){},contains(){return false;},append(){},focus(){},scrollIntoView(){},closest(){return this;},querySelector(){return null;}};}
+async function harness({initialHash='',initialStorage=new Map(),blockedStorage=false}={}){const elements=new Map();const get=s=>{if(!elements.has(s))elements.set(s,element());return elements.get(s);};const document={activeElement:null,documentElement:element(),body:element(),querySelector:get,createElement:()=>element()};const window={listeners:{},addEventListener(k,fn){this.listeners[k]=fn;},scrollTo(){}};const location={hash:initialHash};window.history={replaceState(_s,_t,hash){location.hash=hash;}};const storage=initialStorage;const localStorage={get length(){return storage.size;},key:i=>[...storage.keys()][i],getItem:k=>{if(blockedStorage)throw Error('blocked');return storage.get(k);},setItem:(k,v)=>{if(blockedStorage)throw Error('blocked');storage.set(k,v);},removeItem:k=>{if(blockedStorage)throw Error('blocked');storage.delete(k);}};const source=(await readFile(new URL('../app.js',import.meta.url),'utf8')).replace(/^import .*;\n/gm,'');vm.runInNewContext(source,{...content,...engine,...catalogue,...progress,...explore,...playEngine,...playViews,...playData,...unit2,...week,...journey,...day,createAudioController,document,window,location,localStorage,console,setTimeout,Blob,URL});return {get,document,window,location,storage,route(id){location.hash='#'+id;window.listeners.hashchange();},mode(value){get('#mode').listeners.change({target:{value}});}};}
 test('all eight views render in all three language modes without runtime failures',async()=>{const h=await harness();for(const mode of ['en','bi','es']){h.mode(mode);for(const route of ['home','learn','explore','practise','communicate','grammar','vocabulary','listening']){h.route(route);const html=h.get('#main').innerHTML;assert(html.includes('<h1>'),`${mode}/${route}`);assert(!html.includes('undefined'),`${mode}/${route}`);if(mode==='bi')assert(html.includes('lang="en"')&&html.includes('lang="es"'));}}});
 test('language switches and route changes preserve text and escape entered markup',async()=>{const h=await harness();h.route('communicate');const input=h.get('#main').listeners.input;input({target:{id:'draft',value:'Hola <script>private</script>'}});input({target:{id:'reflection',value:'Puedo pedir ayuda.'}});for(const mode of ['bi','es','en']){h.mode(mode);const html=h.get('#main').innerHTML;assert(html.includes('Hola &lt;script&gt;private&lt;/script&gt;'));assert(html.includes('Puedo pedir ayuda.'));}h.route('home');h.route('communicate');assert(h.get('#main').innerHTML.includes('Hola &lt;script&gt;private&lt;/script&gt;'));});
 test('a practice answer survives language switching and contextual help',async()=>{const h=await harness();h.route('practise');h.document.body.listeners.click({target:{closest:()=>({dataset:{action:'q-choice',value:'Me llamo Leo.'}})}});h.mode('es');assert(h.get('#main').innerHTML.includes('aria-pressed="true"'));h.route('grammar');h.route('practise');assert(h.get('#main').innerHTML.includes('aria-pressed="true"'));});
@@ -130,4 +132,23 @@ test('Learn C prevents overlapping recordings and pauses playback on discovery c
  h.get('#main').querySelectorAll=s=>s==='audio[data-journey-audio]'?[a,b]:[];
  h.get('#main').listeners.play({target:a});assert.equal(pauses,1);
  click(h,'u2c-stage',{value:'1'});assert.equal(pauses,3);
+});
+test('Learn D opens within Unit 2, keeps its state across modes and returns to approved blocks',async()=>{
+ const h=await harness();h.route('course/1st-year/unit/2/overview');
+ assert(h.get('#main').innerHTML.includes('Open Block D'));
+ h.route('course/1st-year/unit/2/learn');click(h,'u2d-open');
+ assert(h.get('#main').innerHTML.includes('Un día de colegio en España'));
+ click(h,'u2d-stage',{value:'1'});click(h,'u2d-day',{value:'4'});
+ assert(h.get('#main').innerHTML.includes('13:15'));
+ h.mode('es');assert(h.get('#main').innerHTML.includes('Entrada y salida'));
+ assert(h.get('#main').innerHTML.includes('D · Un día de colegio en Cádiz'));
+ click(h,'u2d-stage',{value:'2'});
+ const libraryClick=(id,kind)=>h.document.body.listeners.click({target:{closest:()=>({dataset:{action:'select',id},closest:()=>({dataset:{libraryKind:kind}})})}});
+ assert(!h.get('#main').innerHTML.includes('class="activity-transcript"'));
+ libraryClick('friday','listening');assert(!h.get('#main').innerHTML.includes('class="activity-transcript"'));
+ libraryClick('monday','listening');assert(h.get('#main').innerHTML.includes('Hoy es lunes.'));
+ h.mode('bi');assert(h.get('#main').innerHTML.includes('class="activity-transcript"'));
+ click(h,'u2b-open');assert(h.get('#main').innerHTML.includes('Mi semana escolar'));
+ click(h,'u2c-open');assert(h.get('#main').innerHTML.includes('¿Cómo voy al colegio?'));
+ click(h,'u2b-back');assert(h.get('#main').innerHTML.includes('¿Qué hay en mi mochila?'));
 });
