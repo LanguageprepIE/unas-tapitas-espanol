@@ -47,6 +47,12 @@ Block B has its own data, renderer, stylesheet and illustration sprite. The appr
 
 State stays in page memory and contains only selections for fictional examples. There are no student accounts, personal information fields, server calls or new persistence.
 
-Automated checks cover timetable structure, resource hashes, all instruction modes, state transitions, answer visibility, preference agreement and application navigation. Browser testing in this environment is unavailable because the required control-browser capability is absent; actual Safari/iPad/mobile playback and visual layout still need review in the deployed preview.
+Automated checks cover timetable structure, resource hashes, all instruction modes, state transitions, answer visibility, preference agreement and application navigation. The teacher tested and approved Learn B on iPad on 2026-10-19 and authorised merging PR #8 after final checks. That real-device approval is separate from this environment's automated checks; no additional mobile or desktop browser test is claimed.
+
+## Agreed next stages — documentation only
+
+The [Unit 2 roadmap](../HOJA_DE_RUTA.md#1st-year--unidad-2-el-aula) records a future customisable timetable laboratory in Explore, followed in Communicate by learners creating and using their real school timetable. Both will display times only as digital numbers; teaching how to say the time in Spanish is deferred. Neither activity is implemented here.
+
+Practise will reuse the same approved Lucía Listening 3 for listening-comprehension questions with feedback after answering and replay. Learn keeps this recording as first exposure, without adding questions or changing the audio now. Learn Block C must be designed pedagogically with the teacher before implementation begins.
 
 Validation result: `npm test` — 77 passed; `npm run build` — successful; `git diff --check` — clean. All enabled MP3s have been checked with FFmpeg. All 18 original subject illustrations were inspected in a rendered contact sheet. The approved Block A renderer, its illustration sprite, Unit 1 data, shared original stylesheet and all pre-existing audio binaries except the restored Listening 3 have zero diff against the starting main commit `2b2703bdcd6e0bdf9b6c19981c89aa7220d2b8fd`.
