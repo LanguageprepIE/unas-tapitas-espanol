@@ -15,7 +15,7 @@ Estado: entrega parcial para revisión, 18 de octubre de 2026. PR #6 en borrador
 | Recursos presentes | 69 de 69 |
 | MP3 totales, incluidos los cinco maestros | 74 |
 
-Los recortes inconsistentes anteriores de `1Y_U02_AUD_TRA_04_v1.mp3` (en coche) y `1Y_U02_AUD_TRA_05_v1.mp3` (en bicicleta) se descartaron y sustituyeron desde el maestro original. Los nuevos MP3 incluyen márgenes de silencio ampliados, se decodifican y mantienen trazabilidad; el ASR local coincide con “en coche” (reconocido unido como “ENGOCHE”) y “en bicicleta”. No se generó audio nuevo.
+Los recortes inconsistentes anteriores de `1Y_U02_AUD_TRA_04_v1.mp3` (en coche) y `1Y_U02_AUD_TRA_05_v1.mp3` (en bicicleta) se sustituyeron desde el maestro original. La revisión docente posterior del 19 de octubre de 2026 detectó una vocal añadida al final de «en bicicleta» que el ASR y la decodificación no revelaban. Por ello TRA 05 v1 queda rechazado e inactivo, aunque se conserva sin cambios para trazabilidad; se espera `1Y_U02_AUD_TRA_05_v2.mp3`, que requerirá escucha humana antes de activarse. TRA 04 permanece válido.
 
 Los cuatro listenings aprobados están presentes. LIS_02 (estuche) y LIS_04 (transporte) proceden del ZIP; LIS_03 (asignaturas) y LIS_01 (mochila) se aportaron como archivos adjuntos y se copiaron byte a byte. El ASR local confirma los temas de los dos archivos adjuntos. El inventario no incluye las transcripciones oficiales completas.
 
