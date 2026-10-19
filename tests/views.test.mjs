@@ -101,7 +101,7 @@ test('Block B navigation, timetable selection, recordings and answers persist ac
  const h=await harness();h.route('course/1st-year/unit/2/learn');click(h,'u2-object',{value:'pencil'});
  click(h,'u2b-open');assert(h.get('#main').innerHTML.includes('Mi semana escolar'));
  for(const mode of ['en','es','bi']){h.mode(mode);for(let n=0;n<5;n++){click(h,'u2b-stage',{value:String(n)});assert(!h.get('#main').innerHTML.includes('undefined'));}}
- click(h,'u2b-stage',{value:'1'});click(h,'u2b-subject',{value:'irish'});assert(h.get('#main').innerHTML.includes('Grabación todavía no disponible'));
+ click(h,'u2b-stage',{value:'1'});click(h,'u2b-subject',{value:'irish'});assert(h.get('#main').innerHTML.includes('1Y_U02_AUD_ASI_15_v1.mp3'));
  click(h,'u2b-stage',{value:'2'});click(h,'u2b-cell',{value:'4:1'});h.mode('en');assert(h.get('#main').innerHTML.includes('1Y_U02_AUD_ASI_04_v1.mp3'));assert(h.get('#main').innerHTML.includes('Tengo cuatro clases.'));
  click(h,'u2b-stage',{value:'4'});click(h,'u2b-answer',{value:'lunes'});h.mode('es');assert(h.get('#main').innerHTML.includes('Dice «Hoy es lunes»'));
  click(h,'u2b-back');assert(h.get('#main').innerHTML.includes('1Y_U02_AUD_OBJ_01_v1.mp3'));

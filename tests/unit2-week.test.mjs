@@ -16,13 +16,17 @@ test('the fictional timetable has 28 hour-long classes, the exact breaks and no 
  columns.forEach((column,i)=>{const c=column.split('</section>')[0];assert.equal((c.match(/data-action="u2b-cell"/g)||[]).length,i===4?4:6);assert.equal((c.match(/class="u2b-break"/g)||[]).length,1);assert.equal(c.includes('u2b-lunch'),i!==4);assert(c.includes(i===4?'13:15':'15:55'));});
  assert(!/francés|DMLC/.test(html));
 });
-test('all 21 enabled recordings exist and match the approved inventory hashes',async()=>{
+test('all 28 enabled recordings match the original inventory or verified subject supplement',async()=>{
  const inventory=await readFile(new URL('../docs/unit2/audio-inventory.csv',import.meta.url),'utf8');
+ const supplement=JSON.parse(await readFile(new URL('../docs/unit2/subject-audio-supplement.json',import.meta.url),'utf8'));
  const resources=[...schoolDays,...schoolSubjects,...weekExpressions].filter(x=>x.audio).map(x=>x.audio);
- assert.equal(new Set(resources).size,21);
- for(const file of resources){const bytes=await readFile(new URL('../'+file,import.meta.url));assert(bytes.length>1000,file);const row=inventory.split('\n').find(line=>line.includes(file));assert(row,file);assert(row.includes(createHash('sha256').update(bytes).digest('hex')),file);}
- assert.deepEqual(schoolSubjects.filter(s=>!s.audio).map(s=>s.id),['irish','technology','engineering','graphics','wood','art','religion']);
+ assert.equal(new Set(resources).size,28);
+ for(const file of resources){const bytes=await readFile(new URL('../'+file,import.meta.url));assert(bytes.length>1000,file);const row=inventory.split('\n').find(line=>line.includes(file));const extra=supplement.resources.find(x=>x.path===file);const hash=createHash('sha256').update(bytes).digest('hex');if(extra){assert.equal(bytes.length,extra.bytes,file);assert.equal(hash,extra.sha256,file);assert.equal(subjectById(extra.subject_id).name,extra.text);assert.equal(subjectById(extra.subject_id).audio,extra.path);}else{assert(row,file);assert(row.includes(hash),file);}}
+ assert.deepEqual(schoolSubjects.filter(s=>!s.audio),[]);
  assert.equal(subjectById('business').recorded,'empresariales');
+});
+test('each newly supplied subject has an enabled MP3 control in every instruction mode',()=>{
+ for(const mode of ['en','es','bi'])for(const id of ['irish','technology','engineering','graphics','wood','art','religion']){const html=renderUnit2Week(context({...newWeekState(),stage:1,subject:id,more:true},mode));assert(html.includes(`src="${subjectById(id).audio}"`));assert(!html.includes('u2b-no-audio'));}
 });
 test('the unverified Listening 3 cannot be played by this block',()=>{
  assert.equal(weekListeningAvailable,false);

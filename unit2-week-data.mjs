@@ -4,7 +4,7 @@ export const schoolDays=['lunes','martes','miércoles','jueves','viernes'].map((
 export const schoolSubjects=[
  ['spanish','español','Spanish',1,'español',true,'el'],
  ['english','inglés','English',2,'inglés',true,'el'],
- ['irish','irlandés','Irish',null,null,true,'el'],
+ ['irish','irlandés','Irish',15,'irlandés',true,'el'],
  ['maths','matemáticas','Mathematics',3,'matemáticas',true,'las'],
  ['history','historia','History',5,'historia',true,'la'],
  ['geography','geografía','Geography',6,'geografía',true,'la'],
@@ -12,12 +12,12 @@ export const schoolSubjects=[
  ['pe','educación física','Physical Education',7,'educación física',true,'la'],
  ['business','negocios','Business Studies',11,'empresariales',false,'los'],
  ['homeec','economía doméstica','Home Economics',10,'economía doméstica',false,'la'],
- ['technology','tecnología aplicada','Applied Technology',null,null,false,'la'],
- ['engineering','ingeniería','Engineering',null,null,false,'la'],
- ['graphics','dibujo técnico','Graphics',null,null,false,'el'],
- ['wood','tecnología de la madera','Wood Technology',null,null,false,'la'],
- ['art','educación plástica','Visual Art',null,null,false,'la'],
- ['religion','religión','Religious Education',null,null,false,'la'],
+ ['technology','tecnología aplicada','Applied Technology',16,'tecnología aplicada',false,'la'],
+ ['engineering','ingeniería','Engineering',17,'ingeniería',false,'la'],
+ ['graphics','dibujo técnico','Graphics',18,'dibujo técnico',false,'el'],
+ ['wood','tecnología de la madera','Wood Technology',19,'tecnología de la madera',false,'la'],
+ ['art','educación plástica','Visual Art',20,'educación plástica',false,'la'],
+ ['religion','religión','Religious Education',21,'religión',false,'la'],
  ['sphe','educación personal, social y para la salud','SPHE',13,'educación personal, social y para la salud',false,'la'],
  ['cspe','educación cívica, social y política','CSPE',14,'educación cívica, social y política',false,'la']
 ].map(([id,name,en,n,recorded,core,article])=>({id,name,en,recorded,core,article,audio:n?audio('ASI',n):null}));
