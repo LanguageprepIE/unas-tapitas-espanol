@@ -38,9 +38,8 @@ export const schoolWeek=[
 ];
 export const classTimes=['09:00–10:00','10:00–11:00','11:15–12:15','12:15–13:15','13:55–14:55','14:55–15:55'];
 export const weekListening='assets/audio/unit2/listenings/1Y_U02_AUD_LIS_03_asignaturas_v1.mp3';
-// Existing repository binary failed decoding and inventory SHA-256 validation.
-// Keep the approved file untouched; enable only after its original is restored and verified.
-export const weekListeningAvailable=false;
+// Approved original recovered byte for byte; inventory SHA-256 and full decoding verified.
+export const weekListeningAvailable=true;
 export const weekChecks=[
  {kind:'audio',audio:weekExpressions[1].audio,question:['Listen. Which day do you hear?','Escucha. ¿Qué día oyes?'],options:['miércoles','lunes','viernes'],answer:'lunes',feedback:['She says “Hoy es lunes”. Lunes means Monday.','Dice «Hoy es lunes».']},
  {kind:'reading',text:'El martes tengo español y matemáticas.',question:['Which two subjects does this student mention?','¿Qué dos asignaturas menciona este estudiante?'],options:['historia y ciencias','español y matemáticas','inglés y geografía'],answer:'español y matemáticas',feedback:['Tengo tells you what classes the student has. Here: Spanish and mathematics.','Tengo indica las clases del estudiante: español y matemáticas.']},

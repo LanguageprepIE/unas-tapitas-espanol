@@ -28,10 +28,12 @@ test('all 28 enabled recordings match the original inventory or verified subject
 test('each newly supplied subject has an enabled MP3 control in every instruction mode',()=>{
  for(const mode of ['en','es','bi'])for(const id of ['irish','technology','engineering','graphics','wood','art','religion']){const html=renderUnit2Week(context({...newWeekState(),stage:1,subject:id,more:true},mode));assert(html.includes(`src="${subjectById(id).audio}"`));assert(!html.includes('u2b-no-audio'));}
 });
-test('the unverified Listening 3 cannot be played by this block',()=>{
- assert.equal(weekListeningAvailable,false);
- const html=renderUnit2Week(context({...newWeekState(),stage:4}));
- assert(!html.includes(`src="${weekListening}"`));assert(html.includes('not available yet'));
+test('restored Listening 3 matches the approved original and plays without revealing its transcript',async()=>{
+ assert.equal(weekListeningAvailable,true);
+ const bytes=await readFile(new URL('../'+weekListening,import.meta.url));
+ assert.equal(bytes.length,493642);
+ assert.equal(createHash('sha256').update(bytes).digest('hex'),'6523530e0a901265b82a23072fb91c422a0a7a970993e33edfa7fe7d718ce123');
+ for(const mode of ['en','es','bi']){const html=renderUnit2Week(context({...newWeekState(),stage:4},mode));assert(html.includes(`src="${weekListening}"`));assert(!html.includes('Hola, soy Lucía'));assert(!html.includes('not available yet'));}
 });
 test('subject cards link to distinct painted original illustrations',async()=>{
  const svg=await readFile(new URL('../assets/illustrations/unit2-subjects.svg',import.meta.url),'utf8');

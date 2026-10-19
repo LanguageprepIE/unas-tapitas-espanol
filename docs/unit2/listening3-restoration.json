@@ -1,0 +1,16 @@
+{
+  "file": "assets/audio/unit2/listenings/1Y_U02_AUD_LIS_03_asignaturas_v1.mp3",
+  "source_filename": "New tts node (1).mp3",
+  "source_library_file_id": "libfile_9f96a8603a4881918acdeed68b555731",
+  "restored_on": "2026-10-19",
+  "bytes": 493642,
+  "duration_seconds": 29.753469,
+  "sha256": "6523530e0a901265b82a23072fb91c422a0a7a970993e33edfa7fe7d718ce123",
+  "matches_original_inventory": true,
+  "voice": "Matilda Paz",
+  "voice_evidence": "Teacher correction on 2026-10-19; supersedes the historical Laura López inventory entry. Voice identity is not inferred from MP3 bytes.",
+  "speed": "Not documented; original playback preserved without re-encoding or tempo adjustment",
+  "verification": "Byte-identical to recovered attachment; inventory SHA-256 match; complete FFmpeg decoding; local faster-whisper small Spanish transcription",
+  "status": "Approved original restored and enabled; regenerated take not used",
+  "transcript": "Hola, soy Lucía. Hoy es lunes y tengo matemáticas, inglés y educación física. Me gusta mucho la educación física, pero no me gustan las matemáticas. Los martes tengo español y tecnología. Mi asignatura favorita es español. Mi amigo Pablo prefiere empresariales. Los miércoles tenemos historia y ciencias. Los jueves tengo música y los viernes arte. Me encantan los viernes."
+}
