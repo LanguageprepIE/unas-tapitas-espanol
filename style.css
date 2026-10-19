@@ -17,3 +17,73 @@
 /* Course catalogue: reuse the unit palette, spacing and focus treatment. */
 .catalogue-intro{padding:44px 0 38px;max-width:900px}.catalogue-intro h1{font-size:clamp(2.2rem,5vw,3.7rem);line-height:1.13;letter-spacing:-.035em;margin:18px 0 24px}.catalogue-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin:26px 0 42px}.course-card,.unit-card{margin-bottom:0;display:flex;flex-direction:column;align-items:flex-start}.course-card h3,.unit-card h3{font-size:26px;margin:16px 0}.course-card .primary,.unit-card .primary{margin-top:auto}.course-card .tag,.unit-card .tag{margin-bottom:24px}.course-card .number{font-size:15px;font-weight:700;color:var(--sea)}.in-development{border-style:dashed;background:transparent}.site-header nav a.current{color:var(--sea);text-decoration:underline;text-underline-offset:7px}.breadcrumb{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.breadcrumb a{color:var(--sea)}
 @media(max-width:600px){.catalogue-grid{grid-template-columns:1fr;gap:16px}.catalogue-intro{padding:24px 0}.course-card h3,.unit-card h3{font-size:23px}.site-header nav{overflow-x:auto}.breadcrumb{font-size:13px}}
+/* Unit 2 Learn A: school scenes, illustrated objects and a short listening pause. */
+.u2-page{--u2-peach:#fff2e8;--u2-blue:#e4f0f5}
+.u2-steps .u2-soon{padding:10px 17px;border:1px dashed var(--line);border-radius:30px;color:var(--muted);font-size:14px}
+.u2-intro{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(240px,.75fr);gap:30px;align-items:center;padding:26px 0 40px}
+.u2-intro .primary{margin-top:10px}
+.u2-hero-art{display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:32px;min-height:260px;background:linear-gradient(145deg,#d9eef2,#fff1df);padding:22px;text-align:center;color:var(--sea);font-size:16px;font-weight:650}
+.u2-hero-art svg{width:min(70%,210px);height:175px}
+.u2-art{display:block;width:100%;height:112px;overflow:visible}
+.u2-roadmap{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:15px}
+.u2-roadmap .panel{margin:0}.u2-roadmap .number{color:var(--sea);font-size:14px}.u2-roadmap h2{font-size:22px;margin:12px 0}
+.u2-roadmap .u2-unavailable{border-style:dashed;background:transparent;color:var(--muted)}
+.u2-section{background:#fff;border:1px solid var(--line);border-radius:22px;padding:clamp(22px,4vw,44px);margin:24px 0 36px;scroll-margin-top:20px}
+.u2-section h2{font-size:clamp(26px,3vw,36px)}.u2-section>p{max-width:72ch}
+.u2-tabs,.u2-count-controls{display:flex;gap:9px;flex-wrap:wrap;margin:23px 0}
+.u2-tab.active,.u2-count-controls .active{background:var(--sea);color:#fff}
+.u2-scene{display:grid;grid-template-columns:minmax(180px,.33fr) minmax(0,.67fr);gap:18px;align-items:center;position:relative;overflow:hidden;background:linear-gradient(#e0f2f1 0 63%,#f5d9a8 63% 100%);padding:28px;border:1px solid #c1d8d5;border-radius:24px}
+.u2-scene:after{content:'';position:absolute;bottom:18px;left:4%;width:92%;height:6px;border-radius:50%;background:#bb9d6d55;pointer-events:none}
+.u2-scene-setting{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:280px}
+.u2-scene-setting .u2-setting-art{height:220px;filter:drop-shadow(4px 9px 3px #23404a27)}
+.u2-scene-setting p{margin:0;font-size:15px;font-weight:700;color:var(--ink)}
+.u2-scene-window{position:absolute;top:-10px;left:0;width:70px;height:100px;border:8px solid #fff9;box-shadow:0 0 0 2px #85b9b5;border-radius:9px;background:linear-gradient(160deg,#9ad9ea,#e4f1cf);opacity:.7}
+.u2-scene-objects{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.u2-discovery-item{display:flex;align-items:center;justify-content:center;position:relative;min-width:0;min-height:130px;padding:8px;background:transparent;border:2px solid transparent;border-radius:28px;box-shadow:none}
+.u2-discovery-item:nth-child(3n+1){transform:rotate(-5deg)}
+.u2-discovery-item:nth-child(3n+2){transform:rotate(4deg)}
+.u2-discovery-item:nth-child(3n){transform:translateY(9px) rotate(-2deg)}
+.u2-discovery-item:hover,.u2-discovery-item:focus-visible{background:#fffaf0bd;border-color:var(--sea);transform:translateY(-3px) rotate(0)}
+.u2-discovery-item.selected{border-color:var(--sea);background:#e8f4eed9;transform:rotate(0)}
+.u2-discovery-item .u2-art{height:108px;filter:drop-shadow(2px 5px 2px #24394430)}
+.u2-spotlight{display:flex;gap:24px;align-items:center;background:var(--u2-blue);padding:18px 24px;border-radius:18px;margin-top:22px}
+.u2-spotlight>.u2-art{flex:0 0 120px;height:115px}.u2-spotlight>div{flex:1;min-width:0}
+.u2-spotlight h3{font-size:27px;margin-bottom:6px}.u2-spotlight p{margin-bottom:8px}
+.u2-page audio{width:min(100%,500px);display:block;margin:10px 0}
+.u2-audio-fallback[hidden]{display:none}
+.u2-patterns{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:26px 0}
+.u2-patterns article{display:flex;align-items:center;flex-direction:column;position:relative;text-align:center;background:#f7f9f5;border:1px solid var(--line);border-radius:14px;padding:18px 8px}
+.u2-patterns .u2-art{height:84px}.u2-patterns strong{font-size:18px}.u2-patterns small{font-size:13px;color:var(--muted)}
+.u2-pattern-badge{align-self:flex-start;background:var(--sun);border-radius:20px;padding:2px 12px;font-weight:750;font-size:15px}
+.u2-rule{border-left:4px solid var(--sun);padding:12px 17px;background:#fff9ed;margin:20px 0 30px}
+.u2-dialogues{display:grid;gap:14px;margin:20px 0}
+.u2-dialogue{display:grid;grid-template-columns:150px minmax(0,1fr);gap:20px;align-items:center;background:#f5f8f6;border:1px solid var(--line);border-radius:18px;padding:16px}
+.u2-dialogue:nth-child(2){background:#fff8ec}.u2-dialogue:nth-child(3){background:#edf5f9}
+.u2-dialogue-picture .u2-art{height:135px}
+.u2-dialogue h4{font-size:17px;margin:0 0 12px}
+.u2-dialogue-lines{display:flex;flex-wrap:wrap;gap:9px}
+.u2-phrase{display:flex;flex-direction:column;text-align:left;gap:4px;padding:12px 16px;min-height:86px;flex:1 1 180px;border-color:var(--line)}
+.u2-phrase.selected{border-color:var(--sea);background:var(--foam)}
+.u2-phrase>span:first-child{font-size:18px;font-weight:700}
+.u2-phrase small{font-size:13px;color:var(--muted)}
+.u2-listen{font-size:12px;color:var(--sea);font-weight:650}
+.u2-phrase-player{border-radius:15px;padding:18px 22px;background:var(--foam)}
+.u2-phrase-player>span{font-size:20px;font-weight:700}
+.u2-count-controls button{min-width:52px;font-size:19px}
+.u2-count-scene{padding:26px;background:var(--u2-peach);border-radius:18px}
+.u2-count-art{display:flex;gap:7px;flex-wrap:wrap;align-items:center;min-height:118px}
+.u2-count-art svg{width:95px;height:96px}.u2-count-scene strong{display:block;font-size:25px}.u2-count-scene p{margin:10px 0}
+.u2-check-progress{font-weight:650;color:var(--sea)}
+.u2-check-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:22px 0}
+.u2-check-options button{display:flex;align-items:center;justify-content:center;min-width:0;min-height:160px;border:2px solid var(--line);background:#fcfcf7}
+.u2-check-options button:hover{background:var(--u2-blue)}
+.u2-check-options button.selected{border-color:var(--sea);background:var(--foam)}
+.u2-check-options .u2-art{height:115px}
+.u2-picture-stack{display:flex;align-items:center;justify-content:center;width:100%;gap:0}
+.u2-picture-stack .u2-art{width:min(32%,90px);height:95px;flex-shrink:0}
+.u2-picture-stack .u2-art+.u2-art{margin-left:-7px}
+.u2-dialogue-picture .u2-picture-stack .u2-art{width:33%;height:105px}
+.u2-final .feedback{margin:12px 0}
+@media(max-width:850px){.u2-intro{grid-template-columns:1fr}.u2-hero-art{min-height:185px}.u2-hero-art svg{height:125px}.u2-scene{grid-template-columns:1fr}.u2-scene-setting{min-height:160px;flex-direction:row;gap:16px}.u2-scene-setting .u2-setting-art{width:160px;height:150px}.u2-patterns{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:540px){.u2-scene{padding:14px}.u2-scene-objects{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.u2-discovery-item{min-height:118px}.u2-discovery-item .u2-art{height:85px}.u2-spotlight{gap:9px;padding:13px}.u2-spotlight>.u2-art{flex-basis:75px;height:78px}.u2-spotlight h3{font-size:20px}.u2-dialogue{grid-template-columns:1fr}.u2-dialogue-picture .u2-art{height:95px}.u2-dialogue-picture{max-width:135px}.u2-count-art svg{width:70px}.u2-check-options button{padding:7px;min-height:110px}.u2-check-options .u2-art{height:80px}.u2-picture-stack .u2-art{height:68px}}
+@media print{.u2-hero-art,.u2-spotlight,.u2-scene,.u2-dialogue,.u2-check-options{break-inside:avoid}}

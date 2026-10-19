@@ -6,7 +6,9 @@ import {newPlayState} from '../play-engine.mjs';
 function storage(){const m=new Map();return {get length(){return m.size;},key:i=>[...m.keys()][i],getItem:k=>m.get(k),setItem:(k,v)=>m.set(k,v),removeItem:k=>m.delete(k)};}
 test('old section bookmarks resolve to canonical U1 routes; invalid and pending routes resolve safely',()=>{
  for(const section of sections){assert.equal(routeHash(parseRoute('#'+section)),unitHash(section));assert.equal(parseRoute('#'+unitHash(section)).section,section);}
- for(const hash of ['#course/1st-year/unit/2/learn','#course/1st-year/unit/999/play','#course/1st-year/unit/1/fake'])assert.deepEqual(parseRoute(hash),{kind:'course',course:'1st-year'});
+ for(const hash of ['#course/1st-year/unit/2/play','#course/1st-year/unit/999/play','#course/1st-year/unit/1/fake'])assert.deepEqual(parseRoute(hash),{kind:'course',course:'1st-year'});
+ assert.deepEqual(parseRoute('#course/1st-year/unit/2/learn'),{kind:'unit',course:'1st-year',unit:'2',section:'learn'});
+ assert.deepEqual(parseRoute('#course/1st-year/unit/2/overview'),{kind:'unit',course:'1st-year',unit:'2',section:'overview'});
  assert.deepEqual(parseRoute('#course/lc/unit/1/learn'),{kind:'course',course:'lc'});
  assert.deepEqual(parseRoute('#course/lc/hl/unit/1/learn'),{kind:'course',course:'lc',level:'hl'});
  for(const hash of ['#javascript:bad','#course/5th-year','#course/6th-year','#unknown'])assert.deepEqual(parseRoute(hash),{kind:'home'});
