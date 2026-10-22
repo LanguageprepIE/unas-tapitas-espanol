@@ -8,7 +8,7 @@ export const courses=[
 ];
 export const units=[
  {course:'1st-year',id:'1',title:'Hola y bienvenidos',status:'available',runtime:'unit1',description:['Meet someone new and introduce yourself.','Conoce a alguien y preséntate.']},
- {course:'1st-year',id:'2',title:'El aula',status:'partial',runtime:'unit2',description:['Learn · A: What is in my school bag? · B: My school week · C: How do I get to school?','Learn · A: ¿Qué hay en mi mochila? · B: Mi semana escolar · C: ¿Cómo voy al colegio?']}
+ {course:'1st-year',id:'2',title:'El aula',status:'partial',runtime:'unit2',description:['Learn A–D and four Explore laboratories.','Learn A–D y cuatro laboratorios de Explore.']}
 ];
 // Match approved unit metadata to its renderer; placeholders cannot become routes.
 export const unitRuntimes=new Set(['unit1','unit2']);
@@ -31,7 +31,7 @@ export function parseRoute(hash=''){
  if(p[i]!=='unit'||p.length!==i+3||!sections.includes(p[i+2]))return parent;
  const u=findUnit(course.id,p[i+1],level);
  if(!availableUnit(u))return parent;
- if(u.status==='partial'&&!['overview','learn'].includes(p[i+2]))return parent;
+ if(u.status==='partial'&&!['overview','learn','explore'].includes(p[i+2]))return parent;
  return {kind:'unit',course:course.id,unit:u.id,section:p[i+2],...(level?{level}:{})};
 }
 export function routeHash(r){return r.kind==='home'?'home':r.kind==='course'?courseHash(r.course,r.level):unitHash(r.section,r.course,r.unit,r.level);}
