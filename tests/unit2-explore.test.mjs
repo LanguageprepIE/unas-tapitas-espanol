@@ -40,5 +40,24 @@ test('all four labs render in three modes and snapshots, product view and symbol
  const objects=await readFile(new URL('../assets/illustrations/unit2-objects.svg',import.meta.url),'utf8'),journeys=await readFile(new URL('../assets/illustrations/unit2-journeys.svg',import.meta.url),'utf8');
  for(const n of nouns)assert(objects.includes(`id="${n.icon}"`));for(const id of ['walk','bike','bus','car','train','scooter','school'])assert(journeys.includes(`id="${id}"`));
  for(const mode of ['en','bi','es']){const s=newUnit2ExploreState();for(const [lab] of labNames){act(s,'lab',lab);const html=render(s,mode);assert(!html.includes('undefined'));assert(html.includes('id="u2x-stage"'));assert(!html.includes('<audio'));if(mode==='es')assert(!html.includes('Change the picture'));}
- act(s,'lab','timetable');act(s,'finish');assert(render(s,mode).includes('u2x-week'));act(s,'day',4);assert(render(s,mode).includes('13:15'));}
+ act(s,'lab','timetable');act(s,'finish');assert(render(s,mode).includes('u2x-print-sheet'));act(s,'day',4);assert(render(s,mode).includes('13:15'));}
+});
+
+test('chosen journey duration is independent, survives other changes and returns to the example on request',()=>{
+ const s=newUnit2ExploreState();act(s,'lab','journeys');act(s,'journey-minutes','20');assert.equal(journeyResult(s.journeys).minutes,20);assert(journeyResult(s.journeys).text.includes('Tardo veinte minutos.'));
+ act(s,'journey-pin');act(s,'transport','train');act(s,'distance','quite-far');assert.equal(journeyResult(s.journeys).minutes,20);assert.equal(s.journeys.pinned.minutes,20);
+ act(s,'journey-minutes','auto');assert.equal(journeyResult(s.journeys).minutes,15);assert.equal(s.journeys.pinned.minutes,20);
+ for(const invalid of ['0','7','31','NaN',''])assert.equal(updateUnit2Explore(s,'u2x-journey-minutes',invalid),false);
+ for(const mode of ['en','bi','es'])assert(render(s,mode).includes('id="u2x-journey-minutes"'));
+});
+
+test('four print themes preserve the complete edited week and exclude editor controls from the sheet',()=>{
+ const s=newUnit2ExploreState();act(s,'lab','timetable');act(s,'time-breakDuration','30');act(s,'subject','art');act(s,'finish');
+ for(const style of ['ocean','coral','notebook','mono']){
+  act(s,'print-style',style);
+  for(const mode of ['en','bi','es']){const html=render(s,mode),sheet=html.slice(html.indexOf('<article class="u2x-print-sheet'),html.indexOf('</article>'));
+   assert(sheet.includes('u2x-print-'+style));assert.equal((sheet.match(/class="u2x-print-day"/g)||[]).length,5);assert(sheet.includes('16:10')&&sheet.includes('13:15'));assert(sheet.includes('educación plástica'));assert(!sheet.includes('<button')&&!sheet.includes('<select'));assert(html.includes('data-action="u2x-print"'));
+  }
+ }
+ assert.equal(updateUnit2Explore(s,'u2x-print-style','unknown'),false);act(s,'finish');assert.equal(s.timetable.days[0].classes[0],'art');assert.equal(s.timetable.printStyle,'mono');
 });

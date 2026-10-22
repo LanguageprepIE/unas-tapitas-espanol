@@ -7,9 +7,11 @@ export const nouns=[
 ].map(([id,singular,plural,gender])=>({...unit2Objects.find(o=>o.id===id),singular,plural,gender}));
 export const labNames=[['words','Word detective','El detective de palabras'],['preferences','Preferences lab','El laboratorio de preferencias'],['timetable','My timetable, my rules','Mi horario, mis reglas'],['journeys','How do we get to school?','¿Cómo llegamos al colegio?']];
 export const timeOptions={start:[480,495,510,525,540,555,570,585,600],duration:[30,45,50,60],breakDuration:[5,10,15,20,30,40],lunchDuration:[0,20,30,40,60]};
+export const journeyDurationOptions=[5,10,15,20,30];
+export const printStyles=[['ocean','Ocean','Océano'],['coral','Coral','Coral'],['notebook','Notebook','Cuaderno'],['mono','Black and white','Blanco y negro']];
 export const clock=n=>`${String(Math.floor(n/60)).padStart(2,'0')}:${String(n%60).padStart(2,'0')}`;
 const newDay=(classes)=>({classes:[...classes],start:540,duration:60,breakAfter:2,breakDuration:15,lunchAfter:4,lunchDuration:classes.length>4?40:0});
-export const newUnit2ExploreState=()=>({lab:'words',visited:['words'],words:{object:'book',count:1,article:'un',form:'singular',pinned:null},preferences:{people:[{name:'Alba',subject:'history',sentiment:'like'},{name:'Leo',subject:'maths',sentiment:'dislike'}]},timetable:{day:0,cell:0,finished:false,days:schoolWeek.map(newDay),before:null},journeys:{distance:'near',transport:'walk',pinned:null}});
+export const newUnit2ExploreState=()=>({lab:'words',visited:['words'],words:{object:'book',count:1,article:'un',form:'singular',pinned:null},preferences:{people:[{name:'Alba',subject:'history',sentiment:'like'},{name:'Leo',subject:'maths',sentiment:'dislike'}]},timetable:{day:0,cell:0,finished:false,printStyle:'ocean',days:schoolWeek.map(newDay),before:null},journeys:{distance:'near',transport:'walk',minutes:null,pinned:null}});
 export function nounModel(w){const n=nouns.find(n=>n.id===w.object),plural=n.id==='scissors'||w.count>1;return {noun:n,plural,article:n.gender==='m'?(plural?'unos':'un'):(plural?'unas':'una'),word:plural?n.plural:n.singular};}
 export function nounFeedback(w){const m=nounModel(w),actual=w.form==='plural'?m.noun.plural:m.noun.singular,match=w.article===m.article&&actual===m.word;return {match,attempt:`${w.article} ${actual}`,model:`${m.article} ${m.word}`,special:m.noun.id==='scissors'?'scissors':m.noun.id==='sharpener'?'invariant':m.noun.id==='pencil'?'pencil':'regular',...m};}
 export function preferenceModel(p){const sub=subjectById(p.subject),plural=['las','los'].includes(sub.article);if(p.sentiment==='favourite')return {text:`Mi asignatura favorita es ${sub.name}.`,verb:'',sub};return {text:`${p.sentiment==='dislike'?'No me':'Me'} ${plural?'gustan':'gusta'} ${sub.article} ${sub.name}.`,verb:plural?'gustan':'gusta',sub};}
@@ -17,7 +19,7 @@ export function timetableRows(d){let time=d.start;const rows=[];d.classes.forEac
 // Explicit fictional examples. No speed formula or claim about real transport times.
 export const journeyScenarios={near:{words:'cerca',en:'near',x:230,times:{walk:10,bike:5,bus:10,car:5,train:15,scooter:5}},far:{words:'lejos',en:'far',x:130,times:{walk:30,bike:15,bus:20,car:15,train:20,scooter:20}},'quite-far':{words:'bastante lejos',en:'quite far',x:35,times:{walk:30,bike:20,bus:30,car:20,train:15,scooter:20}}};
 const minuteWords={5:'cinco',10:'diez',15:'quince',20:'veinte',30:'treinta'};
-export function journeyResult(j){const scenario=journeyScenarios[j.distance],mode=journeyMode(j.transport),minutes=scenario.times[j.transport];return {distance:j.distance,transport:j.transport,minutes,text:`Voy ${mode.words}. Vivo ${scenario.words} del colegio. Tardo ${minuteWords[minutes]} minutos.`,scenario,mode};}
+export function journeyResult(j){const scenario=journeyScenarios[j.distance],mode=journeyMode(j.transport),minutes=journeyDurationOptions.includes(j.minutes)?j.minutes:scenario.times[j.transport];return {distance:j.distance,transport:j.transport,minutes,text:`Voy ${mode.words}. Vivo ${scenario.words} del colegio. Tardo ${minuteWords[minutes]} minutos.`,scenario,mode};}
 const includes=(arr,v)=>arr.includes(Number(v));
 export function updateUnit2Explore(s,action,value){
  const w=s.words,t=s.timetable,j=s.journeys,d=t.days[t.day];
@@ -42,6 +44,8 @@ export function updateUnit2Explore(s,action,value){
  if(action==='u2x-time-pin'){t.before={day:t.day,end:timetableRows(d).end,classes:d.classes.length,duration:d.duration};return true;}
  if(action==='u2x-apply-week'){t.days=t.days.map((other,i)=>i===t.day?d:{...d,classes:Array.from({length:d.classes.length},(_,k)=>other.classes[k]??'spanish')});return true;}
  if(action==='u2x-finish'){t.finished=!t.finished;return true;}
+ if(action==='u2x-print-style'&&printStyles.some(([id])=>id===value)){t.printStyle=value;return true;}
+ if(action==='u2x-journey-minutes'&&(value==='auto'||includes(journeyDurationOptions,value))){j.minutes=value==='auto'?null:Number(value);return true;}
  if(action==='u2x-distance'&&journeyScenarios[value]){j.distance=value;return true;}
  if(action==='u2x-transport'&&journeyMode(value)){j.transport=value;return true;}
  if(action==='u2x-journey-pin'){j.pinned={...journeyResult(j)};return true;}

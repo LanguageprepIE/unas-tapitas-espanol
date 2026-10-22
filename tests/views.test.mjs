@@ -164,3 +164,9 @@ test('Unit 2 Explore deep link, controls and language switching preserve all fou
  h.route('course/1st-year/unit/1/explore');assert(!h.get('#main').innerHTML.includes('u2x-stage'));h.route('course/1st-year/unit/2/explore');assert(h.get('#main').innerHTML.includes('El trayecto ha cambiado, pero el tiempo es el mismo'));
  for(const mode of ['en','bi','es']){h.mode(mode);h.route('course/1st-year/unit/2/learn');assert(h.get('#main').innerHTML.includes('href="#course/1st-year/unit/2/explore"'));h.route('course/1st-year/unit/2/explore');}
 });
+
+test('timetable print button invokes native printing and style/duration selections survive language changes',async()=>{
+ const h=await harness();let prints=0;h.window.print=()=>{prints++;};h.route('course/1st-year/unit/2/explore');
+ click(h,'u2x-lab',{value:'timetable'});click(h,'u2x-finish');click(h,'u2x-print-style',{value:'mono'});click(h,'u2x-print');assert.equal(prints,1);h.mode('bi');assert(h.get('#main').innerHTML.includes('u2x-print-mono'));
+ click(h,'u2x-lab',{value:'journeys'});h.get('#main').listeners.change({target:{id:'u2x-journey-minutes',value:'30'}});h.mode('es');assert(h.get('#main').innerHTML.includes('treinta minutos'));assert(h.get('#main').innerHTML.includes('value="30" selected'));
+});

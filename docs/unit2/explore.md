@@ -24,3 +24,11 @@ Botones nativos y selectores etiquetados, sin depender de arrastre. Foco conserv
 - Revisión funcional en navegador de escritorio: cambio de cantidad/artículo/nombre; horario y aumento del recreo (salida 15:55 → 16:10); vista semanal terminada; simulador y comparación de tiempos iguales; conservación al cambiar a bilingüe. Pendiente de prueba docente en iPad/móvil y con lector de pantalla real. La inspección del árbol accesible no equivale a esa prueba.
 
 Vista privada única de revisión; no publicar esta rama sobre la web de main ni fusionar hasta autorización expresa del profesor.
+
+## Ajustes tras la revisión docente
+
+El profesor aprobó las cuatro experiencias y pidió impresión del horario y duración editable del trayecto. La vista terminada ofrece cuatro estilos (Océano, Coral, Cuaderno y Blanco y negro), con vista previa y un botón de impresión nativa para imprimir o guardar como PDF. La hoja incluye exclusivamente los cinco días, sus intervalos, asignaturas, descansos y salida; las reglas de impresión solicitan A4 horizontal. Se mantiene la alternativa diaria en pantallas pequeñas. Los estilos no alteran el contenido del horario. No se abre una ventana nueva ni se envían datos.
+
+La duración permite elegir 5, 10, 15, 20 o 30 minutos, conservando las formas trabajadas. El valor elegido permanece al cambiar distancia o transporte; «Usar el tiempo del ejemplo» restaura el comportamiento original del simulador. La frase, la escena, el anuncio accesible y la comparación usan el mismo valor.
+
+Validación actualizada: 113 pruebas; compilación correcta. Comprobados en navegador el selector de estilo y la vista de hoja, la duración personalizada y su conservación al cambiar transporte e idioma. El entorno no muestra el diálogo nativo de impresión: la paginación y salida física requieren comprobación en el dispositivo docente. Los contenidos y audios aprobados permanecen sin cambios.
