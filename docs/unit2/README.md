@@ -1,6 +1,6 @@
 # Banco de audio — 1st Year, Unit 2: El aula
 
-Estado: entrega parcial para revisión, 18 de octubre de 2026. PR #6 en borrador. No se han conectado estos recursos a actividades ni modificado la Unidad 1.
+Registro histórico de la entrega del banco de audio del 18 de octubre de 2026 (PR #6). Los recuentos y pendientes de abajo describen aquella entrega, antes de conectar el banco a actividades. Para el estado integrado consulta la [hoja de ruta](../HOJA_DE_RUTA.md#estado-confirmado-en-main), [Learn B](learn-block-b.md), [Learn C](learn-block-c.md) y [Learn D](../UNIT2_LEARN_D.md).
 
 ## Resultado
 

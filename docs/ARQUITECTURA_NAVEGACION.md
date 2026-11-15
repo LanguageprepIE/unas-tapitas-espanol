@@ -1,6 +1,13 @@
 # Cursos, unidades y progreso
 
-## Alcance de esta rama
+## Estado y notas de la integración original
+
+Consulta el [estado actual](HOJA_DE_RUTA.md#estado-confirmado-en-main) y la
+[revisión de arquitectura](MANTENIMIENTO.md#arquitectura-y-reutilizacion).
+Las notas de integración siguientes describen la fase original de Learn A.
+Actualmente U2 abre `overview`, `learn` y `explore`; `learn` reúne A–D.
+El catálogo admite claves por unidad, pero la interfaz de la versión actual
+solo persiste el progreso de la Unidad 1. U2 conserva su actividad en memoria.
 
 Portada → curso → unidad → Learn / Explore / Practise / Communicate / Play.
 Los cuatro cursos son 1st Year, 2nd Year, 3rd Year y Leaving Certificate (LC).
