@@ -36,3 +36,8 @@
 .context-help-body li{margin:.5rem 0}
 .context-help-body strong{display:block}
 .context-help-body a,.context-help-return a{display:inline-block;min-height:44px;padding:.55rem .15rem;text-decoration:underline}
+
+.u2x-reveal button{touch-action:manipulation;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+.u2x-reveal button svg{display:inline-block;vertical-align:middle;margin-inline-end:.3em}
+.u2x-reveal [hidden]{display:none}
+.u2x-reveal .small{margin:.45rem 0 .8rem}

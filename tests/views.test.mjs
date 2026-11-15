@@ -204,7 +204,7 @@ test('Unit 2 contextual Learn visits return to the same disclosure and preserve 
  const action=(type,id)=>h.document.body.listeners.click({preventDefault(){},target:{closest:()=>({dataset:{action:type,id}})}});
  for(const [lab,help,title,change,verify] of [
   ['words','articles-gender','u2-notice-title',()=>{click(h,'u2x-count',{value:'2'});click(h,'u2x-word-pin');},/aria-pressed="true" class="selected">.*?2<\/span>|2 drawings: book/],
-  ['preferences','gusta-gustan','u2b-title',()=>{h.get('#main').listeners.change({target:{id:'u2x-pref-subject-0',value:'science'}});h.get('#main').listeners.change({target:{id:'u2x-pref-sentiment-0',value:'favourite'}});click(h,'u2x-pref-person');},/Mi asignatura favorita es ciencias\./]
+  ['preferences','gusta-gustan','u2b-title',()=>{h.get('#main').listeners.change({target:{id:'u2x-pref-subject-0',value:'science'}});h.get('#main').listeners.change({target:{id:'u2x-pref-sentiment-0',value:'favourite'}});click(h,'u2x-pref-level',{value:'who'});click(h,'u2x-pref-perspective',{value:'self'});},/Mi asignatura favorita es ciencias\.[\s\S]*?A mí no me <mark>gustan<\/mark> las matemáticas\./]
  ]){
   click(h,'u2x-lab',{value:lab});
   change();
