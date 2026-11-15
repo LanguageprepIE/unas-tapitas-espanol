@@ -1,3 +1,4 @@
+import {renderCommunicate,welcomeCards,workshops} from '../data/communicate.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import vm from 'node:vm';
@@ -18,7 +19,7 @@ import * as day from '../unit2-day.mjs';
 import {createAudioController} from '../activity-library/renderer.mjs';
 // A rendering harness, not a browser or an accessibility audit.
 function element(){return {innerHTML:'',textContent:'',value:'',listeners:{},classList:{toggle(){}},addEventListener(k,fn){this.listeners[k]=fn;},setAttribute(){},contains(){return false;},append(){},focus(){},scrollIntoView(){},closest(){return this;},querySelector(){return null;}};}
-async function harness({initialHash='',initialStorage=new Map(),blockedStorage=false}={}){const elements=new Map();const get=s=>{if(!elements.has(s))elements.set(s,element());return elements.get(s);};const document={activeElement:null,documentElement:element(),body:element(),querySelector:get,createElement:()=>element()};const window={listeners:{},addEventListener(k,fn){this.listeners[k]=fn;},scrollTo(){}};const location={hash:initialHash};window.history={replaceState(_s,_t,hash){location.hash=hash;}};const storage=initialStorage;const localStorage={get length(){return storage.size;},key:i=>[...storage.keys()][i],getItem:k=>{if(blockedStorage)throw Error('blocked');return storage.get(k);},setItem:(k,v)=>{if(blockedStorage)throw Error('blocked');storage.set(k,v);},removeItem:k=>{if(blockedStorage)throw Error('blocked');storage.delete(k);}};const source=(await readFile(new URL('../app.js',import.meta.url),'utf8')).replace(/^import .*;\n/gm,'');vm.runInNewContext(source,{...content,...engine,...catalogue,...progress,...explore,...playEngine,...playViews,...playData,...unit2,...week,...journey,...day,...unit2Explore,createAudioController,document,window,location,localStorage,console,setTimeout,Blob,URL});return {get,document,window,location,storage,route(id){location.hash='#'+id;window.listeners.hashchange();},mode(value){get('#mode').listeners.change({target:{value}});}};}
+async function harness({initialHash='',initialStorage=new Map(),blockedStorage=false}={}){const elements=new Map();const get=s=>{if(!elements.has(s))elements.set(s,element());return elements.get(s);};const document={activeElement:null,documentElement:element(),body:element(),querySelector:get,createElement:()=>element()};const window={listeners:{},addEventListener(k,fn){this.listeners[k]=fn;},scrollTo(){}};const location={hash:initialHash};window.history={replaceState(_s,_t,hash){location.hash=hash;}};const storage=initialStorage;const localStorage={get length(){return storage.size;},key:i=>[...storage.keys()][i],getItem:k=>{if(blockedStorage)throw Error('blocked');return storage.get(k);},setItem:(k,v)=>{if(blockedStorage)throw Error('blocked');storage.set(k,v);},removeItem:k=>{if(blockedStorage)throw Error('blocked');storage.delete(k);}};const source=(await readFile(new URL('../app.js',import.meta.url),'utf8')).replace(/^import .*;\n/gm,'');vm.runInNewContext(source,{...content,...engine,...catalogue,...progress,...explore,...playEngine,...playViews,...playData,...unit2,...week,...journey,...day,...unit2Explore,createAudioController,renderCommunicate,welcomeCards,workshops,document,window,location,localStorage,console,setTimeout,Blob,URL});return {get,document,window,location,storage,route(id){location.hash='#'+id;window.listeners.hashchange();},mode(value){get('#mode').listeners.change({target:{value}});}};}
 test('all eight views render in all three language modes without runtime failures',async()=>{const h=await harness();for(const mode of ['en','bi','es']){h.mode(mode);for(const route of ['home','learn','explore','practise','communicate','grammar','vocabulary','listening']){h.route(route);const html=h.get('#main').innerHTML;assert(html.includes('<h1>'),`${mode}/${route}`);assert(!html.includes('undefined'),`${mode}/${route}`);if(mode==='bi')assert(html.includes('lang="en"')&&html.includes('lang="es"'));}}});
 test('language switches and route changes preserve text and escape entered markup',async()=>{const h=await harness();h.route('communicate');const input=h.get('#main').listeners.input;input({target:{id:'draft',value:'Hola <script>private</script>'}});input({target:{id:'reflection',value:'Puedo pedir ayuda.'}});for(const mode of ['bi','es','en']){h.mode(mode);const html=h.get('#main').innerHTML;assert(html.includes('Hola &lt;script&gt;private&lt;/script&gt;'));assert(html.includes('Puedo pedir ayuda.'));}h.route('home');h.route('communicate');assert(h.get('#main').innerHTML.includes('Hola &lt;script&gt;private&lt;/script&gt;'));});
 test('a practice answer survives language switching and contextual help',async()=>{const h=await harness();h.route('practise');h.document.body.listeners.click({target:{closest:()=>({dataset:{action:'q-choice',value:'Me llamo Leo.'}})}});h.mode('es');assert(h.get('#main').innerHTML.includes('aria-pressed="true"'));h.route('grammar');h.route('practise');assert(h.get('#main').innerHTML.includes('aria-pressed="true"'));});
@@ -169,4 +170,73 @@ test('timetable print button invokes native printing and style/duration selectio
  const h=await harness();let prints=0;h.window.print=()=>{prints++;};h.route('course/1st-year/unit/2/explore');
  click(h,'u2x-lab',{value:'timetable'});click(h,'u2x-finish');click(h,'u2x-print-style',{value:'mono'});click(h,'u2x-print');assert.equal(prints,1);h.mode('bi');assert(h.get('#main').innerHTML.includes('u2x-print-mono'));
  click(h,'u2x-lab',{value:'journeys'});h.get('#main').listeners.change({target:{id:'u2x-journey-minutes',value:'30'}});h.mode('es');assert(h.get('#main').innerHTML.includes('treinta minutos'));assert(h.get('#main').innerHTML.includes('value="30" selected'));
+});
+
+test('Communicate checks each reply in place, finishes at part four and keeps the welcome-card choice during review',async()=>{
+ const h=await harness();h.route('communicate');
+ const html=()=>h.get('#main').innerHTML;
+ const go=action=>click(h,action);
+ const choose=(action,value)=>click(h,action,{value});
+ let focus;
+ h.get('#comm-cards-title').focus=()=>{focus='cards';};
+ h.get('#comm-encounter-title').focus=()=>{focus='encounter';};
+ assert(!html().includes('id="meeting-final"'));
+ choose('m-choice','Tengo trece años.');
+ go('m-check');assert.match(html(),/Try a different reply/);
+ go('m-next');assert.match(html(),/1 \/ 4/);
+ for(const [i,turn] of content.mission.entries()){
+  choose('m-choice',turn.answer);assert(!html().includes('That reply fits.'));
+  go('m-check');assert.match(html(),/That reply fits/);
+  assert.match(html(),new RegExp(`${i+1} / 4`));
+  if(i<3)go('m-next');
+ }
+ assert(!html().includes('data-action="m-next"'));
+ assert.match(html(),/Finish conversation/);
+ go('m-finish');assert.equal(focus,'cards');
+ assert.match(html(),/Find Inés’s welcome card/);
+ for(const [id,name,age] of welcomeCards){
+  const card=html().match(new RegExp(`data-value="${id}" aria-pressed="false">(.*?)</button>`,'s'))?.[1];
+  assert(card?.includes(name)&&card.includes(String(age)));
+ }
+ for(const [choice,clue] of [['A','The name matches'],['C','Look closely at the name']]){
+  choose('meeting-choice',choice);assert(!html().includes('id="comm-card-feedback"'));
+  go('meeting-check');assert(html().includes(clue));assert(!html().includes('Card B matches both'));
+ }
+ choose('meeting-choice','B');go('meeting-check');
+ assert.match(html(),/Card B matches both details/);
+ go('meeting-review');assert.equal(focus,'encounter');assert.match(html(),/4 \/ 4/);
+ go('m-back');assert.match(html(),/3 \/ 4/);
+ go('m-next');go('m-finish');
+ assert.match(html(),/data-value="B" aria-pressed="true"/);
+ assert.match(html(),/Card B matches both details/);
+});
+
+test('Communicate offers a complete individual and partner workflow for each task and keeps private notes separate',async()=>{
+ const h=await harness();h.route('communicate');
+ const html=()=>h.get('#main').innerHTML;
+ const set=(action,value)=>click(h,action,{value});
+ const write=(id,value)=>h.get('#main').listeners.input({target:{id,value}});
+ assert.match(html(),/data-value="solo" aria-pressed="true"/);
+ write('draft','Private greeting');
+ for(const t of workshops){
+  set('comm-task',t.id);
+  for(const mode of ['en','bi','es']){
+   h.mode(mode);
+   for(const [kind,index] of [['solo',0],['partner',1]]){
+    set('comm-mode',kind);
+    const actual=kind==='solo'?t.solo:t.partner;
+    for(const [language,i] of [['en',0],['es',1]]){
+     assert.equal(html().includes(actual[i]),mode==='bi'||mode===language);
+     assert.equal(html().includes(t.check[index][i]),mode==='bi'||mode===language);
+    }
+    assert.equal(html().includes('id="comm-support-guests"'),kind==='solo'&&t.id==='list');
+    write('comm-work',`Notes: ${t.id} ${kind}`);
+   }
+  }
+ }
+ set('comm-mode','solo');set('comm-task','list');
+ assert.match(html(),/Notes: list solo/);assert(!html().includes('Notes: list partner'));
+ h.route('learn');h.route('communicate');
+ assert.match(html(),/Private greeting/);assert.match(html(),/Notes: list solo/);
+ assert(!JSON.stringify([...h.storage]).includes('Private greeting'));
 });
