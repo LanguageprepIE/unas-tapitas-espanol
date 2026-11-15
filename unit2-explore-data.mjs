@@ -11,10 +11,20 @@ export const journeyDurationOptions=[5,10,15,20,30];
 export const printStyles=[['ocean','Ocean','Océano'],['coral','Coral','Coral'],['notebook','Notebook','Cuaderno'],['mono','Black and white','Blanco y negro']];
 export const clock=n=>`${String(Math.floor(n/60)).padStart(2,'0')}:${String(n%60).padStart(2,'0')}`;
 const newDay=(classes)=>({classes:[...classes],start:540,duration:60,breakAfter:2,breakDuration:15,lunchAfter:4,lunchDuration:classes.length>4?40:0});
-export const newUnit2ExploreState=()=>({lab:'words',visited:['words'],words:{object:'book',count:1,article:'un',form:'singular',pinned:null},preferences:{people:[{name:'Alba',subject:'history',sentiment:'like'},{name:'Leo',subject:'maths',sentiment:'dislike'}]},timetable:{day:0,cell:0,finished:false,printStyle:'ocean',days:schoolWeek.map(newDay),before:null},journeys:{distance:'near',transport:'walk',minutes:null,pinned:null}});
+export const newUnit2ExploreState=()=>({lab:'words',visited:['words'],words:{object:'book',count:1,article:'un',form:'singular',pinned:null},preferences:{level:'what',perspective:'other',explicit:true,people:[{name:'Alba',subject:'history',sentiment:'like'},{name:'Leo',subject:'maths',sentiment:'dislike'}]},timetable:{day:0,cell:0,finished:false,printStyle:'ocean',days:schoolWeek.map(newDay),before:null},journeys:{distance:'near',transport:'walk',minutes:null,pinned:null}});
 export function nounModel(w){const n=nouns.find(n=>n.id===w.object),plural=n.id==='scissors'||w.count>1;return {noun:n,plural,article:n.gender==='m'?(plural?'unos':'un'):(plural?'unas':'una'),word:plural?n.plural:n.singular};}
 export function nounFeedback(w){const m=nounModel(w),actual=w.form==='plural'?m.noun.plural:m.noun.singular,match=w.article===m.article&&actual===m.word;return {match,attempt:`${w.article} ${actual}`,model:`${m.article} ${m.word}`,special:m.noun.id==='scissors'?'scissors':m.noun.id==='sharpener'?'invariant':m.noun.id==='pencil'?'pencil':'regular',...m};}
-export function preferenceModel(p){const sub=subjectById(p.subject),plural=['las','los'].includes(sub.article);if(p.sentiment==='favourite')return {text:`Mi asignatura favorita es ${sub.name}.`,verb:'',sub};return {text:`${p.sentiment==='dislike'?'No me':'Me'} ${plural?'gustan':'gusta'} ${sub.article} ${sub.name}.`,verb:plural?'gustan':'gusta',sub};}
+export function preferenceModel(p,{perspective='self',explicit=false}={}){
+ const sub=subjectById(p.subject);
+ // A favourite uses ser, so keep it as a direct quote in either discovery.
+ if(p.sentiment==='favourite')return {text:`Mi asignatura favorita es ${sub.name}.`,verb:'',sub};
+ const verb=['las','los'].includes(sub.article)?'gustan':'gusta';
+ const self=perspective==='self',name=explicit?(self?'A mí ':`A ${p.name} `):'';
+ const phrase=`${name}${p.sentiment==='dislike'?'no ':''}${self?'me':'le'}`;
+ const prefix=phrase[0].toUpperCase()+phrase.slice(1);
+ return {text:`${prefix} ${verb} ${sub.article} ${sub.name}.`,prefix,verb,sub};
+}
+export const preferenceView=p=>p.level==='who'?{perspective:p.perspective,explicit:p.explicit}:{};
 export function timetableRows(d){let time=d.start;const rows=[];d.classes.forEach((subject,i)=>{rows.push({kind:'class',subject,index:i,start:time,end:time+d.duration});time+=d.duration;if(i+1<d.classes.length){for(const [kind,after,duration] of [['break',d.breakAfter,d.breakDuration],['lunch',d.lunchAfter,d.lunchDuration]])if(i+1===after&&duration>0){rows.push({kind,start:time,end:time+duration});time+=duration;}}});return {rows,end:time};}
 // Explicit fictional examples. No speed formula or claim about real transport times.
 export const journeyScenarios={near:{words:'cerca',en:'near',x:230,times:{walk:10,bike:5,bus:10,car:5,train:15,scooter:5}},far:{words:'lejos',en:'far',x:130,times:{walk:30,bike:15,bus:20,car:15,train:20,scooter:20}},'quite-far':{words:'bastante lejos',en:'quite far',x:35,times:{walk:30,bike:20,bus:30,car:20,train:15,scooter:20}}};
@@ -30,7 +40,9 @@ export function updateUnit2Explore(s,action,value){
  if(action==='u2x-form'&&['singular','plural'].includes(value)){w.form=value;return true;}
  if(action==='u2x-word-pin'){w.pinned={...nounFeedback(w),count:w.count};return true;}
  if(action==='u2x-pref-swap'){[s.preferences.people[0].subject,s.preferences.people[1].subject]=[s.preferences.people[1].subject,s.preferences.people[0].subject];return true;}
- if(action==='u2x-pref-person'){[s.preferences.people[0].name,s.preferences.people[1].name]=[s.preferences.people[1].name,s.preferences.people[0].name];return true;}
+ if(action==='u2x-pref-level'&&['what','who'].includes(value)){s.preferences.level=value;return true;}
+ if(action==='u2x-pref-perspective'&&['self','other'].includes(value)){s.preferences.perspective=value;return true;}
+ if(action==='u2x-pref-explicit'){s.preferences.explicit=!s.preferences.explicit;return true;}
  const pref=action.match(/^u2x-pref-(subject|sentiment)-([01])$/);
  if(pref){const [,key,i]=pref;if(key==='subject'&&!schoolSubjects.some(x=>x.id===value))return false;if(key==='sentiment'&&!['like','dislike','favourite'].includes(value))return false;s.preferences.people[i][key]=value;return true;}
  if(action==='u2x-day'&&includes([0,1,2,3,4],value)){t.day=Number(value);t.cell=0;return true;}
@@ -53,8 +65,32 @@ export function updateUnit2Explore(s,action,value){
 }
 
 export function unit2ExploreAnnouncement(s){
- if(s.lab==='words'){const f=nounFeedback(s.words);return [`Your experiment: ${f.attempt}. Model: ${f.model}.`,`Tu experimento: ${f.attempt}. Modelo: ${f.model}.`];}
- if(s.lab==='preferences'){const text=s.preferences.people.map(p=>`${p.name}: ${preferenceModel(p).text}`).join(' ');return [text,text];}
+ if(s.lab==='words'){const f=nounFeedback(s.words);return [`Your experiment: ${f.attempt}. ${f.match?'The words fit.':'The pieces do not all fit yet.'}`,`Tu experimento: ${f.attempt}. ${f.match?'Las palabras encajan.':'Todavía no encajan todas las piezas.'}`];}
+ if(s.lab==='preferences'){const text=s.preferences.people.map(p=>`${p.name}: ${preferenceModel(p,preferenceView(s.preferences)).text}`).join(' ');return [text,text];}
  if(s.lab==='timetable'){const d=s.timetable.days[s.timetable.day],end=clock(timetableRows(d).end);return [`${schoolDays[s.timetable.day].en}: ${d.classes.length} classes. Finish ${end}.`,`${schoolDays[s.timetable.day].name}: ${d.classes.length} clases. Salida ${end}.`];}
  const r=journeyResult(s.journeys);return [r.text,r.text];
 }
+
+// Short references use unrelated models, not the learner's current choices.
+export const unit2ContextHelp={
+ 'gusta-gustan':{
+  lab:'preferences',label:['gusta / gustan','gusta / gustan'],labelLanguage:'es',
+  intro:['In these examples, look at what you like.','En estos ejemplos, fíjate en lo que te gusta.'],
+  examples:[
+   ['With a singular noun, we normally use gusta.','Con un sustantivo en singular, normalmente usamos gusta.','Me gusta el inglés.'],
+   ['With a plural noun, we normally use gustan.','Con un sustantivo en plural, normalmente usamos gustan.','Me gustan las matemáticas.'],
+   ['With an infinitive such as estudiar, we use gusta here.','Con un infinitivo como estudiar, aquí usamos gusta.','Me gusta estudiar español.']
+  ],
+  more:{block:'B',stage:3,heading:'u2b-title',label:['See the preference models in Learn B','Ver los modelos de preferencias en Learn B']}
+ },
+ 'articles-gender':{
+  lab:'words',label:['Articles, gender and number','Artículos, género y número'],
+  intro:['Nouns have a gender (masculine or feminine) and a number (singular for one, plural for more than one). The article matches the noun in both.','Los sustantivos tienen género (masculino o femenino) y número (singular para uno, plural para más de uno). El artículo concuerda con el sustantivo en género y número.'],
+  examples:[
+   ['Masculine: singular → plural','Masculino: singular → plural','el libro / los libros'],
+   ['Feminine: singular → plural','Femenino: singular → plural','la mochila / las mochilas']
+  ],
+  note:['The ending does not always tell you the gender. Learn the article with the noun.','La terminación no siempre indica el género. Aprende el artículo junto con el sustantivo.'],
+  more:{block:'A',heading:'u2-notice-title',label:['See the examples of one and several in Learn A','Ver los ejemplos de uno y varios en Learn A']}
+ }
+};
