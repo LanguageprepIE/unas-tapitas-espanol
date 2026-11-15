@@ -1,62 +1,32 @@
-# Unas Tapitas de Español
+# Unas Tapitas de Español 2.0
 
-Plataforma educativa gratuita, accesible e interactiva para aprender español en secundaria en Irlanda, de 1st Year a 6th Year, incluyendo Leaving Certificate Higher Level y Ordinary Level.
+Plataforma gratuita e interactiva para aprender español en secundaria en Irlanda. Complementa la enseñanza en clase y facilita la práctica autónoma con materiales originales y apoyo en inglés, bilingüe o en español.
 
-## Navegación por cursos y unidades (rama de revisión)
+**[Abrir la web pública](https://languageprepie.github.io/unas-tapitas-espanol/)** · GitHub Pages
 
-La portada presenta **1st Year, 2nd Year, 3rd Year y Leaving Certificate (LC)**.
-LC se divide en **HL y OL**, con una futura progresión común entre 5th y 6th Year.
+| Itinerario | Disponible | En desarrollo o previsto |
+| --- | --- | --- |
+| 1st Year · Unidad 1: Hola y bienvenidos | Learn, Explore, Practise, Communicate y Play | — |
+| 1st Year · Unidad 2: El aula | Learn A–D y cuatro laboratorios de Explore | Practise, Communicate y Play |
+| 2nd Year y 3rd Year | Portadas de curso | Unidades de Junior Cycle |
+| Leaving Certificate | Portadas de Higher Level y Ordinary Level | Unidades con progresión de 5th a 6th Year |
 
-- **1st Year · U1: Hola y bienvenidos**: completa, con Learn, Explore, Practise,
-  Communicate y Play; sus contenidos y 31 MP3 se conservan intactos.
-- **1st Year · U2: El aula**: Learn · Bloque A «¿Qué hay en mi mochila?»
-  disponible. Las otras etapas siguen en preparación; los demás cursos y niveles
-  muestran «Próximamente».
-- Rutas por curso/unidad y compatibilidad con los antiguos enlaces de U1.
-- Progreso opcional separado por curso/unidad/nivel y lectura del guardado anterior
-  de U1; no se guardan textos ni respuestas personales.
+Cada unidad completa se organiza en Learn, Explore, Practise, Communicate y Play.
 
-Ver [arquitectura, rutas y ampliación](docs/ARQUITECTURA_NAVEGACION.md).
-Esta propuesta se revisa en una rama independiente; no supone una fusión en main.
+## Pruebas y compilación
 
-## Estado de los contenidos aprobados (18 de octubre de 2026)
+Con Node.js 24 LTS, npm y FFmpeg (incluidos `ffmpeg` y `ffprobe` en el PATH):
 
-- El proyecto anterior se conserva en la rama `backup-before-tapitas-migration-2026-10-17`; el prototipo original se migró a `main`.
-- **1st Year · Unidad 1: Hola y bienvenidos**: desarrollo pedagógico completado, revisado y aprobado por el docente. Las cinco secciones están integradas en `main`: **Learn, Explore, Practise, Communicate y Play**.
-- **Explore** contiene seis laboratorios interactivos, incluida **La máquina de preguntas** (PR #2, fusionada).
-- **Practise y Communicate** fueron revisados y aprobados por el docente; no deben alterarse sin un motivo pedagógico o técnico.
-- **Play** ofrece tres aventuras originales y opcionales, integradas mediante PR #4 tras la revisión docente. Ver [diseño e implementación](docs/PLAY_UNIDAD_1.md). La futura **Game Zone** común queda pendiente.
-- Los dos MP3 definitivos de listening y los 29 MP3 de Explore están en `assets/audio/`; se verificó la identidad de los dos listening con los originales migrados. El docente confirmó que los audios funcionan.
-- El espacio cultural opcional propuesto en PR #3 se **descartó y cerró sin fusionar**. No forma parte de la Unidad 1.
-- El docente ha probado satisfactoriamente la unidad en dispositivos reales. Esto no equivale a una certificación formal de accesibilidad ni a una prueba exhaustiva de todos los navegadores.
+```sh
+npm test
+npm run build
+```
 
-Ver [hoja de ruta](docs/HOJA_DE_RUTA.md).
+No hay dependencias npm que instalar. La compilación prepara la web estática en `dist/` sin publicarla.
 
-## Principios
+## Documentación
 
-Contenido original (no reproducir libros comerciales); currículo en espiral; aprendizaje activo y comunicativo; feedback formativo; español peninsular como referencia con respeto a otras variedades; instrucciones claras en inglés cuando aporten valor; compatibilidad móvil/iPad/ordenador y accesibilidad; evitar gastos recurrentes y dependencias innecesarias de IA.
-
-Evitar enseñar **ser = permanente / estar = temporal** como regla: es una simplificación engañosa. Explicar los usos según el significado y la construcción en contexto.
-
-## Verificación técnica
-
-Ejecutar `npm test` con Node.js; no requiere instalar dependencias.
-`npm run build` prepara `dist/` con la web estática y todos sus recursos para
-alojamiento; no modifica los archivos fuente.
-
-- **67 pruebas automáticas**: navegación, estado, accesibilidad básica del marcado,
-  correspondencia entre 27 audios de Learn A y el inventario, y regresiones de U1.
-- Datos de U1, motores de actividades, juegos y sus MP3 sin cambios respecto a la base.
-- Learn A usa los 20 MP3 de objetos y siete expresiones ya verificadas de U2.
-  Una escena de mochila, mesa y aula permite descubrir los objetos antes de leer
-  su nombre. Las 20 ilustraciones SVG originales llevan su color directamente
-  en cada forma. Tres escuchas breves proponen elegir solo entre dibujos y
-  muestran el texto y la explicación después de responder. No se generan audios.
-- La nueva navegación se comprueba con renderizado simulado en Node. Sigue pendiente
-  la revisión manual de esta rama en móvil, iPad y ordenador; las pruebas previas
-  del docente corresponden a U1 antes de este cambio.
-- No se ha realizado una auditoría formal de accesibilidad.
-
-## Mantenimiento
-
-Mantener este README y la descripción de la web sincronizados con los cambios efectivamente publicados. Documentar claramente lo que está integrado, lo que se ha descartado y lo que sigue pendiente.
+- [Hoja de ruta e historial de decisiones](docs/HOJA_DE_RUTA.md)
+- [Matriz curricular de 1st Year](docs/MATRIZ_CURRICULAR_1ST_YEAR.md) y [validación pedagógica de la Unidad 1](docs/Validacion_Unidad_1.md)
+- [Arquitectura, rutas y progreso](docs/ARQUITECTURA_NAVEGACION.md) y [biblioteca de actividades](docs/ACTIVITY_LIBRARY.md)
+- [Mantenimiento, accesibilidad y propuestas de licencias y privacidad](docs/MANTENIMIENTO.md)

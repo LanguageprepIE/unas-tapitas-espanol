@@ -1,0 +1,42 @@
+name: Comprobaciones del PR
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test-and-build:
+    name: Pruebas y compilación
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Descargar el código del PR
+        uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+
+      - name: Configurar Node.js 24 LTS
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          package-manager-cache: false
+
+      - name: Preparar las herramientas de audio
+        run: |
+          if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
+            sudo apt-get update
+            sudo apt-get install -y ffmpeg
+          fi
+          if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
+            echo "::error::Las pruebas de audio requieren ffmpeg y ffprobe en el PATH (paquete ffmpeg)."
+            exit 1
+          fi
+
+      - name: Ejecutar las pruebas
+        run: npm test
+
+      - name: Compilar la web estática
+        run: npm run build

@@ -1,7 +1,17 @@
 # Hoja de ruta y decisiones — Unas Tapitas de Español
 
-**Fecha:** 19 de octubre de 2026
+**Última comprobación del estado:** 15 de noviembre de 2026
 **Repositorio:** `LanguageprepIE/unas-tapitas-espanol` (público)
+
+## Estado confirmado en main
+
+- **Unidad 1:** completa y aprobada; Learn, Explore, Practise, Communicate y Play. Explore contiene seis laboratorios (PR #2); Play ofrece tres aventuras tras la revisión docente (PR #4). Practise y Communicate quedan protegidos como contenido aprobado. Los dos listenings originales, verificados byte a byte en la migración, y los 29 MP3 de Explore siguen en el repositorio. El docente probó la unidad en dispositivos reales; ello no certifica accesibilidad ni compatibilidad universal.
+- **Unidad 2:** Learn A–D y cuatro laboratorios de Explore. Learn A usa 20 clips de objetos y siete expresiones, con SVG de objetos y escuchas por imagen; Learn B consta en la PR #8; [Learn C](unit2/learn-block-c.md) recoge su evolución, incluido el audio de bicicleta; [Learn D](UNIT2_LEARN_D.md) y [Explore](unit2/explore.md) se integraron en las PR #11 y #12. La impresión del horario se confirmó en Safari del iPad; el visor de ChatGPT no abrió el diálogo durante la revisión docente.
+- **Pendientes:** Practise, Communicate y Play de U2; las unidades de 2nd Year, 3rd Year y LC HL/OL; Game Zone común. Las portadas de los cursos futuros ya son visibles.
+- **Historial:** el proyecto anterior se guardó en la rama `backup-before-tapitas-migration-2026-10-17`. La PR #3 de cultura se descartó y cerró sin fusionar; esto no afecta al apartado de cultura existente en Learn. El [README anterior](https://github.com/LanguageprepIE/unas-tapitas-espanol/blob/87ba93d9bfb1c8e0ac96cfdba1f48d6c35afd946/README.md) conserva el relato íntegro de aquella etapa.
+- **Criterios permanentes:** materiales originales, aprendizaje activo y en espiral, feedback formativo, español peninsular como referencia, apoyo lingüístico graduado, accesibilidad y pocas dependencias. Enseñar `ser` y `estar` según el significado y la construcción en contexto; evitar la regla «permanente frente a temporal».
+
+Las notas que siguen conservan el diseño y las decisiones de las fases de octubre. Sus antiguos «pendientes» y recuentos de pruebas describen aquellas entregas; el estado actual es el de arriba.
 
 ## Arquitectura pedagógica acordada
 
