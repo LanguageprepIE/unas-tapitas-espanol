@@ -58,3 +58,27 @@ export function unit2ExploreAnnouncement(s){
  if(s.lab==='timetable'){const d=s.timetable.days[s.timetable.day],end=clock(timetableRows(d).end);return [`${schoolDays[s.timetable.day].en}: ${d.classes.length} classes. Finish ${end}.`,`${schoolDays[s.timetable.day].name}: ${d.classes.length} clases. Salida ${end}.`];}
  const r=journeyResult(s.journeys);return [r.text,r.text];
 }
+
+// Short references use unrelated models, not the learner's current choices.
+export const unit2ContextHelp={
+ 'gusta-gustan':{
+  lab:'preferences',label:['gusta / gustan','gusta / gustan'],labelLanguage:'es',
+  intro:['In these examples, look at what you like.','En estos ejemplos, fíjate en lo que te gusta.'],
+  examples:[
+   ['With a singular noun, we normally use gusta.','Con un sustantivo en singular, normalmente usamos gusta.','Me gusta el inglés.'],
+   ['With a plural noun, we normally use gustan.','Con un sustantivo en plural, normalmente usamos gustan.','Me gustan las matemáticas.'],
+   ['With an infinitive such as estudiar, we use gusta here.','Con un infinitivo como estudiar, aquí usamos gusta.','Me gusta estudiar español.']
+  ],
+  more:{block:'B',stage:3,heading:'u2b-title',label:['See the preference models in Learn B','Ver los modelos de preferencias en Learn B']}
+ },
+ 'articles-gender':{
+  lab:'words',label:['Articles, gender and number','Artículos, género y número'],
+  intro:['Nouns have a gender (masculine or feminine) and a number (singular for one, plural for more than one). The article matches the noun in both.','Los sustantivos tienen género (masculino o femenino) y número (singular para uno, plural para más de uno). El artículo concuerda con el sustantivo en género y número.'],
+  examples:[
+   ['Masculine: singular → plural','Masculino: singular → plural','el libro / los libros'],
+   ['Feminine: singular → plural','Femenino: singular → plural','la mochila / las mochilas']
+  ],
+  note:['The ending does not always tell you the gender. Learn the article with the noun.','La terminación no siempre indica el género. Aprende el artículo junto con el sustantivo.'],
+  more:{block:'A',heading:'u2-notice-title',label:['See the examples of one and several in Learn A','Ver los ejemplos de uno y varios en Learn A']}
+ }
+};

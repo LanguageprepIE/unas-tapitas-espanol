@@ -10,12 +10,16 @@ import {newUnit2State,updateUnit2State,renderUnit2Overview,renderUnit2Learn,unit
 import {newWeekState,updateWeekState,renderUnit2Week} from './unit2-week.mjs';
 import {newJourneyState,updateJourneyState,renderUnit2Journey,renderJourneyOverviewCard} from './unit2-journey.mjs';
 import {newDayState,updateDayState,renderUnit2Day,renderDayNav,renderDayOverviewCard} from './unit2-day.mjs';
-import {newUnit2ExploreState,updateUnit2Explore,unit2ExploreAnnouncement,renderUnit2Explore,renderExploreAccess} from './unit2-explore.mjs';
+import {newUnit2ExploreState,updateUnit2Explore,unit2ExploreAnnouncement,renderUnit2Explore,renderExploreAccess,unit2ContextHelp} from './unit2-explore.mjs';
 import {createAudioController} from './activity-library/renderer.mjs';
 const journeyState=newJourneyState();
 const weekState=newWeekState();
 const dayState=newDayState();
 const unit2ExploreState=newUnit2ExploreState();
+const openUnit2Help=new Set();
+const unit2LearnHash='#'+unitHash('learn','1st-year','2');
+const unit2ExploreHash='#'+unitHash('explore','1st-year','2');
+let unit2HelpVisit=null;
 let route=parseRoute(location.hash);
 const state={play:newPlayState(),unit2:newUnit2State(),mode:'en',section:'home',completed:new Set(),saving:false,storageError:false,large:false,lessonOpen:'greetings',vocabTab:'phrases',vocabSearch:'',labKind:'age',labPerson:'yo',labValue:'trece',predAnswer:'',predChecked:false,explore:newExploreState(),q:0,practiceTopic:'all',learnChecks:new Set(),learnExtras:new Set(),readingChecks:new Set(),qValues:{},qFeedback:{},qPractised:new Set(),qAttempted:new Set(),audioNotice:false,listeningAnswers:{},listeningChecked:new Set(),listeningTranscripts:new Set(),audioPositions:{},missionAt:0,missionValues:{},missionFeedback:{},missionDone:new Set(),meetingChoice:'',meetingChecked:false,draft:'',checks:{},reflection:'',helpReturn:null};
 try{const p=loadUnitProgress(localStorage,'1st-year','1');if(p)Object.assign(state,p,{section:'home',completed:new Set(p.completed),saving:true});const preferences=loadPreferences(localStorage);if(preferences)Object.assign(state,preferences,{saving:true});}catch{state.storageError=true;}
@@ -72,6 +76,9 @@ function vocabulary(){const search=state.vocabSearch.toLocaleLowerCase('es'),fil
 function listening(){return shell(pair(['Listen. Catch a little more each time.','Escucha y descubre un poco más cada vez.']),`<p class="lead">${L('Two short recordings. Listen first, then complete the details. Replay as often as you need; the transcript is there when you want support.','Dos grabaciones breves. Escucha primero y completa después los datos. Repite cuando lo necesites; puedes consultar la transcripción como apoyo.')}</p><nav class="flow-actions" aria-label="${E(T('Listening recordings','Grabaciones de comprensión auditiva'))}">${listenings.map(l=>button('audio-jump',pair(l.title),'ghost',`data-id="${l.id}"`)).join('')}</nav>${listenings.map(l=>`<section class="panel listening-card" id="audio-${l.id}"><p class="eyebrow">${T('Listen and understand','Escucha y comprende')}</p><h2>${pair(l.title)}</h2><p>${pair(l.focus)}</p><p>${pair(l.instructions)}</p><audio id="player-${l.id}" data-listening="${l.id}" controls preload="none" aria-label="${E(T(...l.title))}" src="${l.file}">${L('Your browser cannot play this audio. Use the download link.','Tu navegador no puede reproducir este audio. Usa el enlace de descarga.')}</audio><div class="audio-caption"><span>${L('Slow pace · pauses included','Ritmo pausado · con pausas')}</span><a href="${l.file}" download>${L('Download audio','Descargar audio')}</a></div><div class="listening-grid">${l.questions.map((q,i)=>`<div class="listening-question"><label for="${q.id}">${i+1}. ${pair(q.prompt)}</label><select id="${q.id}" data-listening-question="${q.id}" data-recording="${l.id}"><option value="">${T('Choose…','Elige…')}</option>${q.options.map(v=>`<option value="${E(v)}" ${state.listeningAnswers[q.id]===v?'selected':''} lang="es">${E(v)}</option>`).join('')}</select>${state.listeningChecked.has(l.id)?`<div class="feedback ${state.listeningAnswers[q.id]===q.answer?'':'error'}"><strong>${state.listeningAnswers[q.id]===q.answer?T('That fits.','Encaja.'):state.listeningAnswers[q.id]?T('Listen for this detail.','Escucha este dato.'):T('Try this detail next.','Prueba con este dato.')}</strong><p>${pair(q.feedback)}</p></div>`:''}</div>`).join('')}</div><div class="flow-actions">${button('listening-check',pair(['Check my answers','Comprobar mis respuestas']),'primary',`data-id="${l.id}"`)}${button('listening-transcript',pair([state.listeningTranscripts.has(l.id)?'Hide transcript':'Show transcript',state.listeningTranscripts.has(l.id)?'Ocultar transcripción':'Ver transcripción']),'ghost',`data-id="${l.id}" aria-expanded="${state.listeningTranscripts.has(l.id)}" aria-controls="transcript-${l.id}"`)}</div><div id="transcript-${l.id}" ${state.listeningTranscripts.has(l.id)?'':'hidden'}><h3>${L('Transcript','Transcripción')}</h3>${l.transcript.map(([speaker,text])=>`<div class="dialogue-row"><strong>${speaker}</strong><span lang="es">${text}</span></div>`).join('')}</div></section>`).join('')}<p class="notice">${L('Original scripts · Synthetic voices created with ElevenLabs · No student audio is recorded or sent.','Guiones originales · Voces sintéticas creadas con ElevenLabs · No se graba ni se envía audio del alumnado.')}</p>`,{step:true});}
 function grammar(){return shell(pair(['A pattern you can use anywhere','Una estructura para distintos contextos']),`<p class="lead">${L('This shared lab uses the context of your current unit. You can revisit it whenever it helps.','Este laboratorio compartido usa el contexto de tu unidad. Puedes volver siempre que te ayude.')}</p>${lab()}${state.helpReturn?`<div class="flow-actions">${button('back-task',pair(['Back to my task','Volver a mi tarea']),'primary')}</div>`:''}`,{step:false});}
 function render({focus=false}={}){
+ // Explore rerenders on every change. Capture the native disclosure before replacing it.
+ const disclosure=main.querySelector('details[data-context-help]');
+ if(disclosure)openUnit2Help[disclosure.open?'add':'delete'](disclosure.dataset.contextHelp);
  for(const audio of main.querySelectorAll?.('audio[data-listening]')??[])state.audioPositions[audio.dataset.listening]={time:audio.currentTime,rate:audio.playbackRate,volume:audio.volume,muted:audio.muted,playing:!audio.paused&&!focus};
  const active=document.activeElement,hadFocus=main.contains(active),focusId=active?.id;
  const attrs=['action','value','kind','tab','phrase','index','id','topic'];
@@ -80,12 +87,19 @@ function render({focus=false}={}){
  document.documentElement.lang=state.mode==='es'?'es':'en';document.documentElement.classList.toggle('large-text',state.large);$('#mode').value=state.mode;
  $('#nav').innerHTML=route.kind==='unit'&&route.unit==='2'?go('home',pair(['Courses','Cursos']))+go(courseHash('1st-year'),'1st Year')+go(unitHash('overview','1st-year','2'),'Unit 2')+go(unitHash('learn','1st-year','2'),pair(['Learn','Aprende']),state.section==='learn'?'current':'')+go(unitHash('explore','1st-year','2'),pair(['Explore','Experimenta']),state.section==='explore'?'current':''):route.kind==='unit'?[['home','Courses','Cursos'],['unit','Unit 1','Unidad 1'],['grammar','Grammar','Gramática'],['vocabulary','Vocabulary','Vocabulario'],['listening','Listening','Escucha'],['play','Play','Juega']].map(([id,en,es])=>go(id,pair([en,es]),state.section===id?'current':'')).join(''):go('home',pair(['Courses','Cursos']),route.kind==='home'?'current':'');
  // Unit-specific views are registered once; the catalogue and routing stay shared.
- const runtimes={unit1:{unit:unitHome,learn,explore,play,practise:practice,communicate,grammar,vocabulary,listening},unit2:{unit:()=>renderUnit2Overview({L}).replaceAll('href="#course/1st-year/unit/2/learn"','href="#course/1st-year/unit/2/learn" data-action="u2b-back"')+`<section class="page"><div class="panel"><p class="eyebrow">Learn · B</p><h2 lang="es">Mi semana escolar</h2><p>${L('Discover days, subjects, a school timetable and preferences.','Descubre días, asignaturas, un horario escolar y preferencias.')}</p><a class="primary" href="#course/1st-year/unit/2/learn" data-action="u2b-open">${L('Open Block B','Abrir el Bloque B')}</a></div></section>`+renderJourneyOverviewCard({L})+renderDayOverviewCard({L})+renderExploreAccess({L}),explore:()=>renderUnit2Explore({L,T,state:unit2ExploreState}),learn:()=>renderDayNav({L,button,week:weekState,journey:journeyState,day:dayState})+(dayState.open?renderUnit2Day({L,T,button,state:{...dayState,mode:state.mode}}):journeyState.open?renderUnit2Journey({L,T,E,button,state:{...journeyState,mode:state.mode}}):weekState.open?renderUnit2Week({L,T,E,button,state:{...weekState,mode:state.mode}}):renderUnit2Learn({L,T,E,button,state:{...state.unit2,mode:state.mode}}))}};
+ const runtimes={unit1:{unit:unitHome,learn,explore,play,practise:practice,communicate,grammar,vocabulary,listening},unit2:{unit:()=>renderUnit2Overview({L}).replaceAll('href="#course/1st-year/unit/2/learn"','href="#course/1st-year/unit/2/learn" data-action="u2b-back"')+`<section class="page"><div class="panel"><p class="eyebrow">Learn · B</p><h2 lang="es">Mi semana escolar</h2><p>${L('Discover days, subjects, a school timetable and preferences.','Descubre días, asignaturas, un horario escolar y preferencias.')}</p><a class="primary" href="#course/1st-year/unit/2/learn" data-action="u2b-open">${L('Open Block B','Abrir el Bloque B')}</a></div></section>`+renderJourneyOverviewCard({L})+renderDayOverviewCard({L})+renderExploreAccess({L}),explore:()=>renderUnit2Explore({L,T,state:unit2ExploreState,openHelp:openUnit2Help}),learn:()=>renderDayNav({L,button,week:weekState,journey:journeyState,day:dayState})+(dayState.open?renderUnit2Day({L,T,button,state:{...dayState,mode:state.mode}}):journeyState.open?renderUnit2Journey({L,T,E,button,state:{...journeyState,mode:state.mode}}):weekState.open?renderUnit2Week({L,T,E,button,state:{...weekState,mode:state.mode}}):renderUnit2Learn({L,T,E,button,state:{...state.unit2,mode:state.mode}}))}};
  const views=route.kind==='unit'?runtimes[findUnit(route.course,route.unit,route.level).runtime]:{};
  let html=route.kind==='home'?home():route.kind==='course'?courseHome():(views[state.section]??unitHome)();
  if(route.kind==='unit'&&route.unit==='2'){
   html=html.replaceAll(`<span class="u2-soon">2. ${L('Explore','Explora')}</span>`,`<a href="#course/1st-year/unit/2/explore">2. ${L('Explore','Explora')}</a>`);
   html=html.replace(`<div class="panel u2-unavailable"><span class="number">02</span><h2>${L('Explore','Explora')}</h2><p>${L('Coming later.','Más adelante.')}</p></div>`,`<div class="panel"><span class="number">02</span><h2>${L('Explore','Explora')}</h2><p>${L('Four laboratories to experiment.','Cuatro laboratorios para experimentar.')}</p><a href="#course/1st-year/unit/2/explore">${L('Open Explore','Abrir Explore')}</a></div>`);
+ }
+
+ if(unit2HelpVisit&&route.kind==='unit'&&route.unit==='2'&&state.section==='learn'){
+  const back=`<div class="context-help-return"><a id="u2-help-return" href="${unit2ExploreHash}" data-action="u2-help-return">${L('Back to my experiment','Volver a mi experimento')}</a></div>`;
+  // Put the return link next in the tab order after the existing destination heading.
+  const heading=new RegExp(`(<h[1-6]\\b[^>]*id="${unit2HelpVisit.more.heading}"[^>]*>.*?</h[1-6]>)`);
+  html=heading.test(html)?html.replace(heading,'$1'+back):`<div class="page">${back}</div>`+html;
  }
 
  // Keep the approved Explore renderer intact; scope its onward link to U1.
@@ -109,7 +123,28 @@ function openOptions(privacy=false){$('#options-title').innerHTML=pair(privacy?[
 function speak(text){const voice=window.speechSynthesis?.getVoices().find(v=>v.localService&&/^es(?:[-_]|$)/i.test(v.lang));if(!voice){state.audioNotice=true;render();announce('No local Spanish voice is available on this device. The written model is still here.','Este dispositivo no tiene una voz local en español disponible. El modelo escrito sigue disponible.');return;}const u=new SpeechSynthesisUtterance(text);u.voice=voice;u.lang=voice.lang;u.rate=.85;window.speechSynthesis.cancel();window.speechSynthesis.speak(u);}
 function checkPractice(){const q=questions[state.q],raw=state.qValues[q.id]??'',val=q.type==='order'?(Array.isArray(raw)?raw.map(i=>q.tokens[i]).join(' '):''):raw;if(!String(val).trim()){announce('Choose or write an answer first.','Primero elige o escribe una respuesta.');return;}const ok=check(q,val);state.qAttempted.add(q.id);state.qFeedback[q.id]=ok?'ok':'again';if(ok)state.qPractised.add(q.id);render();announce(ok?'That response fits.':'Read the explanation and try another response.',ok?'La respuesta encaja.':'Lee la explicación y prueba otra respuesta.');}
 function download(){const text=`Hola y bienvenidos · My invented encounter / Mi encuentro inventado\n\n${state.draft}\n\nReflection / Reflexión\n${state.reflection}\n\nThis writing has not been automatically graded. / Este texto no se ha calificado automáticamente.`;const url=URL.createObjectURL(new Blob([text],{type:'text/plain;charset=utf-8'})),a=document.createElement('a');a.href=url;a.download='mi-encuentro.txt';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+const ordinaryLink=e=>!e.defaultPrevented&&!e.ctrlKey&&!e.metaKey&&!e.shiftKey&&!e.altKey&&(e.button===0||e.button===undefined);
 function onAction(e){const b=e.target.closest('[data-action]');if(!b)return;const action=b.dataset.action;
+ if(action==='u2-help-more'){
+  const id=b.dataset.id,help=unit2ContextHelp[id];
+  if(route.kind!=='unit'||route.unit!=='2'||state.section!=='explore'||help?.lab!==unit2ExploreState.lab||!help.more||!ordinaryLink(e))return;
+  e.preventDefault();
+  if(location.hash==='#main')window.history.replaceState(null,'',unit2ExploreHash);
+  unit2HelpVisit={id,lab:help.lab,more:help.more,learnNav:[weekState.open,weekState.stage,journeyState.open,dayState.open]};
+  weekState.open=help.more.block==='B';
+  if(weekState.open)weekState.stage=help.more.stage;
+  journeyState.open=false;
+  dayState.open=false;
+  location.hash=unit2LearnHash;
+  return;
+ }
+ if(action==='u2-help-return'){
+  if(unit2HelpVisit&&location.hash===unit2LearnHash&&ordinaryLink(e)){
+   e.preventDefault();
+   window.history.back();
+  }
+  return;
+ }
  if(action==='u2x-print'){window.print();return;}
  if(action.startsWith('u2x-')){if(updateUnit2Explore(unit2ExploreState,action,b.dataset.value)){render();if(action==='u2x-lab'){$('#u2x-stage')?.focus?.({preventScroll:true});$('#u2x-stage')?.scrollIntoView?.({block:'start'});}announce(...unit2ExploreAnnouncement(unit2ExploreState));}return;}
  const library=b.closest?.('[data-library-kind]')?.dataset.libraryKind;
@@ -168,7 +203,23 @@ $('#settings').addEventListener('click',()=>openOptions());
 $('#options').addEventListener('change',e=>{if(e.target.id==='large-text'){state.large=e.target.checked;document.documentElement.classList.toggle('large-text',state.large);}if(e.target.id==='save-progress'){state.saving=e.target.checked;if(!state.saving){try{forgetProgress(localStorage);}catch{state.storageError=true;}}else save();}});
 $('#options').addEventListener('close',()=>render());
 function applyRoute(){route=parseRoute(location.hash);if(location.hash!=='#'+routeHash(route))window.history?.replaceState(null,'','#'+routeHash(route));state.section=route.kind==='unit'?(route.section==='overview'?'unit':route.section):route.kind;}
-window.addEventListener('hashchange',()=>{if(location.hash==='#main'){main.focus({preventScroll:true});return;}applyRoute();render({focus:true});if(state.section==='learn'&&state.helpReturn){$('#lesson-'+state.lessonOpen).scrollIntoView({block:'start'});$('#lesson-'+state.lessonOpen+' summary').focus({preventScroll:true});}});
+window.addEventListener('hashchange',()=>{
+ if(location.hash==='#main'){main.focus({preventScroll:true});return;}
+ applyRoute();
+ const visit=unit2HelpVisit;
+ const returning=visit&&location.hash===unit2ExploreHash;
+ if(visit&&location.hash!==unit2LearnHash){
+  [weekState.open,weekState.stage,journeyState.open,dayState.open]=visit.learnNav;
+  unit2HelpVisit=null;
+  if(returning)unit2ExploreState.lab=visit.lab;
+ }
+ render({focus:true});
+ const helpFocus=returning?document.getElementById('context-help-'+visit.id):visit&&location.hash===unit2LearnHash?document.getElementById(visit.more.heading):null;
+ if(helpFocus){
+  if(!returning)helpFocus.setAttribute('tabindex','-1');
+  helpFocus.focus({preventScroll:true});
+  helpFocus.scrollIntoView({block:'center'});
+ }if(state.section==='learn'&&state.helpReturn){$('#lesson-'+state.lessonOpen).scrollIntoView({block:'start'});$('#lesson-'+state.lessonOpen+' summary').focus({preventScroll:true});}});
 window.addEventListener('beforeunload',e=>{if(state.draft.trim()||state.reflection.trim()){e.preventDefault();e.returnValue='';}});
 const live=document.createElement('div');live.id='announcement';live.setAttribute('role','status');live.setAttribute('aria-live','polite');live.className='visually-hidden';document.body.append(live);
 applyRoute();render();
