@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
-import {newUnit2ExploreState,updateUnit2Explore,nouns,nounFeedback,preferenceModel,timetableRows,clock,journeyResult,journeyScenarios,labNames} from '../unit2-explore-data.mjs';
-import {renderUnit2Explore} from '../unit2-explore.mjs';
+import {newUnit2ExploreState,updateUnit2Explore,nouns,nounFeedback,preferenceModel,preferenceView,schoolSubjects,unit2ExploreAnnouncement,timetableRows,clock,journeyResult,journeyScenarios,labNames} from '../unit2-explore-data.mjs';
+import {renderUnit2Explore,attachWordModelReveal} from '../unit2-explore.mjs';
 const act=(s,key,value)=>assert.equal(updateUnit2Explore(s,'u2x-'+key,value),true,key);
 const render=(s,mode)=>renderUnit2Explore({state:s,L:(en,es)=>mode==='es'?es:mode==='bi'?`${en} / ${es}`:en,T:(en,es)=>mode==='es'?es:mode==='bi'?`${en} / ${es}`:en});
 test('word experiments keep intentional mismatches and distinguish regular, z/ces, invariant and scissors',()=>{
@@ -15,7 +15,12 @@ test('word experiments keep intentional mismatches and distinguish regular, z/ce
 });
 test('preferences keep first-person quotes with correct agreement and independent names, subjects and feelings',()=>{
  const s=newUnit2ExploreState(),p=s.preferences.people;assert.equal(preferenceModel(p[0]).text,'Me gusta la historia.');assert.equal(preferenceModel(p[1]).text,'No me gustan las matemáticas.');
- const before=p.map(preferenceModel).map(x=>x.text);act(s,'pref-person');assert.deepEqual(p.map(preferenceModel).map(x=>x.text),before);assert.equal(p[0].name,'Leo');
+ act(s,'pref-level','who');assert.equal(preferenceModel(p[0],preferenceView(s.preferences)).text,'A Alba le gusta la historia.');
+ act(s,'pref-explicit');assert.equal(preferenceModel(p[0],preferenceView(s.preferences)).text,'Le gusta la historia.');
+ act(s,'pref-perspective','self');act(s,'pref-explicit');assert.equal(preferenceModel(p[1],preferenceView(s.preferences)).text,'A mí no me gustan las matemáticas.');
+ act(s,'pref-level','what');assert.equal(preferenceModel(p[0],preferenceView(s.preferences)).text,'Me gusta la historia.');
+ assert.equal(s.preferences.perspective,'self');
+ assert.equal(p[0].name,'Alba');
  act(s,'pref-subject-0','maths');assert.equal(preferenceModel(p[0]).text,'Me gustan las matemáticas.');act(s,'pref-sentiment-0','favourite');assert.equal(preferenceModel(p[0]).text,'Mi asignatura favorita es matemáticas.');
  act(s,'pref-subject-1','history');act(s,'pref-swap');assert.equal(p[0].subject,'history');assert.equal(p[1].subject,'maths');assert.equal(p[0].sentiment,'favourite');
 });
@@ -60,4 +65,71 @@ test('four print themes preserve the complete edited week and exclude editor con
   }
  }
  assert.equal(updateUnit2Explore(s,'u2x-print-style','unknown'),false);act(s,'finish');assert.equal(s.timetable.days[0].classes[0],'art');assert.equal(s.timetable.printStyle,'mono');
+});
+
+test('all subject, sentiment and person combinations retain agreement, pronoun and word order',()=>{
+ const cases=[
+  ['self',false,'Me','No me'],
+  ['self',true,'A mí me','A mí no me'],
+  ['other',false,'Le','No le'],
+  ['other',true,'A {name} le','A {name} no le']
+ ];
+ for(const subject of schoolSubjects)for(const name of ['Alba','Leo'])for(const [perspective,explicit,likes,dislikes] of cases){
+  const noun=subject.article+' '+subject.name;
+  const verb=/^l[ao]s$/.test(subject.article)?'gustan':'gusta';
+  const p={name,subject:subject.id},opts={perspective,explicit};
+  assert.equal(preferenceModel({...p,sentiment:'like'},opts).text,`${likes.replace('{name}',name)} ${verb} ${noun}.`);
+  assert.equal(preferenceModel({...p,sentiment:'dislike'},opts).text,`${dislikes.replace('{name}',name)} ${verb} ${noun}.`);
+  assert.equal(preferenceModel({...p,sentiment:'favourite'},opts).text,`Mi asignatura favorita es ${subject.name}.`);
+ }
+ const s=newUnit2ExploreState();act(s,'lab','preferences');act(s,'pref-level','who');act(s,'pref-subject-1','science');
+ assert.match(render(s,'en'),/A Leo no le <mark>gustan<\/mark> las ciencias\./);
+ for(const [mode,english,spanish] of [['en',true,false],['bi',true,true],['es',false,true]]){
+  const html=render(s,mode);
+  assert.equal(html.includes('Make it clear who'),english);
+  assert.equal(html.includes('Indica a quién'),spanish);
+  assert.equal(html.includes('You can leave it out if it is already clear'),english);
+  assert.equal(html.includes('Puedes omitirlo si ya está claro'),spanish);
+ }
+});
+
+test('word model starts hidden and the live result does not reveal the solution',()=>{
+ const s=newUnit2ExploreState();act(s,'count',2);act(s,'word-pin');
+ for(const [mode,english,spanish] of [['en',true,false],['bi',true,true],['es',false,true]]){
+  const html=render(s,mode);
+  assert.match(html,/aria-controls="u2x-model" aria-expanded="false"/);
+  const [visible,hidden]=html.split('<div id="u2x-model" hidden>');
+  assert.equal(visible.includes('Hold to see the model'),english);
+  assert.equal(visible.includes('Mantén pulsado para ver el modelo'),spanish);
+  assert.match(hidden,/<mark>unos<\/mark> libros/);
+  assert(!visible.includes('unos libros'));
+  assert(!html.includes('<p lang="es">unos libros</p>'));
+ }
+ assert(unit2ExploreAnnouncement(s).every(msg=>msg.includes('un libro')&&!msg.includes('unos libros')));
+ act(s,'count',1);
+ assert.match(render(s,'en'),/Your earlier model<\/h4><p lang="es">unos libros<\/p>/);
+});
+
+test('word reveal releases on mouse/touch completion and interruption, and supports native activation',()=>{
+ const eventTarget=()=>({listeners:{},addEventListener(type,callback){this.listeners[type]=callback;}});
+ const view=eventTarget(),root=eventTarget(),doc=eventTarget(),model={hidden:true};
+ const button={expanded:'false',setAttribute(_key,value){this.expanded=value;},setPointerCapture(id){this.capture=id;}};
+ root.querySelector=()=>model;
+ const target={closest:()=>button};
+ const event=(more={})=>({target,button:0,isPrimary:true,pointerId:7,...more});
+ const reset=attachWordModelReveal(root,view,doc);
+ const check=visible=>{assert.equal(model.hidden,!visible);assert.equal(button.expanded,String(visible));};
+ check(false);
+ for(const [receiver,end] of [[view,'pointerup'],[view,'pointercancel'],[root,'lostpointercapture'],[view,'blur'],[view,'pagehide'],[root,'focusout']]){
+  root.listeners.pointerdown(event({pointerType:end==='pointerup'?'mouse':'touch'}));check(true);
+  assert.equal(button.capture,7);
+  receiver.listeners[end](event());
+  root.listeners.click(event({detail:1}));check(false);
+ }
+ root.listeners.pointerdown(event());view.listeners.pointerup(event({pointerId:8}));check(true);
+ doc.hidden=true;doc.listeners.visibilitychange();check(false);
+ root.listeners.click(event({detail:0}));check(true);
+ root.listeners.click(event({detail:0}));check(false);
+ root.listeners.click(event({detail:0}));check(true);
+ reset();check(false);
 });

@@ -25,3 +25,19 @@
  .u2x .u2x-print-header{padding-bottom:3mm;margin-bottom:4mm}.u2x-print-header h3{font-size:18pt}.u2x-print-header p{font-size:7pt}.u2x-print-decoration{font-size:18pt}
  .u2x-print-columns{gap:2mm}.u2x-print-day h4{font-size:11pt;padding:2mm}.u2x-print-slot{min-height:11mm;padding:1.8mm;font-size:8pt}.u2x-print-slot time{font-size:7pt;margin-bottom:1mm}.u2x-print-rest{min-height:9mm}.u2x-print-end{font-size:8pt;padding:2mm}.u2x-print-footer{font-size:7pt;margin-top:3mm}
 }
+
+/* Native disclosures fit the existing lab flow and stay usable without a pointer. */
+.context-help{max-width:46rem;margin:0 0 1.25rem;border:1px solid #afc5bf;border-radius:12px;background:#f6faf8;color:#193631;overflow-wrap:anywhere}
+.context-help summary{padding:.65rem .9rem;min-height:44px;cursor:pointer;font-weight:650;color:#205752;scroll-margin-block:1rem}
+.context-help summary:focus-visible,.context-help-return a:focus-visible{outline:3px solid #9a4d00;outline-offset:3px}
+.context-help-body{padding:0 .9rem .9rem}
+.context-help-body p{margin:.4rem 0}
+.context-help-body ul{margin:.65rem 0;padding-inline-start:1.35rem}
+.context-help-body li{margin:.5rem 0}
+.context-help-body strong{display:block}
+.context-help-body a,.context-help-return a{display:inline-block;min-height:44px;padding:.55rem .15rem;text-decoration:underline}
+
+.u2x-reveal button{touch-action:manipulation;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+.u2x-reveal button svg{display:inline-block;vertical-align:middle;margin-inline-end:.3em}
+.u2x-reveal [hidden]{display:none}
+.u2x-reveal .small{margin:.45rem 0 .8rem}

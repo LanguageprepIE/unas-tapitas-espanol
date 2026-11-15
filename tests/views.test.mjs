@@ -18,7 +18,7 @@ import * as day from '../unit2-day.mjs';
 import {createAudioController} from '../activity-library/renderer.mjs';
 // A rendering harness, not a browser or an accessibility audit.
 function element(){return {innerHTML:'',textContent:'',value:'',listeners:{},classList:{toggle(){}},addEventListener(k,fn){this.listeners[k]=fn;},setAttribute(){},contains(){return false;},append(){},focus(){},scrollIntoView(){},closest(){return this;},querySelector(){return null;}};}
-async function harness({initialHash='',initialStorage=new Map(),blockedStorage=false}={}){const elements=new Map();const get=s=>{if(!elements.has(s))elements.set(s,element());return elements.get(s);};const document={activeElement:null,documentElement:element(),body:element(),querySelector:get,createElement:()=>element()};const window={listeners:{},addEventListener(k,fn){this.listeners[k]=fn;},scrollTo(){}};const location={hash:initialHash};window.history={replaceState(_s,_t,hash){location.hash=hash;}};const storage=initialStorage;const localStorage={get length(){return storage.size;},key:i=>[...storage.keys()][i],getItem:k=>{if(blockedStorage)throw Error('blocked');return storage.get(k);},setItem:(k,v)=>{if(blockedStorage)throw Error('blocked');storage.set(k,v);},removeItem:k=>{if(blockedStorage)throw Error('blocked');storage.delete(k);}};const source=(await readFile(new URL('../app.js',import.meta.url),'utf8')).replace(/^import .*;\n/gm,'');vm.runInNewContext(source,{...content,...engine,...catalogue,...progress,...explore,...playEngine,...playViews,...playData,...unit2,...week,...journey,...day,...unit2Explore,createAudioController,document,window,location,localStorage,console,setTimeout,Blob,URL});return {get,document,window,location,storage,route(id){location.hash='#'+id;window.listeners.hashchange();},mode(value){get('#mode').listeners.change({target:{value}});}};}
+async function harness({initialHash='',initialStorage=new Map(),blockedStorage=false}={}){const elements=new Map();const get=s=>{if(!elements.has(s))elements.set(s,element());return elements.get(s);};const document={activeElement:null,documentElement:element(),body:element(),querySelector:get,getElementById:id=>elements.get("#"+id)??null,createElement:()=>element()};const window={listeners:{},addEventListener(k,fn){this.listeners[k]=fn;},scrollTo(){}};const location={hash:initialHash};window.history={replaceState(_s,_t,hash){location.hash=hash;}};const storage=initialStorage;const localStorage={get length(){return storage.size;},key:i=>[...storage.keys()][i],getItem:k=>{if(blockedStorage)throw Error('blocked');return storage.get(k);},setItem:(k,v)=>{if(blockedStorage)throw Error('blocked');storage.set(k,v);},removeItem:k=>{if(blockedStorage)throw Error('blocked');storage.delete(k);}};const source=(await readFile(new URL('../app.js',import.meta.url),'utf8')).replace(/^import .*;\n/gm,'');vm.runInNewContext(source,{...content,...engine,...catalogue,...progress,...explore,...playEngine,...playViews,...playData,...unit2,...week,...journey,...day,...unit2Explore,createAudioController,document,window,location,localStorage,console,setTimeout,Blob,URL});return {get,document,window,location,storage,route(id){location.hash='#'+id;window.listeners.hashchange();},mode(value){get('#mode').listeners.change({target:{value}});}};}
 test('all eight views render in all three language modes without runtime failures',async()=>{const h=await harness();for(const mode of ['en','bi','es']){h.mode(mode);for(const route of ['home','learn','explore','practise','communicate','grammar','vocabulary','listening']){h.route(route);const html=h.get('#main').innerHTML;assert(html.includes('<h1>'),`${mode}/${route}`);assert(!html.includes('undefined'),`${mode}/${route}`);if(mode==='bi')assert(html.includes('lang="en"')&&html.includes('lang="es"'));}}});
 test('language switches and route changes preserve text and escape entered markup',async()=>{const h=await harness();h.route('communicate');const input=h.get('#main').listeners.input;input({target:{id:'draft',value:'Hola <script>private</script>'}});input({target:{id:'reflection',value:'Puedo pedir ayuda.'}});for(const mode of ['bi','es','en']){h.mode(mode);const html=h.get('#main').innerHTML;assert(html.includes('Hola &lt;script&gt;private&lt;/script&gt;'));assert(html.includes('Puedo pedir ayuda.'));}h.route('home');h.route('communicate');assert(h.get('#main').innerHTML.includes('Hola &lt;script&gt;private&lt;/script&gt;'));});
 test('a practice answer survives language switching and contextual help',async()=>{const h=await harness();h.route('practise');h.document.body.listeners.click({target:{closest:()=>({dataset:{action:'q-choice',value:'Me llamo Leo.'}})}});h.mode('es');assert(h.get('#main').innerHTML.includes('aria-pressed="true"'));h.route('grammar');h.route('practise');assert(h.get('#main').innerHTML.includes('aria-pressed="true"'));});
@@ -169,4 +169,64 @@ test('timetable print button invokes native printing and style/duration selectio
  const h=await harness();let prints=0;h.window.print=()=>{prints++;};h.route('course/1st-year/unit/2/explore');
  click(h,'u2x-lab',{value:'timetable'});click(h,'u2x-finish');click(h,'u2x-print-style',{value:'mono'});click(h,'u2x-print');assert.equal(prints,1);h.mode('bi');assert(h.get('#main').innerHTML.includes('u2x-print-mono'));
  click(h,'u2x-lab',{value:'journeys'});h.get('#main').listeners.change({target:{id:'u2x-journey-minutes',value:'30'}});h.mode('es');assert(h.get('#main').innerHTML.includes('treinta minutos'));assert(h.get('#main').innerHTML.includes('value="30" selected'));
+});
+
+test('Unit 2 help is scoped to two labs, with Spanish examples and the selected support language',async()=>{
+ const h=await harness();
+ h.route('course/1st-year/unit/2/explore');
+ const html=()=>h.get('#main').innerHTML;
+ const help=()=>html().match(/<details class="context-help".*?<\/details>/s)?.[0];
+ for(const [lab,id,examples,en,es] of [
+  ['words','articles-gender',['el libro / los libros','la mochila / las mochilas'],'The ending does not always','La terminación no siempre'],
+  ['preferences','gusta-gustan',['Me gusta el inglés.','Me gustan las matemáticas.','Me gusta estudiar español.'],'With an infinitive','Con un infinitivo']
+ ]){
+  click(h,'u2x-lab',{value:lab});
+  for(const mode of ['en','bi','es']){
+   h.mode(mode);
+   const card=help();
+   assert(card.includes(`data-context-help="${id}"><summary`));
+   assert.equal(card.includes(en),mode!=='es');
+   assert.equal(card.includes(es),mode!=='en');
+   for(const ex of examples)assert(card.includes(`<strong lang="es">${ex}</strong>`));
+  }
+ }
+ for(const lab of ['timetable','journeys']){
+  click(h,'u2x-lab',{value:lab});
+  assert.equal(help(),undefined);
+ }
+});
+
+test('Unit 2 contextual Learn visits return to the same disclosure and preserve lab selections',async()=>{
+ const h=await harness();
+ const explore='course/1st-year/unit/2/explore',learn='course/1st-year/unit/2/learn';
+ h.route(explore);
+ const html=()=>h.get('#main').innerHTML;
+ const action=(type,id)=>h.document.body.listeners.click({preventDefault(){},target:{closest:()=>({dataset:{action:type,id}})}});
+ for(const [lab,help,title,change,verify] of [
+  ['words','articles-gender','u2-notice-title',()=>{click(h,'u2x-count',{value:'2'});click(h,'u2x-word-pin');},/aria-pressed="true" class="selected">.*?2<\/span>|2 drawings: book/],
+  ['preferences','gusta-gustan','u2b-title',()=>{h.get('#main').listeners.change({target:{id:'u2x-pref-subject-0',value:'science'}});h.get('#main').listeners.change({target:{id:'u2x-pref-sentiment-0',value:'favourite'}});click(h,'u2x-pref-level',{value:'who'});click(h,'u2x-pref-perspective',{value:'self'});},/Mi asignatura favorita es ciencias\.[\s\S]*?A mí no me <mark>gustan<\/mark> las matemáticas\./]
+ ]){
+  click(h,'u2x-lab',{value:lab});
+  change();
+  assert.match(html(),verify);
+  const origin=h.get('#context-help-'+help),destination=h.get('#'+title);
+  let focused;
+  origin.focus=()=>{focused=help;};
+  destination.focus=()=>{focused=title;};
+  const disclosure={open:true,dataset:{contextHelp:help}};
+  h.get('#main').querySelector=selector=>selector==='details[data-context-help]'?disclosure:null;
+  action('u2-help-more',help);
+  assert.equal(h.location.hash,'#'+learn);
+  h.route(learn);
+  assert.equal(focused,title);
+  assert.match(html(),new RegExp(`id="${title}"[^>]*>.*?</h[1-6]><div class="context-help-return">`));
+  h.get('#main').querySelector=()=>null;
+  h.window.history.back=()=>h.route(explore);
+  action('u2-help-return');
+  assert.equal(focused,help);
+  assert.match(html(),new RegExp(`data-context-help="${help}" open`));
+  assert.match(html(),verify);
+ }
+ h.route(learn);
+ assert(!html().includes('u2-help-return'));
 });
