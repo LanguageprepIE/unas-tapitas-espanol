@@ -85,7 +85,7 @@ export const unit2ContextHelp={
  },
  'articles-gender':{
   lab:'words',label:['Articles, gender and number','Artículos, género y número'],
-  intro:['Nouns have a gender (masculine or feminine) and a number (singular for one, plural for more than one). The article matches the noun in both.','Los sustantivos tienen género (masculino o femenino) y número (singular para uno, plural para más de uno). El artículo concuerda con el sustantivo en género y número.'],
+  intro:['Nouns have a gender (masculine or feminine) and a number (usually singular for one, plural for more than one). The article matches the noun in both.','Los sustantivos tienen género (masculino o femenino) y número (normalmente singular para uno, plural para más de uno). El artículo concuerda con el sustantivo en género y número.'],
   examples:[
    ['Masculine: singular → plural','Masculino: singular → plural','el libro / los libros'],
    ['Feminine: singular → plural','Femenino: singular → plural','la mochila / las mochilas']

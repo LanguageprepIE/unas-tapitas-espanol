@@ -14,11 +14,10 @@ import * as journey from '../unit2-journey.mjs';
 import * as day from '../unit2-day.mjs';
 // A rendering harness, not a browser or an accessibility audit.
 function element(){return {innerHTML:'',textContent:'',value:'',listeners:{},classList:{toggle(){}},addEventListener(k,fn){this.listeners[k]=fn;},setAttribute(){},contains(){return false;},append(){},focus(){},scrollIntoView(){},closest(){return this;},querySelector(){return null;}};}
-async function harness({initialHash='',initialStorage=new Map(),blockedStorage=false}={}){const elements=new Map();const get=s=>{if(!elements.has(s))elements.set(s,element());return elements.get(s);};const document={activeElement:null,documentElement:element(),body:element(),querySelector:get,getElementById:id=>elements.get("#"+id)??null,createElement:()=>element()};const window={listeners:{},addEventListener(k,fn){this.listeners[k]=fn;},scrollTo(){}};const location={hash:initialHash};window.history={replaceState(_s,_t,hash){location.hash=hash;}};const storage=initialStorage;const localStorage={get length(){return storage.size;},key:i=>[...storage.keys()][i],getItem:k=>{if(blockedStorage)throw Error('blocked');return storage.get(k);},setItem:(k,v)=>{if(blockedStorage)throw Error('blocked');storage.set(k,v);},removeItem:k=>{if(blockedStorage)throw Error('blocked');storage.delete(k);}};const appUrl=new URL('../app.js',import.meta.url);const source=await readFile(appUrl,'utf8');
- // Supply only the bindings that app.js imports, as the browser would.
+async function harness({initialHash='',initialStorage=new Map(),blockedStorage=false}={}){const elements=new Map();const get=s=>{if(!elements.has(s))elements.set(s,element());return elements.get(s);};const document={activeElement:null,documentElement:element(),body:element(),querySelector:get,getElementById:id=>elements.get("#"+id)??null,createElement:()=>element()};const window={listeners:{},addEventListener(k,fn){this.listeners[k]=fn;},scrollTo(){}};const location={hash:initialHash};window.history={replaceState(_s,_t,hash){location.hash=hash;}};const storage=initialStorage;const localStorage={get length(){return storage.size;},key:i=>[...storage.keys()][i],getItem:k=>{if(blockedStorage)throw Error('blocked');return storage.get(k);},setItem:(k,v)=>{if(blockedStorage)throw Error('blocked');storage.set(k,v);},removeItem:k=>{if(blockedStorage)throw Error('blocked');storage.delete(k);}};const url=new URL('../app.js',import.meta.url),source=await readFile(url,'utf8');
  const imports=/^import \{([^}]+)\} from '([^']+)';\n/gm;
  const bindings=Object.fromEntries((await Promise.all([...source.matchAll(imports)].map(async ([,names,path])=>{
-  const module=await import(new URL(path,appUrl));
+  const module=await import(new URL(path,url));
   return names.split(',').map(name=>{
    const [exported,local=exported]=name.trim().split(/\s+as\s+/);
    assert(Object.hasOwn(module,exported),`${path} does not export ${exported}`);
@@ -65,12 +64,12 @@ test('catalogue, all courses, LC levels and U1 sections render in three modes',a
  const h=await harness();
  for(const mode of ['en','es','bi']){h.mode(mode);for(const route of ['home',...catalogue.courses.map(c=>catalogue.courseHash(c.id)),'course/lc/hl','course/lc/ol',...catalogue.sections.map(s=>catalogue.unitHash(s))]){h.route(route);const html=h.get('#main').innerHTML;assert(html.includes('<h1>'),mode+'/'+route);assert(!html.includes('undefined'));if(mode==='bi')assert(html.includes('lang="en"')&&html.includes('lang="es"'));}}
  h.mode('en');h.route('home');assert.equal((h.get('#main').innerHTML.match(/class="panel course-card"/g)??[]).length,4);
- h.route('course/1st-year');const html=h.get('#main').innerHTML;assert(html.includes('El aula'));assert(html.includes('Learn A–D'));assert(html.includes('/unit/2/overview'));
+ h.route('course/1st-year');const html=h.get('#main').innerHTML;assert(html.includes('El aula'));assert(html.includes('first morning'));assert(html.includes('/unit/2/overview'));
  h.route('course/lc');assert(h.get('#main').innerHTML.includes('#course/lc/hl'));assert(h.get('#main').innerHTML.includes('#course/lc/ol'));
 });
 test('every generated navigation link resolves and unavailable deep links stay outside U1',async()=>{
  const h=await harness();for(const route of ['home','course/1st-year','course/2nd-year','course/3rd-year','course/lc','course/lc/hl','course/lc/ol',...catalogue.sections.map(s=>catalogue.unitHash(s))]){h.route(route);for(const region of ['#main','#nav'])for(const [,hash] of h.get(region).innerHTML.matchAll(/href="#([^"]+)"/g)){const parsed=catalogue.parseRoute(hash);assert.equal(catalogue.routeHash(parsed),hash,route+' → '+hash);}}
- for(const route of ['course/1st-year/unit/2/play','course/2nd-year/unit/1/play','course/lc/hl/unit/1/learn']){h.route(route);assert(!h.get('#main').innerHTML.includes('step-nav'));assert(!h.get('#main').innerHTML.includes('pg-catalogue'));assert.equal(catalogue.parseRoute(h.location.hash).kind,'course');}
+ for(const route of ['course/1st-year/unit/2/grammar','course/2nd-year/unit/1/play','course/lc/hl/unit/1/learn']){h.route(route);assert(!h.get('#main').innerHTML.includes('step-nav'));assert(!h.get('#main').innerHTML.includes('pg-catalogue'));assert.equal(catalogue.parseRoute(h.location.hash).kind,'course');}
 });
 test('navigation away and back retains answers, writing, games and U1 completion without leaking into another course',async()=>{
  const h=await harness();h.route('communicate');h.get('#main').listeners.input({target:{id:'draft',value:'Fictional draft'}});click(h,'mission-complete');h.route('play');click(h,'pg-open',{value:'anagrams'});click(h,'pg-letter',{value:'0'});
@@ -101,9 +100,9 @@ test('Unit 2 Learn A works in every language mode and retains its object selecti
  assert(h.get('#main').innerHTML.includes('1Y_U02_AUD_OBJ_11_v1.mp3'));
  click(h,'u2-phrase',{value:'plural'});assert(h.get('#main').innerHTML.includes('id="u2-phrase-audio"'));
  click(h,'u2-quantity',{value:'3'});assert(h.get('#main').innerHTML.includes('Hay tres libros.'));
- click(h,'u2-check',{value:'pencil'});assert(h.get('#main').innerHTML.includes('A single pencil: es un lápiz.'));
+ click(h,'u2-check',{value:'pencil'});assert(h.get('#main').innerHTML.includes('A single pencil: <strong class="key-language" lang="es">es un lápiz</strong>.'));
  click(h,'u2-next-check');assert(h.get('#main').innerHTML.includes('1Y_U02_AUD_EXP_04_v1.mp3'));
- click(h,'u2-check',{value:'notebooks'});assert(h.get('#main').innerHTML.includes('Several notebooks: son unos cuadernos.'));
+ click(h,'u2-check',{value:'notebooks'});assert(h.get('#main').innerHTML.includes('Several notebooks: <strong class="key-language" lang="es">son unos cuadernos</strong>.'));
  h.route('course/1st-year/unit/1/learn');assert(!h.get('#main').innerHTML.includes('u2-scene-objects'));
  h.route('course/1st-year/unit/2/learn');assert(h.get('#main').innerHTML.includes('1Y_U02_AUD_OBJ_11_v1.mp3'));
 });
@@ -318,4 +317,127 @@ test('Open unit from the 1st Year course replaces the course with the Unit 1 ove
  assert.match(main.innerHTML,/<h2>01 · Hola y bienvenidos<\/h2>/);
  assert.match(main.innerHTML,new RegExp(`${workshops.length+1} communication tasks`));
  assert(!main.innerHTML.includes('class="catalogue-grid"'),'the course view was replaced');
+});
+
+test('the Unit 2 overview links all five sections and the library is on the main navigation',async()=>{
+ const h=await harness({initialHash:'#course/1st-year/unit/2/overview'});
+ const page=h.get('#main');
+ for(const section of ['learn','explore','practise','communicate','play'])assert(page.innerHTML.includes('/unit/2/'+section));
+ assert(h.get('#nav').innerHTML.includes('href="#library"'));
+});
+
+test('linked library practice restores the card draft and return focus in the new language',async()=>{
+ const h=await harness(),card='course/1st-year/unit/2/communicate',id='aula-open-card-gustar';
+ h.route(card);
+ const main=h.get('#main');
+ const input=(id,value)=>main.listeners.input({target:{id,value}});
+ const link=h.get('#'+id);
+ let focused=false;link.focus=()=>{focused=true;};
+ input('aula-draft','El lunes: inglés. <prueba>');
+ click(h,'aula-pair',{value:'B'});
+ h.document.body.listeners.click({preventDefault(){},target:{closest:()=>({id,dataset:{action:'aula-resource',id:'gustar'}})}});
+ assert.equal(h.location.hash,'#library/gustar');
+ h.route('library/gustar');
+ assert.match(main.innerHTML,/Back to my activity/);
+ click(h,'aula-answer',{value:'Me gustan las ciencias.'});click(h,'aula-check');
+ assert.match(main.innerHTML,/That fits\./);
+ h.mode('es');assert.match(main.innerHTML,/Volver a mi actividad/);
+ h.route(card);
+ assert(focused);
+ assert.match(main.innerHTML,/El lunes: inglés\. &lt;prueba&gt;/);
+ assert.match(main.innerHTML,/id="aula-role-B" data-value="B" aria-pressed="true"/);
+ assert(!JSON.stringify([...h.storage]).includes('prueba'));
+});
+
+test('the practise link returns to the same round, question and selection',async()=>{
+ const h=await harness(),origin='course/1st-year/unit/2/practise';
+ h.route(origin);
+ click(h,'aula-round',{value:'1'});
+ click(h,'aula-next');
+ click(h,'aula-answer',{value:'español'});
+ h.document.body.listeners.click({preventDefault(){},target:{closest:()=>({id:'aula-open-practice-week-school-week',dataset:{action:'aula-resource',id:'school-week'}})}});
+ h.route('library/school-week');h.route(origin);
+ assert.match(h.get('#main').innerHTML,/El martes, ¿qué clase hay a las 10:00/);
+ assert.match(h.get('#main').innerHTML,/data-value="español" aria-pressed="true"/);
+});
+
+test('unit tabs have separated bilingual labels and mark the real active section',async()=>{
+ const h=await harness();h.mode('bi');
+ for(const [unit,sections] of [[1,['learn','explore','practise','communicate','play']],[2,['learn','explore','practise','communicate','play']]]){
+  for(const section of sections){
+   const route=`course/1st-year/unit/${unit}/${section}`;
+   h.route(route);
+   const tabs=h.get('#main').innerHTML.match(/<nav class="step-nav"[^>]*>.*?<\/nav>/)?.[0];
+   assert(tabs,route);
+   assert(tabs.includes('<span lang="en">Communicate</span> · <span lang="es">Comunica</span>'),route);
+   assert(tabs.includes('<span lang="en">Learn</span> · <span lang="es">Aprende</span>'),route);
+   assert.match(tabs,new RegExp(`href="#${route}"\\s+aria-current="page"`));
+   assert.equal((tabs.match(/<a /g)??[]).length,5);
+  }
+ }
+});
+
+test('Learn A and B teach the foundational patterns before pupils use them, in all three modes',async()=>{
+ const h=await harness(),base='course/1st-year/unit/2/';
+ for(const mode of ['en','bi','es']){
+  h.mode(mode);
+  h.route(base+'learn');
+  click(h,'u2b-back');
+  let html=h.get('#main').innerHTML;
+  assert(html.indexOf('id="u2-foundations-title"')>=0);
+  assert(html.indexOf('id="u2-foundations-title"')<html.indexOf('class="u2-dialogues"'));
+  assert(html.indexOf('class="u2-dialogues"')<html.indexOf('id="u2-check-title"'));
+  for(const example of ['el día','la mano','rotulador → rotuladores','lápiz → lápices','Hay un libro / Hay tres libros','No tengo regla'])assert(html.includes(example),example);
+  assert.equal(html.includes('class="key-language" lang="es"'),mode!=='es');
+  click(h,'u2b-open');click(h,'u2b-stage',{value:'2'});
+  assert.match(h.get('#main').innerHTML,/a las 11:15/);
+  click(h,'u2b-stage',{value:'3'});
+  html=h.get('#main').innerHTML;
+  assert(html.indexOf('id="u2b-likes-pattern"')<html.indexOf('class="u2b-preferences"'));
+  for(const example of ['Me gusta estudiar español','A Lucía le gusta la historia','A mí me gusta la historia'])assert(html.includes(example),example);
+  assert(!html.includes('**'));
+ }
+});
+
+test('the optional card model is unrelated to Lucía’s answers and does not replace the draft',async()=>{
+ const h=await harness();h.route('course/1st-year/unit/2/communicate');
+ const main=h.get('#main');
+ main.listeners.input({target:{id:'aula-draft',value:'Material: una goma.'}});
+ const model=main.innerHTML.match(/data-aula-details="card-starters".*?<\/details>/)[0];
+ assert.match(model,/Noa va en tren/);
+ assert.match(model,/A Noa le gusta la historia/);
+ assert.doesNotMatch(model,/en autobús|las ciencias/);
+ click(h,'aula-finish-card');
+ assert.match(main.innerHTML,/Material: una goma/);
+});
+
+test('both units keep separate Communicate drafts through a library visit and warn before closing',async()=>{
+ const h=await harness();
+ const u1='course/1st-year/unit/1/communicate',u2='course/1st-year/unit/2/communicate';
+ const main=h.get('#main');
+ const input=(id,value)=>main.listeners.input({target:{id,value}});
+ const warns=()=>{let warned=false;h.window.listeners.beforeunload({preventDefault(){warned=true}});return warned;};
+ assert(!warns());
+ h.route(u1);
+ input('comm-work','Notas de Inés');
+ assert(warns(),'Unit 1 workshop notes are protected on close');
+ h.route(u2);
+ input('aula-draft','Tarjeta de Lucía');
+ h.document.body.listeners.click({preventDefault(){},target:{closest:()=>({id:'aula-open-card-gustar',dataset:{action:'aula-resource',id:'gustar'}})}});
+ h.route('library/gustar');
+ input('aula-note','Apuntes de gustos');
+ h.mode('es');
+ h.route(u2);
+ assert.match(main.innerHTML,/Tarjeta de Lucía/);
+ assert.doesNotMatch(main.innerHTML,/Notas de Inés/);
+ input('aula-draft','');
+ h.route(u1);
+ assert.match(main.innerHTML,/Notas de Inés/);
+ assert.doesNotMatch(main.innerHTML,/Tarjeta de Lucía/);
+ input('comm-work','');
+ assert(warns(),'Unit 2 library notes are protected even with both drafts cleared');
+ h.route('library/gustar');
+ assert.match(main.innerHTML,/Apuntes de gustos/);
+ input('aula-note','');
+ assert(!warns());
 });

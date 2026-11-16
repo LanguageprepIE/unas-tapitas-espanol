@@ -8,7 +8,7 @@ export const courses=[
 ];
 export const units=[
  {course:'1st-year',id:'1',title:'Hola y bienvenidos',status:'available',runtime:'unit1',description:['Meet someone new and introduce yourself.','Conoce a alguien y preséntate.']},
- {course:'1st-year',id:'2',title:'El aula',status:'partial',runtime:'unit2',description:['Learn A–D and four Explore laboratories.','Learn A–D y cuatro laboratorios de Explore.']}
+ {course:'1st-year',id:'2',title:'El aula',status:'available',runtime:'unit2',sections:['overview','learn','explore','practise','communicate','play'],description:['Help an exchange student get ready for her first morning.','Ayuda a una alumna de intercambio a preparar su primera mañana.']}
 ];
 // Match approved unit metadata to its renderer; placeholders cannot become routes.
 export const unitRuntimes=new Set(['unit1','unit2']);
@@ -20,6 +20,7 @@ export const unitHash=(section='overview',course='1st-year',id='1',level)=>`${co
 export function parseRoute(hash=''){
  const value=hash.replace(/^#/,'');
  if(!value||value==='home')return {kind:'home'};
+ if(value==='library'||/^library\/[a-z0-9-]+$/.test(value))return {kind:'library',...(value.includes('/')?{resource:value.split('/')[1]}:{})};
  if(value==='unit'||sections.includes(value))return {kind:'unit',course:'1st-year',unit:'1',section:value==='unit'?'overview':value};
  const p=value.split('/');
  if(p[0]!=='course'||!findCourse(p[1]))return {kind:'home'};
@@ -30,8 +31,8 @@ export function parseRoute(hash=''){
  if(course.levels&&!level)return {kind:'course',course:course.id};
  if(p[i]!=='unit'||p.length!==i+3||!sections.includes(p[i+2]))return parent;
  const u=findUnit(course.id,p[i+1],level);
- if(!availableUnit(u))return parent;
+ if(!availableUnit(u)||u.sections&&!u.sections.includes(p[i+2]))return parent;
  if(u.status==='partial'&&!['overview','learn','explore'].includes(p[i+2]))return parent;
  return {kind:'unit',course:course.id,unit:u.id,section:p[i+2],...(level?{level}:{})};
 }
-export function routeHash(r){return r.kind==='home'?'home':r.kind==='course'?courseHash(r.course,r.level):unitHash(r.section,r.course,r.unit,r.level);}
+export function routeHash(r){return r.kind==='home'?'home':r.kind==='course'?courseHash(r.course,r.level):r.kind==='library'?('library'+(r.resource?'/'+r.resource:'')):unitHash(r.section,r.course,r.unit,r.level);}
