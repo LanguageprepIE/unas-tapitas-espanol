@@ -87,3 +87,34 @@
 @media(max-width:850px){.u2-intro{grid-template-columns:1fr}.u2-hero-art{min-height:185px}.u2-hero-art svg{height:125px}.u2-scene{grid-template-columns:1fr}.u2-scene-setting{min-height:160px;flex-direction:row;gap:16px}.u2-scene-setting .u2-setting-art{width:160px;height:150px}.u2-patterns{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:540px){.u2-scene{padding:14px}.u2-scene-objects{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.u2-discovery-item{min-height:118px}.u2-discovery-item .u2-art{height:85px}.u2-spotlight{gap:9px;padding:13px}.u2-spotlight>.u2-art{flex-basis:75px;height:78px}.u2-spotlight h3{font-size:20px}.u2-dialogue{grid-template-columns:1fr}.u2-dialogue-picture .u2-art{height:95px}.u2-dialogue-picture{max-width:135px}.u2-count-art svg{width:70px}.u2-check-options button{padding:7px;min-height:110px}.u2-check-options .u2-art{height:80px}.u2-picture-stack .u2-art{height:68px}}
 @media print{.u2-hero-art,.u2-spotlight,.u2-scene,.u2-dialogue,.u2-check-options{break-inside:avoid}}
+
+/* El aula and the shared library. */
+.aula{max-width:1050px}
+.aula header{margin-block:1.5rem}
+.aula-space,.aula-filters{margin-block:1.4rem}
+.aula button:focus-visible,.aula a:focus-visible,.aula summary:focus-visible,.aula [tabindex]:focus-visible{outline:3px solid #9a4d00;outline-offset:4px}
+.aula .panel h3 small{display:inline-block;font-size:.72em;color:var(--muted)}
+.aula-source-grid,.aula-tiles,.aula-results{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:16px}
+.aula-tiles,.aula-results{list-style:none;margin:0;padding:0}
+.aula-tiles li{padding:.7rem;min-width:0}
+.aula-results .panel{min-width:0;margin:0}
+.aula-results h2{font-size:1.25rem}
+.aula-icon{width:min(100%,7rem);height:auto;display:block}
+.aula audio{width:min(100%,20rem);display:block;margin-block:.6rem}
+.aula-details summary,.aula-textlink{cursor:pointer;min-height:44px;padding-block:.4rem}
+.aula-textlink{display:inline-block}
+.aula-details ul{margin-block:.65rem}
+.aula-helps{border-top:1px solid var(--line);margin-top:1.4rem;padding-top:1rem}
+.aula-helps .hint{margin-block:.5rem}
+.aula-table{margin-block:1rem}
+.aula-table table{width:100%;border-collapse:collapse;font-size:.93rem;overflow-wrap:anywhere}
+.aula-table caption{font-weight:650;text-align:start;margin-bottom:.35rem}
+.aula-table td,.aula-table th{border:1px solid var(--line);padding:.4rem;text-align:start}
+.aula-table thead{background:var(--foam)}
+.aula-facts dd{margin:0 0 .6rem;font-size:1.2rem;font-weight:650}
+.aula label[for]{display:block;margin-bottom:.25rem;font-weight:600}
+.aula-filter-row{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem;margin-top:.8rem}
+.aula-filter-row label{margin:0}
+.aula [hidden]{display:none!important}
+@media(max-width:560px){.aula .panel{padding:16px}.aula-table td,.aula-table th{padding:.3rem}.aula-table table{font-size:.84rem}}
+.aula-card-text{white-space:pre-wrap;overflow-wrap:anywhere}
