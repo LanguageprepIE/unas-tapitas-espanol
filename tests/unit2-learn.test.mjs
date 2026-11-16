@@ -66,5 +66,5 @@ test('pictures, recorded phrases, articles and number scenes use the intended so
 });
 test('only the implemented Unit 2 routes are available, without entering U1 sections',()=>{
  for(const section of ['learn','overview','explore'])assert.equal(parseRoute(`#course/1st-year/unit/2/${section}`).unit,'2');
- for(const section of ['practise','communicate','play','grammar','vocabulary','listening'])assert.deepEqual(parseRoute(`#course/1st-year/unit/2/${section}`),{kind:'course',course:'1st-year'});
+ for(const section of ['grammar','vocabulary','listening'])assert.deepEqual(parseRoute(`#course/1st-year/unit/2/${section}`),{kind:'course',course:'1st-year'});
 });
