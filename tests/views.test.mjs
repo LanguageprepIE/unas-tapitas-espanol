@@ -441,3 +441,64 @@ test('both units keep separate Communicate drafts through a library visit and wa
  input('aula-note','');
  assert(!warns());
 });
+
+test('library links open the original Unit 1 view and the filter, focus and originating draft survive the round trip',async()=>{
+ const h=await harness(),main=h.get('#main'),origin='course/1st-year/unit/2/communicate';
+ h.route(origin);
+ main.listeners.input({target:{id:'aula-draft',value:'No perder la tarjeta'}});
+ const action=(action,details={})=>h.document.body.listeners.click({preventDefault(){},target:{closest:()=>({dataset:{action,...details},id:details.id})}});
+ action('aula-resource',{id:'gustar'});h.route('library/gustar');
+ assert.match(main.innerHTML,/Back to my activity/);
+ h.route('library');h.get('#aula-results').querySelectorAll=()=>[];
+ main.listeners.input({target:{id:'aula-search',value:'deletrear'}});
+ main.listeners.change({target:{id:'aula-type',value:'listening'}});
+ assert.match(h.get('#aula-results').innerHTML,/library-result-u1-listening-2/);
+ assert.doesNotMatch(h.get('#aula-results').innerHTML,/library-result-u1-alphabet/);
+ let focused='';
+ for(const id of ['audio-l2','library-result-u1-listening-2','gustar'])h.get('#'+id).focus=()=>{focused=id;};
+ h.route('library/u1-listening-2');
+ assert.equal(h.location.hash,'#course/1st-year/unit/1/listening');
+ assert.equal(focused,'audio-l2');assert.match(main.innerHTML,/Back to library/);
+ main.listeners.change({target:{id:'l2-name',dataset:{listeningQuestion:'l2-name',recording:'l2'},value:'Alba'}});
+ h.mode('es');
+ assert.match(main.innerHTML,/Volver a la biblioteca/);
+ h.route('library');
+ assert.equal(focused,'library-result-u1-listening-2');
+ assert.match(main.innerHTML,/value="deletrear"/);
+ assert.match(main.innerHTML,/Volver a mi actividad/);
+ h.route(origin);
+ assert.equal(focused,'gustar');assert.match(main.innerHTML,/No perder la tarjeta/);
+});
+
+test('each indexed resource targets the selected original tab without changing the ordinary Unit 1 route',async()=>{
+ const h=await harness(),main=h.get('#main');
+ for(const [id,section,control] of [
+  ['u1-age','grammar','u1-pattern-age'],['u1-names','grammar','u1-pattern-name'],
+  ['u1-feelings','grammar','u1-pattern-feeling'],
+  ['u1-expressions','vocabulary','u1-vocab-phrases'],['u1-numbers','vocabulary','u1-vocab-numbers'],
+  ['u1-alphabet','vocabulary','u1-vocab-alphabet'],
+  ['u1-listening-1','listening','audio-l1'],['u1-listening-2','listening','audio-l2']
+ ]){
+  h.route('library');let didFocus=false;h.get('#'+control).focus=()=>{didFocus=true;};
+  h.route('library/'+id);
+  assert.equal(h.location.hash,'#course/1st-year/unit/1/'+section);
+  assert(didFocus,id);assert.match(main.innerHTML,/Back to library/);
+ }
+ h.route('course/1st-year/unit/1/grammar');click(h,'lab-kind',{kind:'feeling'});
+ main.listeners.change({target:{id:'lab-value',value:'fatal',dataset:{}}});
+ h.route('library');h.route('library/u1-names');h.route('library');h.route('grammar');
+ assert.match(main.innerHTML,/id="u1-pattern-feeling"[^>]+aria-pressed="true"/);
+ assert.match(main.innerHTML,/Estoy<\/mark> fatal/);
+ assert.doesNotMatch(main.innerHTML,/Back to library/);
+});
+
+test('the library opened from Unit 1 navigation offers a return to the original activity',async()=>{
+ const h=await harness();h.route('communicate');
+ h.get('#main').listeners.input({target:{id:'comm-work',value:'Notas de Inés'}});
+ let focused=false;h.get('#nav-library').focus=()=>{focused=true;};
+ h.document.body.listeners.click({target:{closest:()=>({id:'nav-library',dataset:{action:'open-library'}})}});
+ h.route('library');
+ assert.match(h.get('#main').innerHTML,/href="#course\/1st-year\/unit\/1\/communicate">.*Back to my activity/);
+ h.route('communicate');
+ assert(focused);assert.match(h.get('#main').innerHTML,/Notas de Inés/);
+});
