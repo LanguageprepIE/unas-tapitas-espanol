@@ -1,3 +1,4 @@
+import {welcomeCards,workshops} from '../data/communicate.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import vm from 'node:vm';
@@ -8,14 +9,9 @@ import * as progress from '../progress.mjs';
 import * as engine from '../engine.mjs';
 import * as explore from '../explore.mjs';
 import * as playEngine from '../play-engine.mjs';
-import * as playViews from '../play.mjs';
-import * as playData from '../data/play-unit1.mjs';
-import * as unit2 from '../unit2-learn.mjs';
 import * as week from '../unit2-week.mjs';
 import * as journey from '../unit2-journey.mjs';
-import * as unit2Explore from '../unit2-explore.mjs';
 import * as day from '../unit2-day.mjs';
-import {createAudioController} from '../activity-library/renderer.mjs';
 // A rendering harness, not a browser or an accessibility audit.
 function element(){return {innerHTML:'',textContent:'',value:'',listeners:{},classList:{toggle(){}},addEventListener(k,fn){this.listeners[k]=fn;},setAttribute(){},contains(){return false;},append(){},focus(){},scrollIntoView(){},closest(){return this;},querySelector(){return null;}};}
 async function harness({initialHash='',initialStorage=new Map(),blockedStorage=false}={}){const elements=new Map();const get=s=>{if(!elements.has(s))elements.set(s,element());return elements.get(s);};const document={activeElement:null,documentElement:element(),body:element(),querySelector:get,getElementById:id=>elements.get("#"+id)??null,createElement:()=>element()};const window={listeners:{},addEventListener(k,fn){this.listeners[k]=fn;},scrollTo(){}};const location={hash:initialHash};window.history={replaceState(_s,_t,hash){location.hash=hash;}};const storage=initialStorage;const localStorage={get length(){return storage.size;},key:i=>[...storage.keys()][i],getItem:k=>{if(blockedStorage)throw Error('blocked');return storage.get(k);},setItem:(k,v)=>{if(blockedStorage)throw Error('blocked');storage.set(k,v);},removeItem:k=>{if(blockedStorage)throw Error('blocked');storage.delete(k);}};const url=new URL('../app.js',import.meta.url),source=await readFile(url,'utf8');
@@ -181,6 +177,75 @@ test('timetable print button invokes native printing and style/duration selectio
  click(h,'u2x-lab',{value:'journeys'});h.get('#main').listeners.change({target:{id:'u2x-journey-minutes',value:'30'}});h.mode('es');assert(h.get('#main').innerHTML.includes('treinta minutos'));assert(h.get('#main').innerHTML.includes('value="30" selected'));
 });
 
+test('Communicate checks each reply in place, finishes at part four and keeps the welcome-card choice during review',async()=>{
+ const h=await harness();h.route('communicate');
+ const html=()=>h.get('#main').innerHTML;
+ const go=action=>click(h,action);
+ const choose=(action,value)=>click(h,action,{value});
+ let focus;
+ h.get('#comm-cards-title').focus=()=>{focus='cards';};
+ h.get('#comm-encounter-title').focus=()=>{focus='encounter';};
+ assert(!html().includes('id="meeting-final"'));
+ choose('m-choice','Tengo trece años.');
+ go('m-check');assert.match(html(),/Try a different reply/);
+ go('m-next');assert.match(html(),/1 \/ 4/);
+ for(const [i,turn] of content.mission.entries()){
+  choose('m-choice',turn.answer);assert(!html().includes('That reply fits.'));
+  go('m-check');assert.match(html(),/That reply fits/);
+  assert.match(html(),new RegExp(`${i+1} / 4`));
+  if(i<3)go('m-next');
+ }
+ assert(!html().includes('data-action="m-next"'));
+ assert.match(html(),/Finish conversation/);
+ go('m-finish');assert.equal(focus,'cards');
+ assert.match(html(),/Find Inés’s welcome card/);
+ for(const [id,name,age] of welcomeCards){
+  const card=html().match(new RegExp(`data-value="${id}" aria-pressed="false">(.*?)</button>`,'s'))?.[1];
+  assert(card?.includes(name)&&card.includes(String(age)));
+ }
+ for(const [choice,clue] of [['A','The name matches'],['C','Look closely at the name']]){
+  choose('meeting-choice',choice);assert(!html().includes('id="comm-card-feedback"'));
+  go('meeting-check');assert(html().includes(clue));assert(!html().includes('Card B matches both'));
+ }
+ choose('meeting-choice','B');go('meeting-check');
+ assert.match(html(),/Card B matches both details/);
+ go('meeting-review');assert.equal(focus,'encounter');assert.match(html(),/4 \/ 4/);
+ go('m-back');assert.match(html(),/3 \/ 4/);
+ go('m-next');go('m-finish');
+ assert.match(html(),/data-value="B" aria-pressed="true"/);
+ assert.match(html(),/Card B matches both details/);
+});
+
+test('Communicate offers a complete individual and partner workflow for each task and keeps private notes separate',async()=>{
+ const h=await harness();h.route('communicate');
+ const html=()=>h.get('#main').innerHTML;
+ const set=(action,value)=>click(h,action,{value});
+ const write=(id,value)=>h.get('#main').listeners.input({target:{id,value}});
+ assert.match(html(),/data-value="solo" aria-pressed="true"/);
+ write('draft','Private greeting');
+ for(const t of workshops){
+  set('comm-task',t.id);
+  for(const mode of ['en','bi','es']){
+   h.mode(mode);
+   for(const [kind,index] of [['solo',0],['partner',1]]){
+    set('comm-mode',kind);
+    const actual=kind==='solo'?t.solo:t.partner;
+    for(const [language,i] of [['en',0],['es',1]]){
+     assert.equal(html().includes(actual[i]),mode==='bi'||mode===language);
+     assert.equal(html().includes(t.check[index][i]),mode==='bi'||mode===language);
+    }
+    assert.equal(html().includes('id="comm-support-guests"'),kind==='solo'&&t.id==='list');
+    write('comm-work',`Notes: ${t.id} ${kind}`);
+   }
+  }
+ }
+ set('comm-mode','solo');set('comm-task','list');
+ assert.match(html(),/Notes: list solo/);assert(!html().includes('Notes: list partner'));
+ h.route('learn');h.route('communicate');
+ assert.match(html(),/Private greeting/);assert.match(html(),/Notes: list solo/);
+ assert(!JSON.stringify([...h.storage]).includes('Private greeting'));
+});
+
 test('Unit 2 help is scoped to two labs, with Spanish examples and the selected support language',async()=>{
  const h=await harness();
  h.route('course/1st-year/unit/2/explore');
@@ -241,15 +306,17 @@ test('Unit 2 contextual Learn visits return to the same disclosure and preserve 
  assert(!html().includes('u2-help-return'));
 });
 
-test('opening Unit 1 from the course displays the actual overview with real app imports',async()=>{
+test('Open unit from the 1st Year course replaces the course with the Unit 1 overview',async()=>{
  const h=await harness({initialHash:'#course/1st-year'});
- const page=h.get('#main');
- const link=page.innerHTML.match(/href="#(course\/1st-year\/unit\/1\/overview)"/);
- assert(link);
+ const main=h.get('#main');
+ assert.match(main.innerHTML,/<h1><span lang="en">1st Year<\/span><\/h1>/);
+ const link=main.innerHTML.match(/<a href="#([^"]+\/unit\/1\/overview)"[^>]*><span lang="en">Open unit<\/span><\/a>/);
+ assert(link,'the course offers an Open unit link for Unit 1');
  h.route(link[1]);
- assert.match(page.innerHTML,/Your Spanish starts<br>with a hello/);
- assert.match(page.innerHTML,/<h2>01 · Hola y bienvenidos<\/h2>/);
- assert(!page.innerHTML.includes('class="catalogue-grid"'));
+ assert.match(main.innerHTML,/<h1><span lang="en">Your Spanish starts<br>with a hello\.<\/span><\/h1>/);
+ assert.match(main.innerHTML,/<h2>01 · Hola y bienvenidos<\/h2>/);
+ assert.match(main.innerHTML,new RegExp(`${workshops.length+1} communication tasks`));
+ assert(!main.innerHTML.includes('class="catalogue-grid"'),'the course view was replaced');
 });
 
 test('the Unit 2 overview links all five sections and the library is on the main navigation',async()=>{
@@ -342,4 +409,35 @@ test('the optional card model is unrelated to Lucía’s answers and does not re
  assert.doesNotMatch(model,/en autobús|las ciencias/);
  click(h,'aula-finish-card');
  assert.match(main.innerHTML,/Material: una goma/);
+});
+
+test('both units keep separate Communicate drafts through a library visit and warn before closing',async()=>{
+ const h=await harness();
+ const u1='course/1st-year/unit/1/communicate',u2='course/1st-year/unit/2/communicate';
+ const main=h.get('#main');
+ const input=(id,value)=>main.listeners.input({target:{id,value}});
+ const warns=()=>{let warned=false;h.window.listeners.beforeunload({preventDefault(){warned=true}});return warned;};
+ assert(!warns());
+ h.route(u1);
+ input('comm-work','Notas de Inés');
+ assert(warns(),'Unit 1 workshop notes are protected on close');
+ h.route(u2);
+ input('aula-draft','Tarjeta de Lucía');
+ h.document.body.listeners.click({preventDefault(){},target:{closest:()=>({id:'aula-open-card-gustar',dataset:{action:'aula-resource',id:'gustar'}})}});
+ h.route('library/gustar');
+ input('aula-note','Apuntes de gustos');
+ h.mode('es');
+ h.route(u2);
+ assert.match(main.innerHTML,/Tarjeta de Lucía/);
+ assert.doesNotMatch(main.innerHTML,/Notas de Inés/);
+ input('aula-draft','');
+ h.route(u1);
+ assert.match(main.innerHTML,/Notas de Inés/);
+ assert.doesNotMatch(main.innerHTML,/Tarjeta de Lucía/);
+ input('comm-work','');
+ assert(warns(),'Unit 2 library notes are protected even with both drafts cleared');
+ h.route('library/gustar');
+ assert.match(main.innerHTML,/Apuntes de gustos/);
+ input('aula-note','');
+ assert(!warns());
 });

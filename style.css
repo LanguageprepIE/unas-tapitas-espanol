@@ -118,3 +118,20 @@
 .aula [hidden]{display:none!important}
 @media(max-width:560px){.aula .panel{padding:16px}.aula-table td,.aula-table th{padding:.3rem}.aula-table table{font-size:.84rem}}
 .aula-card-text{white-space:pre-wrap;overflow-wrap:anywhere}
+
+/* Unit 1 Communicate: welcome cards, task choices and printable local notes. */
+.comm-u1 .comm-step{font-size:.6em;color:var(--sea);white-space:nowrap}
+.comm-u1 .comm-card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,10rem),1fr));gap:12px}
+.comm-u1 .comm-id-card{display:grid;gap:5px;text-align:start;padding:14px 17px;border:2px solid var(--line);border-inline-start:6px solid var(--sea)}
+.comm-u1 .comm-id-card strong{font-size:1.25rem}
+.comm-u1 .comm-id-card[aria-pressed=true]{background:var(--foam);border-color:var(--sea);box-shadow:inset 0 0 0 1px var(--sea)}
+.comm-u1 .comm-card-id{font-size:.85rem;font-weight:650}
+.comm-u1 .comm-task-picker{margin:1rem 0 1.2rem}
+.comm-u1 .comm-support summary{min-height:44px;align-content:center}
+.comm-u1 textarea{min-height:5rem}
+.comm-u1 label[for]{display:block;font-weight:600}
+.comm-u1 .comm-print-text{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit}
+@media print{
+ .comm-u1 textarea,.comm-u1 .chips{display:none}
+ .comm-u1 .comm-support{display:block!important}
+}
