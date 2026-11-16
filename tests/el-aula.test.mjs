@@ -63,7 +63,7 @@ test('activity state stays independent of library answers, application notes and
   updateAula(s,'play',undefined,'pick','bus');assert.equal(updateAula(s,'play',undefined,'continue'),null);
   updateAula(s,'play',undefined,'pick',second);
   updateAula(s,'play',undefined,'continue');
-  assert.equal(s.game.step,game.length);
+  assert.equal(s.game.step,2);
  }
 });
 
@@ -84,15 +84,97 @@ test('new media references point to existing approved captions and existing SVG 
 test('all new views and resources render in three modes with all standalone teaching and review sections',()=>{
  for(const mode of ['en','bi','es']){
   const s=newAula(),T=(en,es)=>mode==='es'?es:mode==='en'?en:`${en} / ${es}`;
-  const L=(en,es)=>T(en,es),E=String,button=(action,copy,cls,other)=>`<button data-action="${action}" class="${cls}" ${other}>${copy}</button>`;
-  const ui=aulaUI({L,T,E,button,state:s});
+  const ui=render(s,mode);
   for(const view of ['practise','communicate','play'])assert(ui.view(view).includes('<h1>'));
   for(const r of resources){
    const html=ui.library(r.id,'');
-   assert(html.includes(T(...r.title)));assert(html.includes(T(...r.lesson[0])));
-   assert(html.includes(T(...r.items[0].prompt)));assert(html.includes(T(...r.review)));
-   assert(html.includes(T(...r.apply)));
+   assert(html.includes(T(...r.title)));assert(visible(html).includes(T(...r.lesson[0]).replaceAll('**','')));
+   assert(html.includes(T(...r.items[0].prompt)));assert(visible(html).includes(T(...r.review).replaceAll('**','')));
+   assert(visible(html).includes(T(...r.apply).replaceAll('**','')));
   }
   const html=ui.library(undefined,'');assert(html.includes('aula-search'));assert(!html.includes('undefined'));
+ }
+});
+
+
+const visible=html=>html.replace(/<[^>]+>/g,'');
+function render(state,mode){
+ const T=(en,es)=>mode==='es'?es:mode==='en'?en:`${en} / ${es}`;
+ const L=(en,es)=>T(en,es),E=String;
+ const button=(action,copy,cls,other)=>`<button data-action="${action}" class="${cls}" ${other??''}>${copy}</button>`;
+ return aulaUI({L,T,E,button,mode,state});
+}
+
+test('comprehension presents one Spanish stimulus before checking, with no answer-bearing English translation',()=>{
+ const reading=[
+  [1,0,'A las 09:00 tengo inglés.',/09:00|English|Monday/i],
+  [1,1,'El martes, ¿qué clase hay a las 10:00?',/10:00|Tuesday|second|Spanish/i],
+  [1,2,'El lunes, ¿qué clase hay a las 10:00?',/10:00|Monday|Mathematics/i],
+  [3,2,'Noa: «Voy en tren».',/train|bus/i]
+ ];
+ for(const mode of ['en','bi','es']){
+  const s=newAula(),ui=render(s,mode);
+  for(const [round,step,source,translation] of reading){
+   s.round=round;s.steps[practiceRounds[round].id]=step;
+   const html=ui.view('practise');
+   const stem=html.match(/<h3 id="aula-question".*?<\/h3>/)[0];
+   assert.doesNotMatch(stem,translation);
+   assert.equal(html.split(source).length,2);
+   assert(html.includes(`<p class="spanish"><span lang="es">${source}</span></p>`));
+   assert.match(html,/id="aula-feedback" tabindex="-1" hidden/);
+  }
+  for(const [round,step] of [[0,0],[2,1],[3,0]]){
+   s.round=round;s.steps[practiceRounds[round].id]=step;
+   const html=ui.view('practise');
+   assert.match(html,/<audio controls .*?<details[^>]*><summary/);
+   assert.doesNotMatch(html,/<details[^>]*data-aula-details="text-[^"]+" open/);
+  }
+ }
+});
+
+test('examples and correction use Spanish language markup and deliberate bold in English and Bilingual',()=>{
+ for(const mode of ['en','bi','es']){
+  const s=newAula(),ui=render(s,mode);
+  s.steps.kit=1;
+  updateAula(s,'practise',undefined,'answer','una mochila');
+  updateAula(s,'practise',undefined,'check');
+  const html=ui.view('practise'),library=ui.library('gustar','');
+  assert.doesNotMatch(html+library,/\*\*/);
+  if(mode==='es'){
+   assert.match(html,/<span lang="es">una mochila<\/span>/);
+   assert.doesNotMatch(library,/class="key-language"/);
+  }else{
+   assert.match(html,/<strong lang="es">una mochila<\/strong>/);
+   assert.match(html,/<strong class="key-language" lang="es">Mochila<\/strong> is feminine/);
+   assert.match(library,/<strong class="key-language" lang="es">Me gusta la historia<\/strong>/);
+   if(mode==='bi')assert.equal(library.split('<strong class="key-language" lang="es">Me gusta la historia</strong>').length,3);
+  }
+ }
+});
+
+test('four connected game decisions support every viable plan, feedback before continuing, and replay',()=>{
+ assert.equal(game.length,4);
+ const paths=game.reduce((xs,scene)=>xs.flatMap(path=>scene.options.filter(o=>o.ready).map(o=>[...path,o.id])),[[]]);
+ assert.equal(paths.length,8);
+ for(const path of paths){
+  const s=newAula(),ui=render(s,'en');
+  for(let i=0;i<path.length;i++){
+   const scene=game[i],html=ui.view('play');
+   assert.match(html,new RegExp(`Decision ${i+1} / 4`));
+   if(scene.source)assert(html.includes(`<span lang="es">${scene.source}</span>`));
+   if(i>0) assert(visible(html).includes(game[i-1].options.find(o=>o.id===path[i-1]).effect[0].replaceAll('**','')));
+   for(const option of scene.options.filter(o=>!o.ready)){
+    assert.equal(updateAula(s,'play',undefined,'pick',option.id),'aula-consequence');
+    assert(!ui.view('play').includes('data-action="aula-continue"'));
+    assert.equal(updateAula(s,'play',undefined,'continue'),null);
+   }
+   updateAula(s,'play',undefined,'pick',path[i]);
+   assert(ui.view('play').includes('data-action="aula-continue"'));
+   assert.equal(updateAula(s,'play',undefined,'continue'),'aula-task-title');
+  }
+  const final=visible(ui.view('play'));
+  for(let i=0;i<path.length;i++)assert(final.includes(game[i].options.find(o=>o.id===path[i]).effect[0].replaceAll('**','')));
+  updateAula(s,'play',undefined,'replay');
+  assert.deepEqual(s.game,{step:0,picks:[]});
  }
 });

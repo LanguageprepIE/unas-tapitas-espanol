@@ -290,6 +290,22 @@ test('the practise link returns to the same round, question and selection',async
  click(h,'aula-answer',{value:'español'});
  h.document.body.listeners.click({preventDefault(){},target:{closest:()=>({id:'aula-open-practice-week-school-week',dataset:{action:'aula-resource',id:'school-week'}})}});
  h.route('library/school-week');h.route(origin);
- assert.match(h.get('#main').innerHTML,/Find the second class on Tuesday/);
+ assert.match(h.get('#main').innerHTML,/El martes, ¿qué clase hay a las 10:00/);
  assert.match(h.get('#main').innerHTML,/data-value="español" aria-pressed="true"/);
+});
+
+test('unit tabs have separated bilingual labels and mark the real active section',async()=>{
+ const h=await harness();h.mode('bi');
+ for(const [unit,sections] of [[1,['learn','explore','practise','communicate','play']],[2,['learn','explore','practise','communicate','play']]]){
+  for(const section of sections){
+   const route=`course/1st-year/unit/${unit}/${section}`;
+   h.route(route);
+   const tabs=h.get('#main').innerHTML.match(/<nav class="step-nav"[^>]*>.*?<\/nav>/)?.[0];
+   assert(tabs,route);
+   assert(tabs.includes('<span lang="en">Communicate</span> · <span lang="es">Comunica</span>'),route);
+   assert(tabs.includes('<span lang="en">Learn</span> · <span lang="es">Aprende</span>'),route);
+   assert.match(tabs,new RegExp(`href="#${route}"\\s+aria-current="page"`));
+   assert.equal((tabs.match(/<a /g)??[]).length,5);
+  }
+ }
 });
