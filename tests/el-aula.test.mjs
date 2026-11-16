@@ -1,9 +1,10 @@
+import {findResources,libraryEntries,unit1References} from '../data/library.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {parseRoute,routeHash} from '../catalogue.mjs';
 import {newAula,updateAula,editAula,aulaUI} from '../el-aula.mjs';
-import {findResources,resources,practiceRounds,grade,game,coreObjects,coreSubjects,extraRecordings,objectSprite} from '../data/el-aula.mjs';
+import {resources,practiceRounds,grade,game,coreObjects,coreSubjects,extraRecordings,objectSprite} from '../data/el-aula.mjs';
 import {unit2Objects,unit2Expressions} from '../unit2-learn.mjs';
 import {schoolDays,weekExpressions} from '../unit2-week-data.mjs';
 import {journeyModes,journeyQuestion,journeyNegative,journeyWalking} from '../unit2-journey-data.mjs';
@@ -14,7 +15,7 @@ test('five library entries and three new activities have stable routes; bilingua
  assert.deepEqual(findResources('school timetable','vocabulary','1st-year').map(r=>r.id),['school-week']);
  assert.deepEqual(findResources('gustan','grammar').map(r=>r.id),['gustar']);
  assert.equal(findResources('gustan','vocabulary').length,0);
- assert.equal(findResources('','grammar').length,2);
+ assert.equal(findResources('','grammar').length,5);
  assert.equal(findResources('','','2nd-year').length,0);
 });
 
@@ -206,4 +207,17 @@ test('agreement teaching includes all four rows and practises both rule and mean
    assert.match(visible(feedback),explanation);
   }
  }
+});
+
+
+test('shared index retains five full Unit 2 resources and links eight original Unit 1 resources',()=>{
+ assert.equal(libraryEntries.length,13);
+ assert.equal(new Set(libraryEntries.map(r=>r.id)).size,13);
+ assert.equal(unit1References.length,8);
+ assert.deepEqual(libraryEntries.filter(r=>!r.target),resources);
+ assert.deepEqual(findResources('dieciseis','vocabulary','1st-year').map(r=>r.id),['u1-numbers']);
+ assert.deepEqual(findResources('saludos help','vocabulary').map(r=>r.id),['u1-expressions']);
+ assert.deepEqual(findResources('llamarse','grammar').map(r=>r.id),['u1-names']);
+ assert.deepEqual(findResources('deletrear','listening').map(r=>r.id),['u1-listening-2']);
+ assert.deepEqual(findResources('age','listening').map(r=>r.id),['u1-listening-1','u1-listening-2']);
 });

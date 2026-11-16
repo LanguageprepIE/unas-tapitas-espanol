@@ -122,14 +122,9 @@ export const resources=[
   ['Check the verb and the expression that follows it. Are they consistent with the person and transport you chose?','Revisa el verbo y la expresión que lo sigue. ¿Encajan con la persona y el medio que has elegido?'],'journeys')
 ];
 export const resourceById=id=>resources.find(x=>x.id===id);
-export const resourceTypes={vocabulary:['Vocabulary','Vocabulario'],grammar:['Grammar','Gramática']};
 export const extraRecordings={question:recorded(journeyQuestion.audio,journeyQuestion.text),negative:recorded(journeyNegative.audio,journeyNegative.text),walking:recorded(journeyWalking.audio,journeyWalking.text)};
 const normalise=value=>String(value).normalize('NFC').trim().replace(/\s+/g,' ').toLocaleLowerCase('es');
 const searchForm=value=>normalise(value).normalize('NFD').replace(/\p{M}/gu,'');
-export function findResources(query='',type='',level=''){
- const terms=searchForm(query).split(' ').filter(Boolean);
- return resources.filter(r=>(!type||r.type===type)&&(!level||r.level===level)&&terms.every(word=>searchForm([...r.title,...r.tags,...resourceTypes[r.type]].join(' ')).includes(word)));
-}
 export function grade(item,response){
  if(!response?.trim())return 'empty';
  if(item.answers.some(a=>normalise(a)===normalise(response)))return 'correct';

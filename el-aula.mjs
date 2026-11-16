@@ -1,6 +1,7 @@
+import {libraryEntries,resourceTypes,findResources} from './data/library.mjs';
 import {teachingMarkup} from './engine.mjs';
 import {unitHash} from './catalogue.mjs';
-import {coreObjects,coreSubjects,extraRecordings,objectSprite,timetable,practiceRounds,resources,resourceById,resourceTypes,findResources,grade,game} from './data/el-aula.mjs';
+import {coreObjects,coreSubjects,extraRecordings,objectSprite,timetable,practiceRounds,resourceById,grade,game} from './data/el-aula.mjs';
 import {schoolDays} from './unit2-week-data.mjs';
 import {journeyModes} from './unit2-journey-data.mjs';
 
@@ -116,15 +117,15 @@ export function aulaUI({L,T,E,button,mode,state:s}){
   return '';
  }
  const options=(values,initial)=>values.map(([v,txt])=>`<option value="${E(v)}"${initial===v?' selected':''}>${E(txt)}</option>`).join('');
- const hits=()=>findResources(s.library.q,s.library.type,s.library.level).map(r=>`<li class="panel"><h2><a href="#${resourceHash(r.id)}">${pair(r.title)}</a></h2><p class="small">${pair(resourceTypes[r.type])} · 1st Year</p><p>${teaching(r.quick)}</p></li>`).join('');
+ const hits=()=>findResources(s.library.q,s.library.type,s.library.level).map(r=>`<li class="panel"><h2><a id="library-result-${r.id}" href="#${resourceHash(r.id)}">${pair(r.title)}</a></h2><p class="small">${pair(resourceTypes[r.type])} · 1st Year${r.target?` · ${pair(['Unit 1 activity','Actividad de la Unidad 1'])}`: ''}</p><p>${teaching(r.quick)}</p></li>`).join('');
  function library(id,back){
   const r=resourceById(id);
   if(!r){
    const found=hits();
-   return `<div class="page aula"><h1>${pair(['Resource library','Biblioteca de recursos'])}</h1>${back}<p class="lead">${pair(['Find an explanation and try it out, at your own pace.','Busca una explicación y ponla en práctica a tu ritmo.'])}</p>
+   return `<div class="page aula"><h1>${pair(['Resource library','Biblioteca de recursos'])}</h1>${back}<p class="lead">${pair(['Find an explanation or return to a unit activity, at your own pace.','Busca una explicación o vuelve a una actividad de la unidad, a tu ritmo.'])}</p>
    <div class="aula-filters"><label for="aula-search">${pair(['Search by topic or word','Busca por tema o palabra'])}</label><input type="search" id="aula-search" class="input" value="${E(s.library.q)}">
    <div class="aula-filter-row"><label for="aula-type">${pair(['Type','Tipo'])}</label><select id="aula-type">${options([['',T('All types','Todos los tipos')],...Object.entries(resourceTypes).map(([id,t])=>[id,T(...t)])],s.library.type)}</select>
-   <label for="aula-level">${pair(['Level','Nivel'])}</label><select id="aula-level">${options([['',T('All levels','Todos los niveles')],...Array.from(new Set(resources.map(r=>r.level))).map(id=>[id,id==='1st-year'?'1st Year':id])],s.library.level)}</select></div></div>
+   <label for="aula-level">${pair(['Level','Nivel'])}</label><select id="aula-level">${options([['',T('All levels','Todos los niveles')],...Array.from(new Set(libraryEntries.map(r=>r.level))).map(id=>[id,id==='1st-year'?'1st Year':id])],s.library.level)}</select></div></div>
    <ul class="aula-results" id="aula-results">${found}</ul><p id="aula-no-matches"${found?' hidden':''}>${pair(['No results. Try another word or remove a filter.','No hay resultados. Prueba otra palabra o quita un filtro.'])}</p></div>`;
   }
   return `<div class="page aula"><nav class="breadcrumb"><a id="aula-index" href="#library">${pair(['Library','Biblioteca'])}</a></nav><h1>${pair(r.title)}</h1>${back}
