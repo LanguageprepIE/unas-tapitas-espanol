@@ -1,5 +1,5 @@
+import {packGender,packNumber,identifyAndCount,likesPattern} from './unit2-foundations.mjs';
 import {unit2Objects,unit2Expressions} from '../unit2-learn.mjs';
-import {nouns} from '../unit2-explore-data.mjs';
 import {schoolDays,schoolSubjects,schoolWeek,classTimes,subjectById,weekExpressions} from '../unit2-week-data.mjs';
 import {journeyModes,journeyMode,journeyQuestion,journeyNegative,journeyWalking} from '../unit2-journey-data.mjs';
 
@@ -55,7 +55,7 @@ export const resources=[
   ['Learn the article with the object: **un lápiz**, **una goma**.','Aprende el artículo junto con el objeto: **un lápiz**, **una goma**.'],
   [
    ['Start with the essentials in the pictures. Read the article and noun together, then listen and say the pair aloud.','Empieza con el material de las imágenes. Lee el artículo y el sustantivo juntos, escucha y repite el grupo.'],
-   ['In a packing list you can write **un libro**. To say what you have, use **Tengo un libro**.','En una lista de material puedes poner **un libro**. Para decir qué tienes, usa **Tengo un libro**.']
+   ...identifyAndCount
   ],[
    closed('r-obj-a',listen,'',[word('eraser'),word('ruler'),word('pencil')],word('eraser'),['Listen for the name after **una**.','Escucha el nombre después de una.'],['**Goma** is the eraser in this list.','**Goma** es el objeto que sirve para borrar.'],{audio:objAudio('eraser')}),
    recall('r-obj-b',['Write the Spanish name with the article.','Escribe el nombre en español con el artículo.'],'',['un cuaderno'],['It is an object for writing your notes.','Sirve para tomar apuntes.'],['**Cuaderno** is masculine; use **un** for one.','**Cuaderno** es masculino; usa un para indicar uno.'],{image:'notebook',alt:['Object for taking notes','Objeto para tomar apuntes']}),
@@ -65,21 +65,32 @@ export const resources=[
  resource('agreement',['Articles, gender and number','Artículos, género, número y concordancia'],'grammar',['concordancia','singular','plural','género','gender','indefinite','definite','article'],
   ['Compare **una mochila** and **unas mochilas**. The article and the noun change together.','Compara **una mochila** y **unas mochilas**. El artículo y el sustantivo cambian juntos.'],
   [
-   ['Compare **un libro** / **unos libros** and **una mochila** / **unas mochilas**. Both gender and number matter. An ending can help, but it does not always tell you the gender.','Compara **un libro** / **unos libros** y **una mochila** / **unas mochilas**. Importan el género y el número. La terminación puede dar una pista, pero no siempre indica el género.'],
-   ['Use **un** or **una** for one unspecified object. Contrast **el libro** / **los libros** and **la mochila** / **las mochilas** when you mean the book or bag already identified.','Usa un o una para indicar un objeto sin precisar cuál. Compara **el libro** / **los libros** y **la mochila** / **las mochilas** cuando te refieres al libro o mochila que ya se ha identificado.'],
-   ['**Lápiz** changes to **lápices**. **Sacapuntas** stays the same; compare **un** and **unos**. **Tijeras** is used in this unit as **unas tijeras** even for one pair.','**Lápiz** cambia a **lápices**. **Sacapuntas** se escribe igual; compara un y **unos**. En esta unidad se usa **unas tijeras** incluso para una sola herramienta.']
+   ...packGender,
+   ['Nouns ending in **-e** or a consonant can be masculine or feminine: compare **un estuche** and **la clase**; **un lápiz** and **la pared** (an extra example).',
+    'Los sustantivos acabados en **-e** o consonante pueden ser masculinos o femeninos: compara **un estuche** y **la clase**; **un lápiz** y **la pared** (un ejemplo adicional).'],
+   ...packNumber,
+   ['The article agrees with the noun in gender and number. The chart shows all four possible combinations.',
+    'El artículo concuerda con el sustantivo en género y número. La tabla muestra las cuatro combinaciones.'],
+   ['Use an indefinite article when you do not mean a particular object: **Necesito un lápiz** (any pencil). Use a definite article when it is clear which one you mean: **El lápiz de Lucía** (a particular pencil).',
+    'Usa un artículo indefinido si no te refieres a un objeto concreto: **Necesito un lápiz** (cualquiera). Usa un artículo definido si está claro a cuál te refieres: **El lápiz de Lucía** (uno en concreto).']
   ],[
+   closed('r-agr-gender',['Which pair shows masculine first and feminine second?','¿Qué pareja presenta primero el masculino y después el femenino?'],'',['el día / la mano','la mano / el día'],'el día / la mano',['Use the articles, not the final vowels.','Fíjate en los artículos, no en las vocales finales.'],['**El** marks **día** as masculine and **la** marks **mano** as feminine, even though their endings suggest the opposite.','**El** indica que **día** es masculino y **la**, que **mano** es femenino, aunque las terminaciones parezcan indicar lo contrario.']),
+   closed('r-agr-e',['Which pair contains two words ending in -e with different genders?','¿En qué pareja hay dos palabras en -e de distinto género?'],'',['el estuche / la clase','el estuche / los estuches'],'el estuche / la clase',['Compare the articles: changing number does not change gender.','Compara los artículos: cambiar el número no cambia el género.'],['**El estuche** is masculine; **la clase** is feminine. **Los estuches** is still masculine.','**El estuche** es masculino y **la clase** es femenino. **Los estuches** sigue siendo masculino.']),
    closed('r-agr-a',select,'1 × libro → varios',['unos libros','unas libros','un libros'],'unos libros',objectRule,['**Libro** is masculine and the group is plural, so choose **unos**.','**Libro** es masculino y el grupo está en plural: **unos**.']),
    closed('r-agr-b',finish,'la mochila → ___ mochilas',['las','los','la'],'las',objectRule,['You are keeping the definite article; the feminine plural form is **las**.','Se mantiene el artículo definido: la forma femenina en plural es las.']),
+   recall('r-agr-consonant',['Write the whole group in the plural.','Escribe todo el grupo en plural.'],'un rotulador → ___',['unos rotuladores'],['Change both the article and the noun.','Cambia el artículo y el sustantivo.'],['**Un** becomes **unos** and **rotulador** adds **-es** after **-r**.','**Un** cambia a **unos** y **rotulador** añade **-es** después de **-r**.']),
    recall('r-agr-c',finish,'un lápiz → unos ___',['lápices'],['Look at the final consonant, not just the number.','Fíjate en la consonante final, además del número.'],['The final **z** changes to **c** before **-es**.','La z final cambia a c delante de **-es**.']),
-   closed('r-agr-d',select,'1 × ✂',['una tijera','un tijeras','unas tijeras'],'unas tijeras',['Use the form presented in this unit.','Usa la forma que se ha presentado en esta unidad.'],['**Unas tijeras** is the plural group practised here, even for one pair.','**Unas tijeras** es el grupo en plural que practicamos aquí, aunque haya una sola herramienta.'])
+   recall('r-agr-invariant',['Show that you have several by writing the whole group in the plural.','Escribe todo el grupo en plural para indicar que tienes varios.'],'un sacapuntas → ___',['unos sacapuntas'],['Check whether the noun ending changes in the example above.','Comprueba si la terminación del sustantivo cambia en el ejemplo de arriba.'],['Only the article changes: **un → unos**. **Sacapuntas** stays the same.','Solo cambia el artículo: **un → unos**. **Sacapuntas** no cambia.']),
+   closed('r-agr-d',select,'1 × ✂',['una tijeras','un tijeras','unas tijeras'],'unas tijeras',['Use the form presented in this unit.','Usa la forma que se ha presentado en esta unidad.'],['**Unas tijeras** is the plural group practised here, even for one pair.','**Unas tijeras** es el grupo en plural que practicamos aquí, aunque haya una sola herramienta.']),
+   closed('r-agr-context',['Choose an article for any notebook, then one for Lucía’s specific notebook.','Elige un artículo para cualquier cuaderno y otro para el cuaderno concreto de Lucía.'],'Necesito ___ cuaderno. Aquí está ___ cuaderno de Lucía.',['un / el','el / un','una / la'],'un / el',['Both articles must be masculine singular. Which notebook is identified?','Los dos artículos deben estar en masculino singular. ¿En qué frase sabemos de qué cuaderno se trata?'],['**Un cuaderno** can be any notebook; **el cuaderno de Lucía** identifies which one.','**Un cuaderno** puede ser cualquiera; **el cuaderno de Lucía** identifica de cuál se trata.']),
+   recall('r-agr-material',['Write the missing article to ask for some folders.','Pides carpetas sin indicar cuáles. Escribe el artículo que falta.'],'Para clase necesito ___ carpetas.',['unas'],['Use the indefinite article. Look at the gender and number of the noun.','Usa el artículo indefinido. Fíjate en el género y el número del sustantivo.'],['**Carpetas** is feminine plural, so use **unas**.','**Carpetas** es femenino plural, así que se usa **unas**.'])
   ],['Write a material request: one object and several of another. Use **un**/**una** and **unos**/**unas**.','Escribe una petición de material: un objeto y varios de otro. Usa un/una y **unos**/**unas**.'],
   ['Check that each article matches its noun in gender and number.','Comprueba que cada artículo concuerda con su sustantivo en género y número.'],'agreement'),
  resource('school-week',['School days and subjects','Días lectivos y asignaturas'],'vocabulary',['lunes','martes','horario','timetable','school week','classes','matemáticas','materias'],
-  ['Find the day first. **El martes tengo español** means Spanish is on Tuesday.','Busca primero el día. **El martes tengo español** indica que hay español ese día.'],
+  ['Find the day first. **El jueves tengo historia** means history is on Thursday.','Busca primero el día. **El jueves tengo historia** indica que hay historia ese día.'],
   [
    ['Use the names from **lunes** to **viernes** to read a timetable. Write weekday and subject names with lower case inside a sentence.','Usa los nombres de **lunes** a **viernes** para leer un horario. Dentro de una frase se escriben con minúscula.'],
-   ['Read down the day’s column. Times are shown in digits. For a school notice, use **El** + day + **tengo** + subject.','Lee hacia abajo en la columna del día. Las horas aparecen en cifras. Para un aviso, usa El + día + **tengo** + asignatura.']
+   ['Read down the day’s column. **A las 11:15** points to the time a class starts. For a school notice, use **El** + day + **tengo** + subject.','Lee hacia abajo en la columna del día. **A las 11:15** indica la hora a la que empieza una clase. Para un aviso, usa **El** + día + **tengo** + asignatura.']
   ],[
    closed('r-week-a',listen,'',['jueves','miércoles','viernes'],'jueves',['Think of the days in order.','Recuerda el orden de los días.'],['**Jueves** comes after **miércoles**.','**Jueves** viene después de **miércoles**.'],{audio:dayAudio(3)}),
    recall('r-week-b',['Write the next day.','Escribe el día siguiente.'],'miércoles → ___',['jueves'],['It is the fourth school day.','Es el cuarto día lectivo.'],['Wednesday is followed by Thursday: **jueves**.','Después del miércoles viene el **jueves**.']),
@@ -89,13 +100,13 @@ export const resources=[
  resource('gustar',['Gustar and preferences','Gustar y preferencias'],'grammar',['gusta','gustan','me gusta','a mí','gustos','favourite','likes','infinitivo'],
   ['One thing or an action: **gusta**. A plural noun: **gustan**. **Me** or **le** tells you who likes it.','Una cosa o una acción: **gusta**. Un sustantivo plural: **gustan**. Me o le indica a quién le **gusta**.'],
   [
-   ['Compare **Me gusta la historia**, **Me gustan las matemáticas** and **Me gusta estudiar español**. Choose **gusta** or **gustan** by looking at what is liked, not at the person.','Compara **Me gusta la historia**, **Me gustan las matemáticas** y **Me gusta estudiar español**. Para elegir **gusta** o **gustan**, fíjate en lo que **gusta**, no en la persona.'],
-   ['**Me** refers to the speaker. With **le**, **A Lucía** can clarify who likes it. **A mí** can emphasise your own preference. Put **no** before **me** or **le**: **A Lucía no le gustan las ciencias**.','Me se refiere a quien habla. Con le, **A Lucía** puede aclarar a quién le gusta. A mí permite destacar una preferencia propia. Coloca no delante de me o le: **A Lucía no le gustan las ciencias**.']
+   ...likesPattern
   ],[
    closed('r-gus-a',select,'las ciencias',['Me gusta las ciencias.','Me gustan las ciencias.'],'Me gustan las ciencias.',gustRule,['**Las ciencias** is plural, so use **gustan**.','**Las ciencias** está en plural: usa **gustan**.']),
    recall('r-gus-b',finish,'No me ___ estudiar español.',['gusta'],gustRule,['**Estudiar** names an action and takes **gusta** here.','**Estudiar** expresa una acción y aquí se usa **gusta**.']),
    closed('r-gus-c',['Read what Leo says. Who likes the subject?','Lee lo que dice Leo. ¿A quién le gusta la asignatura?'],'A Lucía le gusta el español.',['Leo','Lucía'],'Lucía',['Find the name after **A**.','Busca el nombre que aparece después de A.'],['**A Lucía** makes it clear who likes the subject.','**A Lucía** indica a quién le gusta la asignatura.']),
-   recall('r-gus-d',finish,'A Leo no ___ gustan las matemáticas.',['le'],['The sentence is about Leo, not about the speaker.','La frase habla de Leo, no de quien habla.'],['Use **le** here, after **no**.','Aquí se usa le, detrás de no.'])
+   recall('r-gus-d',finish,'A Leo no ___ gustan las matemáticas.',['le'],['The sentence is about Leo, not about the speaker.','La frase habla de Leo, no de quien habla.'],['Use **le** here, after **no**.','Aquí se usa le, detrás de no.']),
+   recall('r-gus-write',['Rewrite the preference about Alba. Use the start given.','Escribe el gusto de Alba en tercera persona. Usa el inicio indicado.'],'Alba: «Me gustan las ciencias». → A Alba ___',['le gustan las ciencias','le gustan las ciencias.'],['Change who likes it. Keep the subject and check whether it is singular or plural.','Cambia a quién le gusta. Mantén la asignatura y comprueba si es singular o plural.'],['For someone else, use **le**. **Las ciencias** is plural, so keep **gustan**.','Para hablar de otra persona, usa **le**. **Las ciencias** está en plural, así que se mantiene **gustan**.'])
   ],['Say or write two preferences: one of your own and one for a fictional student. Try a subject and an action.','Di o escribe dos preferencias: una tuya y una de un personaje. Prueba con una asignatura y una acción.'],
   ['Check who likes it, where **no** goes if you use it, and what decides **gusta** or **gustan**.','Comprueba a quién le **gusta**, dónde va no si lo usas y qué determina **gusta** o **gustan**.']),
  resource('journeys',['Transport and journeys','Transporte y desplazamientos'],'vocabulary',['transporte','transport','school journey','cole','a pie','andando','autobús','voy','va','minutos'],
@@ -127,7 +138,8 @@ export function grade(item,response){
 }
 
 export const game=[
- {title:['The first lesson changes','Cambia la primera clase'],scene:['The first lesson has changed. You already have a book in the bag. Read the school notice to decide what to pack.','Ha cambiado la primera clase. Ya tienes un libro en la mochila. Lee el aviso del instituto para decidir qué llevar.'],source:'Lunes, 09:00: plástica. Material: un lápiz y una goma.',
+ {title:['The first lesson changes','Cambia la primera clase'],scene:['The first lesson has changed. You already have a book in the bag. Read the school notice to decide what to pack.','Ha cambiado la primera clase. Ya tienes un libro en la mochila. Lee el aviso del instituto para decidir qué llevar.'],source:'Lunes, 09:00: educación plástica. Material: un lápiz y una goma.',
+  support:['Action words: **añadir** = add; **dejar** = leave behind; **llevar** = take with you.','Acciones: **añadir** es meter algo más; **dejar** es no llevar algo; **llevar** es traerlo contigo.'],
   options:[
    {id:'add',label:'Añadir un lápiz y una goma.',effect:['You have what art requires and keep your book for later.','Ya tienes lo que necesitas para plástica y conservas el libro para después.'],ready:true},
    {id:'swap',label:'Dejar el libro y llevar un lápiz y una goma.',effect:['You can start art. If you need the book later, collect it at break.','Puedes empezar plástica. Si necesitas el libro más tarde, recógelo en el recreo.'],ready:true},
@@ -141,7 +153,7 @@ export const game=[
   ],help:'journeys'},
  {title:['At school: check the board','En el instituto: consulta el tablón'],
   scene:['You’ve arrived. After art, Lucía needs to know where to go next. Read the updated timetable on the board.','Ya habéis llegado. Después de plástica, Lucía necesita saber qué clase tiene ahora. Lee el horario actualizado del tablón.'],
-  source:'Lunes: 09:00 plástica · 10:00 historia · 11:15 español.',
+  source:'Lunes: 09:00 educación plástica · 10:00 historia · 11:15 español.',
   options:[
    {id:'spanish-first',label:'10:00 · español',effect:['**Español** is later, at 11:15. Look again at the 10:00 slot.','**Español** es más tarde, a las 11:15. Vuelve a mirar la clase de las 10:00.'],ready:false},
    {id:'history-next',label:'10:00 · historia',effect:['Lucía can go straight to **historia** at 10:00 and keep **español** on her plan for 11:15.','Lucía puede ir directamente a **historia** a las 10:00 y apuntar **español** para las 11:15.'],ready:true},
@@ -156,4 +168,3 @@ export const game=[
    {id:'history-table',label:'Mesa de historia',effect:['Lucía would rather try another table. In her note, **No me gusta la historia** tells you why.','Lucía prefiere probar otra mesa. En su nota, **No me gusta la historia** te dice por qué.'],ready:false}
   ],help:'gustar'}
 ];
-export const agreementModels=nouns.filter(n=>['book','backpack'].includes(n.id));

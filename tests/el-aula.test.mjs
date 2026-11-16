@@ -178,3 +178,32 @@ test('four connected game decisions support every viable plan, feedback before c
   assert.deepEqual(s.game,{step:0,picks:[]});
  }
 });
+
+test('agreement teaching includes all four rows and practises both rule and meaning in context',()=>{
+ for(const mode of ['en','bi','es']){
+  const s=newAula(),ui=render(s,mode);
+  const lesson=ui.library('agreement','');
+  for(const [indefinite,definite] of [['un libro','el libro'],['una mochila','la mochila'],['unos libros','los libros'],['unas mochilas','las mochilas']]){
+   assert.match(lesson,new RegExp(`<td><(?:span|strong) lang="es">${indefinite}</(?:span|strong)></td><td><(?:span|strong) lang="es">${definite}</(?:span|strong)></td>`));
+  }
+  const r=resources.find(r=>r.id==='agreement');
+  const work=[
+   ['r-agr-consonant','unos rotuladores','unas rotuladores',/rotulador.*-es/],
+   ['r-agr-invariant','unos sacapuntas','unos sacapuntases',/un → unos/],
+   ['r-agr-context','un / el','el / un',/cuaderno de Lucía/],
+   ['r-agr-material','unas','unos',/feminine plural|femenino plural/]
+  ];
+  for(const [id,right,wrong,explanation] of work){
+   const index=r.items.findIndex(q=>q.id===id);assert(index>=0);
+   s.steps['resource-agreement']=index;
+   for(const [value,status] of [[wrong,'retry'],[right,'correct']]){
+    if(r.items[index].options)updateAula(s,'library','agreement','answer',value);
+    else editAula(s,'library','agreement','aula-reply',value);
+    updateAula(s,'library','agreement','check');
+    assert.equal(s.feedback[id],status);
+   }
+   const feedback=ui.library('agreement','').match(/id="aula-feedback".*?<\/div>/)[0];
+   assert.match(visible(feedback),explanation);
+  }
+ }
+});

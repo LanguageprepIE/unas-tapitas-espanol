@@ -53,16 +53,16 @@ test('pictures, recorded phrases, articles and number scenes use the intended so
  updateUnit2State(state,'u2-check','pen');html=render(state);
  assert(html.includes('Listen for the object at the end.'));
  updateUnit2State(state,'u2-check','pencil');html=render(state);
- assert(html.includes('A single pencil: es un lápiz.'));
+ assert(html.includes('A single pencil: <strong class="key-language" lang="es">es un lápiz</strong>.'));
  updateUnit2State(state,'u2-next-check');html=render(state);
  listening=html.slice(html.indexOf('id="u2-check-title"'));
  assert(listening.includes(unit2Expressions[3].audio)&&!listening.includes('Son unos cuadernos.'));
  updateUnit2State(state,'u2-check','notebooks');html=render(state);
- assert(html.includes('Several notebooks: son unos cuadernos.'));
+ assert(html.includes('Several notebooks: <strong class="key-language" lang="es">son unos cuadernos</strong>.'));
  updateUnit2State(state,'u2-next-check');html=render(state);
  assert(html.includes(unit2Expressions[5].audio));
  updateUnit2State(state,'u2-check','three');html=render(state);
- assert(html.includes('There are three books: hay tres libros.'));
+ assert(html.includes('There are three books: <strong class="key-language" lang="es">hay tres libros</strong>.'));
 });
 test('only the implemented Unit 2 routes are available, without entering U1 sections',()=>{
  for(const section of ['learn','overview','explore'])assert.equal(parseRoute(`#course/1st-year/unit/2/${section}`).unit,'2');

@@ -104,9 +104,9 @@ test('Unit 2 Learn A works in every language mode and retains its object selecti
  assert(h.get('#main').innerHTML.includes('1Y_U02_AUD_OBJ_11_v1.mp3'));
  click(h,'u2-phrase',{value:'plural'});assert(h.get('#main').innerHTML.includes('id="u2-phrase-audio"'));
  click(h,'u2-quantity',{value:'3'});assert(h.get('#main').innerHTML.includes('Hay tres libros.'));
- click(h,'u2-check',{value:'pencil'});assert(h.get('#main').innerHTML.includes('A single pencil: es un lápiz.'));
+ click(h,'u2-check',{value:'pencil'});assert(h.get('#main').innerHTML.includes('A single pencil: <strong class="key-language" lang="es">es un lápiz</strong>.'));
  click(h,'u2-next-check');assert(h.get('#main').innerHTML.includes('1Y_U02_AUD_EXP_04_v1.mp3'));
- click(h,'u2-check',{value:'notebooks'});assert(h.get('#main').innerHTML.includes('Several notebooks: son unos cuadernos.'));
+ click(h,'u2-check',{value:'notebooks'});assert(h.get('#main').innerHTML.includes('Several notebooks: <strong class="key-language" lang="es">son unos cuadernos</strong>.'));
  h.route('course/1st-year/unit/1/learn');assert(!h.get('#main').innerHTML.includes('u2-scene-objects'));
  h.route('course/1st-year/unit/2/learn');assert(h.get('#main').innerHTML.includes('1Y_U02_AUD_OBJ_11_v1.mp3'));
 });
@@ -308,4 +308,38 @@ test('unit tabs have separated bilingual labels and mark the real active section
    assert.equal((tabs.match(/<a /g)??[]).length,5);
   }
  }
+});
+
+test('Learn A and B teach the foundational patterns before pupils use them, in all three modes',async()=>{
+ const h=await harness(),base='course/1st-year/unit/2/';
+ for(const mode of ['en','bi','es']){
+  h.mode(mode);
+  h.route(base+'learn');
+  click(h,'u2b-back');
+  let html=h.get('#main').innerHTML;
+  assert(html.indexOf('id="u2-foundations-title"')>=0);
+  assert(html.indexOf('id="u2-foundations-title"')<html.indexOf('class="u2-dialogues"'));
+  assert(html.indexOf('class="u2-dialogues"')<html.indexOf('id="u2-check-title"'));
+  for(const example of ['el día','la mano','rotulador → rotuladores','lápiz → lápices','Hay un libro / Hay tres libros','No tengo regla'])assert(html.includes(example),example);
+  assert.equal(html.includes('class="key-language" lang="es"'),mode!=='es');
+  click(h,'u2b-open');click(h,'u2b-stage',{value:'2'});
+  assert.match(h.get('#main').innerHTML,/a las 11:15/);
+  click(h,'u2b-stage',{value:'3'});
+  html=h.get('#main').innerHTML;
+  assert(html.indexOf('id="u2b-likes-pattern"')<html.indexOf('class="u2b-preferences"'));
+  for(const example of ['Me gusta estudiar español','A Lucía le gusta la historia','A mí me gusta la historia'])assert(html.includes(example),example);
+  assert(!html.includes('**'));
+ }
+});
+
+test('the optional card model is unrelated to Lucía’s answers and does not replace the draft',async()=>{
+ const h=await harness();h.route('course/1st-year/unit/2/communicate');
+ const main=h.get('#main');
+ main.listeners.input({target:{id:'aula-draft',value:'Material: una goma.'}});
+ const model=main.innerHTML.match(/data-aula-details="card-starters".*?<\/details>/)[0];
+ assert.match(model,/Noa va en tren/);
+ assert.match(model,/A Noa le gusta la historia/);
+ assert.doesNotMatch(model,/en autobús|las ciencias/);
+ click(h,'aula-finish-card');
+ assert.match(main.innerHTML,/Material: una goma/);
 });
