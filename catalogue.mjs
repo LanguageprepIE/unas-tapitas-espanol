@@ -8,10 +8,11 @@ export const courses=[
 ];
 export const units=[
  {course:'1st-year',id:'1',title:'Hola y bienvenidos',status:'available',runtime:'unit1',description:['Meet someone new and introduce yourself.','Conoce a alguien y preséntate.']},
- {course:'1st-year',id:'2',title:'El aula',status:'available',runtime:'unit2',sections:['overview','learn','explore','practise','communicate','play'],description:['Help an exchange student get ready for her first morning.','Ayuda a una alumna de intercambio a preparar su primera mañana.']}
+ {course:'1st-year',id:'2',title:'El aula',status:'available',runtime:'unit2',sections:['overview','learn','explore','practise','communicate','play'],description:['Help an exchange student get ready for her first morning.','Ayuda a una alumna de intercambio a preparar su primera mañana.']},
+ {course:'1st-year',id:'3',title:'¿Quién es quién? — Perfiles y cumpleaños',status:'available',runtime:'unit3',sections:['overview','learn','explore','practise','communicate','play'],description:['Make a welcome profile for an exchange.','Prepara una ficha de bienvenida para un intercambio.']}
 ];
 // Match approved unit metadata to its renderer; placeholders cannot become routes.
-export const unitRuntimes=new Set(['unit1','unit2']);
+export const unitRuntimes=new Set(['unit1','unit2','unit3']);
 export const findCourse=id=>courses.find(c=>c.id===id);
 export const findUnit=(course,id,level)=>units.find(u=>u.course===course&&u.id===id&&u.level===level);
 export const availableUnit=u=>!!u&&['available','partial'].includes(u.status)&&unitRuntimes.has(u.runtime);

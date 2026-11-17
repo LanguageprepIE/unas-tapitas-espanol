@@ -135,3 +135,32 @@
  .comm-u1 textarea,.comm-u1 .chips{display:none}
  .comm-u1 .comm-support{display:block!important}
 }
+
+/* Unit 3 and shared audio speed */
+.audio-speed {align-items:center;gap:.6rem;margin-block:.5rem 1rem}
+.audio-speed select,.unit3 select,.unit3 button,.unit3 summary {min-height:44px}
+.unit3 audio {width:100%;max-width:100%;min-width:0}
+.unit3 .u3-banks {grid-template-columns:repeat(auto-fit,minmax(min(100%,245px),1fr))}
+.u3-profiles,.u3-controls {display:flex;gap:.8rem;flex-wrap:wrap;margin-block:.8rem}
+.u3-profiles > * {flex:1 1 150px;min-width:0}
+.u3-controls label,.u3-question label,.unit3 textarea {display:block}
+.u3-question {margin-block:.75rem}
+.u3-question .input {max-width:100%;margin-inline-end:.45rem}
+.u3-avatar {width:90px;height:90px;flex:0 0 auto}
+.u3-draft {white-space:pre-wrap;overflow-wrap:anywhere}
+
+/* Unit 3: small audio buttons and illustrated vocabulary cards */
+.u3-learn-nav {display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0}
+.u3-learn-nav button[aria-pressed=true] {background:#275357;color:#fff;border-color:#275357}
+.u3-tiles {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,155px),1fr));gap:.6rem;padding:0;list-style:none;margin:0 0 1rem}
+.u3-tiles.compact {grid-template-columns:repeat(auto-fit,minmax(min(100%,110px),1fr))}
+.u3-tile {display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.3rem;border:1px solid #a8b9b7;border-radius:.65rem;background:#fff;color:#212832;padding:.55rem;text-align:center;min-width:0}
+.u3-icon {display:grid;place-items:center;min-width:2rem;height:2rem;padding:0 .2rem;background:#e0eeec;color:#234c50;border-radius:.4rem;font-weight:700}
+.u3-swatch {width:3.75rem;height:2.1rem;border:1px solid #535d65;border-radius:.4rem;background:var(--swatch)}
+.u3-clip-pair {display:flex;gap:.25rem;flex-wrap:wrap;justify-content:center}
+.u3-clip button {min-width:44px;min-height:44px;border-radius:50%;padding:.2rem;background:#e0eeec;color:#22494c}
+.u3-clip audio[hidden] {display:none}
+.u3-calendar {border-collapse:collapse;width:min(100%,25rem);table-layout:fixed;text-align:center;margin-block:.75rem}
+.u3-calendar caption {text-align:start;font-weight:700;padding-bottom:.35rem}
+.u3-calendar :is(th,td) {padding:.25rem;border:1px solid #a8b9b7}
+.u3-calendar [aria-current=date] {background:#275357;color:#fff;font-weight:700}
