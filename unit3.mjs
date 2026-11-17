@@ -1,4 +1,4 @@
-import {months,monthDays,numbers,dateForms,people,lessons,profilesResources,e01,e02,gradeAnswer,clips,f03Model,unavailableClips,weekdays,bagColours,bagPhrase,traits,describeTrait,hairExamples,eyeExamples} from './data/unit3.mjs';
+import {months,monthDays,numbers,dateForms,people,lessons,profilesResources,e01,e02,gradeAnswer,clips,weekdays,bagColours,bagPhrase,traits,describeTrait,hairExamples,eyeExamples} from './data/unit3.mjs';
 import {teachingMarkup} from './engine.mjs';
 import {inlineLabel,aulaSections} from './el-aula.mjs';
 import {unitHash} from './catalogue.mjs';
@@ -65,7 +65,10 @@ export function unit3UI({L,E,T,mode},section,resource,back=''){
  const swatch=hex=>`<span class="u3-swatch" style="--swatch:${hex}" aria-hidden="true"></span>`;
  const tile=(text,{visual='',en='',id,src}={})=>`<li class="u3-tile">${visual}<strong lang="es">${E(text)}</strong>${en&&mode!=='es'?`<small lang="en">${E(en)}</small>`:''}${id?clipButton(id,text,src):''}</li>`;
  const grid=(tiles,compact=false)=>`<ul class="u3-tiles${compact?' compact':''}">${tiles.join('')}</ul>`;
- const bank=(ids,visual=()=>'',compact=false)=>grid(clips.filter(c=>ids.test(c.id)&&!unavailableClips.has(c.id)).map(c=>tile(c.text,{id:c.id,visual:visual(c)})),compact);
+ const clipsById=Object.fromEntries(clips.map(c=>[c.id,c]));
+ const short=id=>clipButton(id,clipsById[id].text);
+ const soundFor=text=>clips.find(c=>c.text===text)?.id;
+ const bank=(ids,visual=()=>'',compact=false)=>grid(clips.filter(c=>ids.test(c.id)).map(c=>tile(c.text,{id:c.id,visual:visual(c)})),compact);
  const help=(n,context)=>{const r=profilesResources[n];return details('help-'+context+n,...r.title,`<p>${teach(r.quick)}</p><a href="#library/${r.id}" id="u3-help-${context}-${n}" data-action="aula-resource" data-id="${r.id}">${B('Open resource and practice','Abrir ficha y práctica')}</a>`);};
  const select=(id,en,es,opts,value)=>`<div><label for="u3-${id}">${B(en,es)}</label><select id="u3-${id}" data-u3-select="${id}">${opts.map(([v,x])=>`<option value="${E(v)}"${String(v)===String(value)?' selected':''}>${E(x)}</option>`).join('')}</select></div>`;
  const monthControl=()=>select('month','Month','Mes',months.map((m,i)=>[i,m]),u3.month);
@@ -104,26 +107,26 @@ export function unit3UI({L,E,T,mode},section,resource,back=''){
   heading('Months','Meses')+bank(/^M/,c=>icon(c.id.slice(1)),true)+
   heading('Numbers 21–31','Números del 21 al 31')+bank(/^N/,c=>icon(c.id.slice(1)),true);
  const colourBank=()=>{
-  const keys=['roja','amarilla','verde','azul','blanca','negra','rosa','gris'];
-  const forms=['rojo / roja','amarillo / amarilla','verde','azul','blanco / blanca','negro / negra','rosa','gris'];
-  const eng=['red','yellow','green','blue','white','black','pink','grey'];
-  const sound=[['C01','C02'],['C03','C04'],['C05'],['C07']];
-  return grid(keys.map((k,i)=>`<li class="u3-tile">${swatch(bagColours[k][2])}<strong lang="es">${forms[i]}</strong>${mode!=='es'?`<small lang="en">${eng[i]}</small>`:''}<div class="u3-clip-pair">${(sound[i]??[]).map(id=>clipButton(id,clips.find(c=>c.id===id).text)).join('')}</div></li>`),true);
+  const keys=['roja','amarilla','verde','azul','blanca','negra','rosa','gris','naranja','marrón'];
+  const forms=['rojo / roja','amarillo / amarilla','verde','azul','blanco / blanca','negro / negra','rosa','gris','naranja','marrón'];
+  const eng=['red','yellow','green','blue','white','black','pink','grey','orange','brown'];
+  const sound=[['C01','C02'],['C03','C04'],['C05'],['C07'],['B01','B02'],['B03','B04'],['B05'],['B06'],['B07'],['B08']];
+  return grid(keys.map((k,i)=>`<li class="u3-tile">${swatch(bagColours[k][2])}<strong lang="es">${forms[i]}</strong>${mode!=='es'?`<small lang="en">${eng[i]}</small>`:''}<div class="u3-clip-pair">${sound[i].map(short).join('')}</div></li>`),true);
  };
  const portrait=(style,hair,eye,glasses=false,i=0)=>avatar(['','','',glasses,style],i,hair,eye);
  const hairBank=()=>grid([
-  tile('el pelo corto',{visual:portrait('corto'),en:'short hair'}),
-  tile('el pelo largo',{visual:portrait('largo'),en:'long hair'}),
-  ...hairExamples.map(([label,en,style,hair,eye])=>tile(label,{en,visual:portrait(style,hair,eye)}))
- ])+grid(eyeExamples.map(([label,en,eye])=>tile(label,{en,visual:portrait('corto',undefined,eye)})))+bank(/^(P01|D05|D06)$/);
+  tile('el pelo corto',{visual:portrait('corto'),en:'short hair',id:'H01'}),
+  tile('el pelo largo',{visual:portrait('largo'),en:'long hair',id:'H02'}),
+  ...hairExamples.map(([label,en,style,hair,eye])=>tile(label,{en,id:soundFor(label),visual:portrait(style,hair,eye)}))
+ ])+grid(eyeExamples.map(([label,en,eye])=>tile(label,{en,id:soundFor(label),visual:portrait('corto',undefined,eye)})))+bank(/^(P01|D05|D06)$/);
  const appearanceBank=()=>grid([
-  tile('alto / alta',{en:'tall',visual:icon('↟')}),tile('bajo / baja',{en:'short (height)',visual:icon('↡')}),
-  tile('de estatura media',{en:'of medium height',visual:icon('↔')}),
+  ...['alto','alta','bajo','baja'].map((label,i)=>tile(label,{en:i<2?'tall':'short (height)',id:soundFor(label),visual:icon(i<2?'↟':'↡')})),
+  tile('de estatura media',{en:'of medium height',id:'V05',visual:icon('↔')}),
   tile('con gafas',{en:'with glasses',visual:portrait('corto',undefined,undefined,true),id:'P03'}),
   tile('sin gafas',{en:'without glasses',visual:portrait('corto'),id:'P04'}),
   tile('las gafas',{en:'glasses',visual:portrait('largo',undefined,undefined,true),id:'P02'})
  ])+bank(/^D0[78]$/);
- const personalityBank=()=>grid(traits.map(([,label,en],i)=>`<li class="u3-tile">${i===1?icon('◔'):i===2?icon('☁'):i===5?icon('✎'):portrait('corto',undefined,undefined,false,i)}<strong lang="es">${label}</strong>${mode!=='es'?`<small lang="en">${en}</small>`:''}<div class="u3-clip-pair">${(i<3?clips.filter(c=>[i*2+1,i*2+2].some(n=>c.id==='A0'+n)):i===3?clips.filter(c=>c.id==='A07'):[]).map(c=>clipButton(c.id,c.text)).join('')}</div></li>`));
+ const personalityBank=()=>grid(traits.map(([,label,en],i)=>`<li class="u3-tile">${i===1?icon('◔'):i===2?icon('☁'):i===5?icon('✎'):i===6?icon('💡'):i===7?icon('♥'):portrait('corto',undefined,undefined,false,i)}<strong lang="es">${label}</strong>${mode!=='es'?`<small lang="en">${en}</small>`:''}<div class="u3-clip-pair">${[['A01','A02'],['A03','A04'],['A05','A06'],['A07'],['T01','T02'],['T03','T04'],['T05'],['T06','T07']][i].map(short).join('')}</div></li>`));
  const practiceNew=[
   ['colour-new','Una mochila blanca → tres mochilas ___.','Una mochila blanca → tres mochilas ___.',['blancas'],'Plural: add **-s**.','En plural añade **-s**.'],
   ['eyes-new','Complete: Leo tiene los ojos ___ (green).','Completa: Leo tiene los ojos ___ (a partir de verde).',['verdes'],'The adjective agrees with **ojos**.','El adjetivo concuerda con **ojos**.'],
@@ -131,20 +134,20 @@ export function unit3UI({L,E,T,mode},section,resource,back=''){
   ['trait-new','Leo es trabajador → Eva es ___.','Leo es trabajador → Eva es ___.',['trabajadora'],'Add **-a** after **trabajador**.','Añade **-a** después de **trabajador**.']
  ];
  const lessonBlock=(i,practice=true)=>{
-  if(i===0)return calendarCards()+intro(0)+calendar()+monthGrid()+`<p role="status">${date()}</p>`+bank(/^F/)+lessonText('One more model: **'+f03Model+'**','Otro modelo: **'+f03Model+'**')+
+  if(i===0)return calendarCards()+intro(0)+calendar()+monthGrid()+`<p role="status">${date()}</p>`+bank(/^F/)+
    details('old-numbers','Review numbers 0–20','Repasa los números 0–20',grid(numbers.slice(0,21).map((n,k)=>tile(n,{visual:icon(k),id:'old'+k,src:`assets/audio/explore/numbers/${String(k).padStart(2,'0')}.mp3`})),true))+
    `<p>${B('In Mexico, people may sing Las Mañanitas on a birthday. How do you congratulate someone where you live?','En México se pueden cantar Las Mañanitas en un cumpleaños. ¿Cómo felicitas a alguien donde vives?')}</p>`+
    (practice?dateTask():'');
-  if(i===1)return colourBank()+lessonText('Say **¿De qué color es?** to ask about one thing: **Es azul**.','Pregunta **¿De qué color es?** cuando hablas de una cosa: **Es azul**.')+lessonText('Some colours change in gender and number: **un cuaderno blanco**, **una mochila blanca**, **tres mochilas blancas**. **Verde**, **azul**, **rosa** and **gris** have the same form in both genders. Compare **verdes**, **azules**, **rosas** and **grises**.',
-   'Algunos colores cambian en género y número: **un cuaderno blanco**, **una mochila blanca**, **tres mochilas blancas**. **Verde**, **azul**, **rosa** y **gris** no cambian con el género. Compara **verdes**, **azules**, **rosas** y **grises**.')+
+  if(i===1)return colourBank()+lessonText('Say **¿De qué color es?** to ask about one thing: **Es azul**. Compare **una mochila naranja** and **un cuaderno marrón**.','Pregunta **¿De qué color es?** cuando hablas de una cosa: **Es azul**. Compara **una mochila naranja** y **un cuaderno marrón**.')+lessonText('Some colours change in gender and number: **un cuaderno blanco**, **una mochila blanca**, **tres mochilas blancas**. **Verde**, **azul**, **rosa**, **gris**, **naranja** and **marrón** have the same form in both genders. Compare **verdes**, **azules**, **rosas** and **grises**.',
+   'Algunos colores cambian en género y número: **un cuaderno blanco**, **una mochila blanca**, **tres mochilas blancas**. **Verde**, **azul**, **rosa**, **gris**, **naranja** y **marrón** no cambian con el género. Compara **verdes**, **azules**, **rosas** y **grises**.')+
    bank(/^C(06|08|09|10)$/)+ (practice?q(practiceNew[0]):'');
-  if(i===2)return hairBank()+lessonText('Use **tengo** for yourself and **tiene** for someone else. **El pelo** is masculine singular: **Tengo el pelo rizado**. **Los ojos** is masculine plural: **Tiene los ojos marrones**.',
-   'Usa **tengo** para hablar de ti y **tiene** para hablar de otra persona. **El pelo** es masculino singular: **Tengo el pelo rizado**. **Los ojos** es masculino plural: **Tiene los ojos marrones**.')+
+  if(i===2)return hairBank()+lessonText('Use **tengo** for yourself and **tiene** for someone else. **El pelo** is masculine singular: **Tengo el pelo rizado** or **Tiene el pelo pelirrojo**. **Los ojos** is masculine plural: **Tiene los ojos marrones**.',
+   'Usa **tengo** para hablar de ti y **tiene** para hablar de otra persona. **El pelo** es masculino singular: **Tengo el pelo rizado** o **Tiene el pelo pelirrojo**. **Los ojos** es masculino plural: **Tiene los ojos marrones**.')+
    (practice?q(practiceNew[1]):'');
   if(i===3)return appearanceBank()+lessonText('For height, use **soy alto/alta**, **es bajo/baja** or **es de estatura media**. For glasses, use **llevo gafas**, **lleva gafas** or **no lleva gafas**.',
    'Para la altura, usa **soy alto/alta**, **es bajo/baja** o **es de estatura media**. Para las gafas, usa **llevo gafas**, **lleva gafas** o **no lleva gafas**.')+(practice?q(practiceNew[2]):'');
-  return personalityBank()+intro(1)+bank(/^D0[12349]$/)+lessonText('Compare **es divertido/divertida** and **es trabajador/trabajadora**. **Amable** stays the same.',
-   'Compara **es divertido/divertida** y **es trabajador/trabajadora**. **Amable** tiene la misma forma.')+(practice?q(practiceNew[3]):'');
+  return personalityBank()+intro(1)+bank(/^D0[12349]$/)+lessonText('Compare **es divertido/divertida** and **es trabajador/trabajadora**. **Eva es cariñosa** and **Leo es cariñoso** show another change. Compare **Eva es inteligente** and **Leo es inteligente**: the ending stays the same.',
+   'Compara **es divertido/divertida** y **es trabajador/trabajadora**. **Eva es cariñosa** y **Leo es cariñoso** muestran otro cambio. Compara **Eva es inteligente** y **Leo es inteligente**: la terminación no cambia.')+(practice?q(practiceNew[3]):'');
  };
  let title=['Who is who? — Profiles and birthdays','¿Quién es quién? — Perfiles y cumpleaños'],body='';
  if(resource){
@@ -162,7 +165,7 @@ export function unit3UI({L,E,T,mode},section,resource,back=''){
   const trait=(ending,stem)=>describeTrait(stem,ending);
   const line=(sp,end,name,clue)=>sp==='self'?clue==='pelo'?'Tengo el pelo '+u3.hair+'.':clue==='ojos'?'Tengo los ojos '+u3.eyes+'.':clue==='gafas'?'Llevo gafas.':'Soy '+trait(end,u3.trait)+'.':clue==='pelo'?name+' tiene el pelo '+u3.hair+'.':clue==='ojos'?name+' tiene los ojos '+u3.eyes+'.':clue==='gafas'?name+' lleva gafas.':name+' es '+trait(end,u3.trait)+'.';
   const bag=bagPhrase;
-  body=panel('Avatar workbench','Mesa de avatares',`<p>${B('Change one control at a time. What changes when someone else describes the same person?','Cambia un control cada vez. ¿Qué cambia cuando otra persona describe al mismo personaje?')}</p><div class="u3-controls">${select('person','Avatar','Avatar',[['Eva','Eva'],['Leo','Leo']],u3.person)}${select('speaker','Speaker','Quién habla',[['self',T('The avatar','El avatar')],['other',T('Another person','Otra persona')]],u3.speaker)}${select('trait','Character','Carácter',traits.map(([v,x])=>[v,x]),u3.trait)}${select('clue','Clue','Pista',[['mochila',T('Character','Carácter')],['pelo',T('Hair','Pelo')],['ojos',T('Eyes','Ojos')],['gafas',T('Glasses','Gafas')]],u3.clue)}${u3.clue==='pelo'?select('hair','Hair','Pelo',['corto','largo','liso','rizado','rubio','castaño','negro'].map(x=>[x,x]),u3.hair):u3.clue==='ojos'?select('eyes','Eye colour','Color de ojos',['azules','verdes','marrones'].map(x=>[x,x]),u3.eyes):''}</div><p role="status">${S(line('self',u3.person==='Eva'?'a':'o',u3.person,u3.clue))} → <strong>${S(line(u3.speaker,u3.person==='Eva'?'a':'o',u3.person,u3.clue))}</strong></p><div class="u3-controls">${select('plural','Quantity','Cantidad',[['one','1'],['two','2'],['three','3'],['unknown',T('An unspecified quantity','Cantidad sin concretar')]],u3.plural)}${select('colour','Bag colour','Color de la mochila',Object.keys(bagColours).map(x=>[x,x]),u3.colour)}</div><p role="status">${S(bag('one',u3.colour))} → <strong>${S(bag(u3.plural,u3.colour))}</strong></p>`+(u3.colour==='azul'&&['one','unknown'].includes(u3.plural)?bank(u3.plural==='one'?/^C08$/:/^C09$/):'')+`<p>${teach(quantityNote)}</p>`+help(1,'explore'))+
+  body=panel('Avatar workbench','Mesa de avatares',`<p>${B('Change one control at a time. What changes when someone else describes the same person?','Cambia un control cada vez. ¿Qué cambia cuando otra persona describe al mismo personaje?')}</p><div class="u3-controls">${select('person','Avatar','Avatar',[['Eva','Eva'],['Leo','Leo']],u3.person)}${select('speaker','Speaker','Quién habla',[['self',T('The avatar','El avatar')],['other',T('Another person','Otra persona')]],u3.speaker)}${select('trait','Character','Carácter',traits.map(([v,x])=>[v,x]),u3.trait)}${select('clue','Clue','Pista',[['mochila',T('Character','Carácter')],['pelo',T('Hair','Pelo')],['ojos',T('Eyes','Ojos')],['gafas',T('Glasses','Gafas')]],u3.clue)}${u3.clue==='pelo'?select('hair','Hair','Pelo',['corto','largo','liso','rizado','rubio','castaño','negro','pelirrojo'].map(x=>[x,x]),u3.hair):u3.clue==='ojos'?select('eyes','Eye colour','Color de ojos',['azules','verdes','marrones'].map(x=>[x,x]),u3.eyes):''}</div><p role="status">${S(line('self',u3.person==='Eva'?'a':'o',u3.person,u3.clue))} → <strong>${S(line(u3.speaker,u3.person==='Eva'?'a':'o',u3.person,u3.clue))}</strong></p><div class="u3-controls">${select('plural','Quantity','Cantidad',[['one','1'],['two','2'],['three','3'],['unknown',T('An unspecified quantity','Cantidad sin concretar')]],u3.plural)}${select('colour','Bag colour','Color de la mochila',Object.keys(bagColours).map(x=>[x,x]),u3.colour)}</div><p role="status">${S(bag('one',u3.colour))} → <strong>${S(bag(u3.plural,u3.colour))}</strong></p>`+(u3.colour==='azul'&&['one','unknown'].includes(u3.plural)?bank(u3.plural==='one'?/^C08$/:/^C09$/):'')+`<p>${teach(quantityNote)}</p>`+help(1,'explore'))+
   panel('Mirror calendar','Calendario espejo',`<p>${B('Change a day or month. Watch how the same date changes in all three formats.','Cambia el día o el mes. Observa cómo cambia la misma fecha en los tres formatos.')}</p>`+calendar()+`<p role="status">${date()}</p>`+bank(new RegExp('^(M'+String(u3.month+1).padStart(2,'0')+'|N'+u3.day+')$'))+help(0,'explore'));
  }else if(section==='practise'){
   body=panel('1 · Understand','1 · Comprende',`<div class="u3-profiles">${gamePeople.slice(0,2).map(profile).join('')}</div><p lang="es">Se llama Eva. Su cumpleaños es el veintiuno de enero. Lleva gafas.</p><p lang="es">Se llama Óscar. Su cumpleaños es el veintidós de febrero. Tiene el pelo corto.</p>`+reading.map(q).join('')+`<h3>${B('Carla and Hugo prepare the panel','Carla y Hugo preparan el panel')}</h3>`+audio('E02',T('Carla and Hugo','Carla y Hugo'))+reveal('E02',e02,pairQuestions))+

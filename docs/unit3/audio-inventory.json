@@ -231,7 +231,7 @@
   },
   {
     "id": "F03",
-    "text": "Mi cumpleaños es el treinta y",
+    "text": "Mi cumpleaños es el treinta y uno de octubre.",
     "voice": "L"
   },
   {
@@ -318,5 +318,160 @@
     "id": "E02d",
     "voice": "J",
     "text": "Yo soy tímido y llevo gafas."
+  },
+  {
+    "id": "B01",
+    "text": "blanco",
+    "voice": "L"
+  },
+  {
+    "id": "B02",
+    "text": "blanca",
+    "voice": "L"
+  },
+  {
+    "id": "B03",
+    "text": "negro",
+    "voice": "L"
+  },
+  {
+    "id": "B04",
+    "text": "negra",
+    "voice": "L"
+  },
+  {
+    "id": "B05",
+    "text": "rosa",
+    "voice": "L"
+  },
+  {
+    "id": "B06",
+    "text": "gris",
+    "voice": "L"
+  },
+  {
+    "id": "B07",
+    "text": "naranja",
+    "voice": "L"
+  },
+  {
+    "id": "B08",
+    "text": "marrón",
+    "voice": "L"
+  },
+  {
+    "id": "H01",
+    "text": "el pelo corto",
+    "voice": "L"
+  },
+  {
+    "id": "H02",
+    "text": "el pelo largo",
+    "voice": "L"
+  },
+  {
+    "id": "H03",
+    "text": "el pelo liso",
+    "voice": "L"
+  },
+  {
+    "id": "H04",
+    "text": "el pelo rizado",
+    "voice": "L"
+  },
+  {
+    "id": "H05",
+    "text": "el pelo rubio",
+    "voice": "L"
+  },
+  {
+    "id": "H06",
+    "text": "el pelo castaño",
+    "voice": "L"
+  },
+  {
+    "id": "H07",
+    "text": "el pelo negro",
+    "voice": "L"
+  },
+  {
+    "id": "H08",
+    "text": "los ojos azules",
+    "voice": "L"
+  },
+  {
+    "id": "H09",
+    "text": "los ojos verdes",
+    "voice": "L"
+  },
+  {
+    "id": "H10",
+    "text": "los ojos marrones",
+    "voice": "L"
+  },
+  {
+    "id": "H11",
+    "text": "el pelo pelirrojo",
+    "voice": "L"
+  },
+  {
+    "id": "V01",
+    "text": "alto",
+    "voice": "L"
+  },
+  {
+    "id": "V02",
+    "text": "alta",
+    "voice": "L"
+  },
+  {
+    "id": "V03",
+    "text": "bajo",
+    "voice": "L"
+  },
+  {
+    "id": "V04",
+    "text": "baja",
+    "voice": "L"
+  },
+  {
+    "id": "V05",
+    "text": "de estatura media",
+    "voice": "L"
+  },
+  {
+    "id": "T01",
+    "text": "divertido",
+    "voice": "L"
+  },
+  {
+    "id": "T02",
+    "text": "divertida",
+    "voice": "L"
+  },
+  {
+    "id": "T03",
+    "text": "trabajador",
+    "voice": "L"
+  },
+  {
+    "id": "T04",
+    "text": "trabajadora",
+    "voice": "L"
+  },
+  {
+    "id": "T05",
+    "text": "inteligente",
+    "voice": "L"
+  },
+  {
+    "id": "T06",
+    "text": "cariñoso",
+    "voice": "L"
+  },
+  {
+    "id": "T07",
+    "text": "cariñosa",
+    "voice": "L"
   }
 ]

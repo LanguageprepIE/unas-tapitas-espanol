@@ -530,7 +530,7 @@ test('Unit 3 drafts and the chosen rate survive resource help and switching lang
  assert.match(h.get('#main').innerHTML,/value="0.65" selected/);
 });
 
-test('Unit 3 Learn has five usable blocks with compact audio and no truncated F03 playback',async()=>{
+test('Unit 3 Learn has five usable blocks with compact audio and exact vocabulary clip links',async()=>{
  const h=await harness(),read=()=>h.get('#main').innerHTML;
  h.route('course/1st-year/unit/3/learn');
  const expected={A:/Mi cumpleaños es el treinta y uno de octubre\./,B:/blanco \/ blanca/,C:/los ojos marrones/,D:/de estatura media/,E:/E01\.mp3/};
@@ -540,7 +540,8 @@ test('Unit 3 Learn has five usable blocks with compact audio and no truncated F0
    click(h,'u3-block',{value:block});
    assert.match(read(),new RegExp('id="u3-learn-'+block+'" aria-pressed="true"'));
    assert.match(read(),pattern);
-   assert(!read().includes('F03.mp3'));
+   assert.equal(read().includes('F03.mp3'),block==='A');
+   for(const id of ({A:['weekday6','weekday7','F03'],B:['B07','B08'],C:['H11'],D:['V05'],E:['T05','T06','T07']}[block]))assert.match(read(),new RegExp('data-value="'+id+'" aria-label='));
    assert.equal([...read().matchAll(/<audio[^>]+controls/g)].length,block==='E'?1:0);
   }
  }
