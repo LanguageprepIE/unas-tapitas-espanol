@@ -135,3 +135,16 @@
  .comm-u1 textarea,.comm-u1 .chips{display:none}
  .comm-u1 .comm-support{display:block!important}
 }
+
+/* Unit 3 and shared audio speed */
+.audio-speed {align-items:center;gap:.6rem;margin-block:.5rem 1rem}
+.audio-speed select,.unit3 select,.unit3 button,.unit3 summary {min-height:44px}
+.unit3 audio {width:100%;max-width:100%;min-width:0}
+.unit3 .u3-banks {grid-template-columns:repeat(auto-fit,minmax(min(100%,245px),1fr))}
+.u3-profiles,.u3-controls {display:flex;gap:.8rem;flex-wrap:wrap;margin-block:.8rem}
+.u3-profiles > * {flex:1 1 150px;min-width:0}
+.u3-controls label,.u3-question label,.unit3 textarea {display:block}
+.u3-question {margin-block:.75rem}
+.u3-question .input {max-width:100%;margin-inline-end:.45rem}
+.u3-avatar {width:90px;height:90px;flex:0 0 auto}
+.u3-draft {white-space:pre-wrap;overflow-wrap:anywhere}

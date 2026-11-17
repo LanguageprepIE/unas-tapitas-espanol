@@ -1,3 +1,4 @@
+import {profilesResources} from './unit3.mjs';
 // Index metadata only: each reference opens the approved Unit 1 activity.
 import {resources as classroomResources} from './el-aula.mjs';
 import {listenings} from './listening.mjs';
@@ -23,7 +24,7 @@ export const unit1References=[
  ...listenings.map((l,i)=>reference('u1-listening-'+(i+1),'listening','listening',l.id,l.title,
   ['audio','escucha','comprensión auditiva','introductions','presentaciones','age','edad',...(i===1?['deletrear','spelling']:[])],l.focus))
 ];
-export const libraryEntries=[...classroomResources,...unit1References];
+export const libraryEntries=[...classroomResources,...unit1References,...profilesResources];
 export const referenceById=id=>unit1References.find(r=>r.id===id);
 export const resourceTypes={vocabulary:['Vocabulary','Vocabulario'],grammar:['Grammar','Gramática'],listening:['Listening','Comprensión auditiva']};
 const searchForm=value=>String(value).normalize('NFD').replace(/\p{M}/gu,'').trim().toLocaleLowerCase('es');

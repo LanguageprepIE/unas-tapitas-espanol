@@ -1,3 +1,6 @@
+import {unit3UI,u3,changeU3} from './unit3.mjs';
+import {profilesResources} from './data/unit3.mjs';
+import {audioSpeeds,setAudioSpeed,speedSelect} from './activity-library/audio-speed.mjs';
 import {referenceById} from './data/library.mjs';
 import {newAula,aulaUI,aulaSections,aulaTabs,inlineLabel,aulaHash,resourceHash,updateAula,editAula} from './el-aula.mjs';
 import {courses,units,findCourse,findUnit,availableUnit,courseHash,unitHash,parseRoute,routeHash} from './catalogue.mjs';
@@ -26,6 +29,7 @@ const openUnit2Help=new Set();
 const unit2LearnHash='#'+unitHash('learn','1st-year','2');
 const unit2ExploreHash='#'+unitHash('explore','1st-year','2');
 let unit2HelpVisit=null;
+let audioSpeed=.80;
 let route=parseRoute(location.hash);
 const state={play:newPlayState(),unit2:newUnit2State(),mode:'en',section:'home',completed:new Set(),saving:false,storageError:false,large:false,lessonOpen:'greetings',vocabTab:'phrases',vocabSearch:'',labKind:'age',labPerson:'yo',labValue:'trece',predAnswer:'',predChecked:false,explore:newExploreState(),q:0,practiceTopic:'all',learnChecks:new Set(),learnExtras:new Set(),readingChecks:new Set(),qValues:{},qFeedback:{},qPractised:new Set(),qAttempted:new Set(),audioNotice:false,listeningAnswers:{},listeningChecked:new Set(),listeningTranscripts:new Set(),audioPositions:{},missionAt:0,missionValues:{},missionFeedback:{},commCards:false,commMode:'solo',commTask:'list',commOpen:new Set(),commWork:{},meetingChoice:'',meetingChecked:false,draft:'',checks:{},reflection:'',helpReturn:null};
 try{const p=loadUnitProgress(localStorage,'1st-year','1');if(p)Object.assign(state,p,{section:'home',completed:new Set(p.completed),saving:true});const preferences=loadPreferences(localStorage);if(preferences)Object.assign(state,preferences,{saving:true});}catch{state.storageError=true;}
@@ -112,14 +116,15 @@ function render({focus=false}={}){
  const focusData=hadFocus&&active?.dataset?Object.fromEntries(attrs.filter(k=>k in active.dataset).map(k=>[k,active.dataset[k]])):null;
  const selection=hadFocus&&typeof active.selectionStart==='number'?[active.selectionStart,active.selectionEnd]:null;
  document.documentElement.lang=state.mode==='es'?'es':'en';document.documentElement.classList.toggle('large-text',state.large);$('#mode').value=state.mode;
- $('#nav').innerHTML=route.kind==='unit'&&route.unit==='2'?go('home',pair(['Courses','Cursos']))+go(courseHash('1st-year'),'1st Year')+go(unitHash('overview','1st-year','2'),'Unit 2')+go(unitHash('learn','1st-year','2'),tabLabel('Learn','Aprende'),state.section==='learn'?'current':'')+go(unitHash('explore','1st-year','2'),tabLabel('Explore','Explora'),state.section==='explore'?'current':''):route.kind==='unit'?[['home','Courses','Cursos'],['unit','Unit 1','Unidad 1'],['grammar','Grammar','Gramática'],['vocabulary','Vocabulary','Vocabulario'],['listening','Listening','Escucha'],['play','Play','Juega']].map(([id,en,es])=>go(id,tabLabel(en,es),state.section===id?'current':'')).join(''):go('home',pair(['Courses','Cursos']),route.kind==='home'?'current':'');
+ $('#nav').innerHTML=route.kind==='unit'&&route.unit==='2'?go('home',pair(['Courses','Cursos']))+go(courseHash('1st-year'),'1st Year')+go(unitHash('overview','1st-year','2'),'Unit 2')+go(unitHash('learn','1st-year','2'),tabLabel('Learn','Aprende'),state.section==='learn'?'current':'')+go(unitHash('explore','1st-year','2'),tabLabel('Explore','Explora'),state.section==='explore'?'current':''):route.kind==='unit'&&route.unit==='3'?go('home',pair(['Courses','Cursos']))+go(courseHash('1st-year'),'1st Year')+go(unitHash('overview','1st-year','3'),tabLabel('Unit 3','Unidad 3')):route.kind==='unit'?[['home','Courses','Cursos'],['unit','Unit 1','Unidad 1'],['grammar','Grammar','Gramática'],['vocabulary','Vocabulary','Vocabulario'],['listening','Listening','Escucha'],['play','Play','Juega']].map(([id,en,es])=>go(id,tabLabel(en,es),state.section===id?'current':'')).join(''):go('home',pair(['Courses','Cursos']),route.kind==='home'?'current':'');
  $('#nav').innerHTML+=`<a href="#library" id="nav-library" data-action="open-library"${route.kind==='library'?' aria-current="page"':''}>${tabLabel('Resource library','Biblioteca de recursos')}</a>`;
  const block=aula();
  const libraryBack=libraryOrigin?`<div class="flow-actions"><a href="#${E(libraryOrigin.route)}">${L('Back to my activity','Volver a mi actividad')}</a></div>`:'';
  // Unit-specific views are registered once; the catalogue and routing stay shared.
- const runtimes={unit1:{unit:unitHome,learn,explore,play,practise:practice,communicate,grammar,vocabulary,listening},unit2:{practise:()=>block.view('practise'),communicate:()=>block.view('communicate'),play:()=>block.view('play'),unit:()=>renderUnit2Overview({L}).replaceAll('href="#course/1st-year/unit/2/learn"','href="#course/1st-year/unit/2/learn" data-action="u2b-back"')+`<section class="page"><div class="panel"><p class="eyebrow">Learn · B</p><h2 lang="es">Mi semana escolar</h2><p>${L('Discover days, subjects, a school timetable and preferences.','Descubre días, asignaturas, un horario escolar y preferencias.')}</p><a class="primary" href="#course/1st-year/unit/2/learn" data-action="u2b-open">${L('Open Block B','Abrir el Bloque B')}</a></div></section>`+renderJourneyOverviewCard({L})+renderDayOverviewCard({L})+renderExploreAccess({L}),explore:()=>renderUnit2Explore({L,T,state:unit2ExploreState,openHelp:openUnit2Help}),learn:()=>renderDayNav({L,button,week:weekState,journey:journeyState,day:dayState})+(dayState.open?renderUnit2Day({L,T,button,state:{...dayState,mode:state.mode}}):journeyState.open?renderUnit2Journey({L,T,E,button,state:{...journeyState,mode:state.mode}}):weekState.open?renderUnit2Week({L,T,E,button,state:{...weekState,mode:state.mode}}):renderUnit2Learn({L,T,E,button,state:{...state.unit2,mode:state.mode}}))}};
+ const term3=section=>unit3UI({L,T,E,mode:state.mode},section);
+ const runtimes={unit3:Object.fromEntries(['unit','learn','explore','practise','communicate','play'].map(section=>[section,()=>term3(section)])),unit1:{unit:unitHome,learn,explore,play,practise:practice,communicate,grammar,vocabulary,listening},unit2:{practise:()=>block.view('practise'),communicate:()=>block.view('communicate'),play:()=>block.view('play'),unit:()=>renderUnit2Overview({L}).replaceAll('href="#course/1st-year/unit/2/learn"','href="#course/1st-year/unit/2/learn" data-action="u2b-back"')+`<section class="page"><div class="panel"><p class="eyebrow">Learn · B</p><h2 lang="es">Mi semana escolar</h2><p>${L('Discover days, subjects, a school timetable and preferences.','Descubre días, asignaturas, un horario escolar y preferencias.')}</p><a class="primary" href="#course/1st-year/unit/2/learn" data-action="u2b-open">${L('Open Block B','Abrir el Bloque B')}</a></div></section>`+renderJourneyOverviewCard({L})+renderDayOverviewCard({L})+renderExploreAccess({L}),explore:()=>renderUnit2Explore({L,T,state:unit2ExploreState,openHelp:openUnit2Help}),learn:()=>renderDayNav({L,button,week:weekState,journey:journeyState,day:dayState})+(dayState.open?renderUnit2Day({L,T,button,state:{...dayState,mode:state.mode}}):journeyState.open?renderUnit2Journey({L,T,E,button,state:{...journeyState,mode:state.mode}}):weekState.open?renderUnit2Week({L,T,E,button,state:{...weekState,mode:state.mode}}):renderUnit2Learn({L,T,E,button,state:{...state.unit2,mode:state.mode}}))}};
  const views=route.kind==='unit'?runtimes[findUnit(route.course,route.unit,route.level).runtime]:{};
- let html=route.kind==='home'?home():route.kind==='course'?courseHome():route.kind==='library'?block.library(route.resource,libraryBack):(views[state.section]??unitHome)();
+ let html=route.kind==='home'?home():route.kind==='course'?courseHome():route.kind==='library'?(profilesResources.some(r=>r.id===route.resource)?unit3UI({L,T,E,mode:state.mode},'library',route.resource,libraryBack):block.library(route.resource,libraryBack)):(views[state.section]??unitHome)();
  if(referenceVisit&&routeHash(route)===referenceVisit.route){
   const back=`<div class="flow-actions"><a href="#library">${pair(['Back to library','Volver a la biblioteca'])}</a></div>`;
   const anchor=referenceVisit.listeningId
@@ -154,10 +159,12 @@ function render({focus=false}={}){
 
  // Keep the approved Explore renderer intact; scope its onward link to U1.
  dayAudio?.stop();dayAudio?.destroy();
+ if(/<audio[ >]/.test(html))html=html.replace('</h1>','</h1>'+speedSelect(audioSpeed,E,L));
  main.innerHTML=route.kind==='unit'?html.replace('href="#practise"',`href="#${unitHash('practise')}"`):html;
  dayAudio=main.querySelector('.u2d')?createAudioController(main.querySelector('.u2d')):null;
- for(const audio of main.querySelectorAll?.('audio[data-listening]')??[]){const saved=state.audioPositions[audio.dataset.listening];if(saved){try{audio.currentTime=saved.time;}catch{audio.addEventListener('loadedmetadata',()=>{audio.currentTime=saved.time;},{once:true});}audio.playbackRate=saved.rate;audio.volume=saved.volume;audio.muted=saved.muted;if(saved.playing)audio.play()?.catch(()=>{});}}
- document.title=`${route.kind==='home'?'Unas Tapitas de Español':route.kind==='library'?T('Resource library','Biblioteca de recursos'):route.kind==='course'?T(...findCourse(route.course).title)+(route.level?' · '+route.level.toUpperCase():''):T(route.unit==='2'?'Unit 2':'Unit 1',route.unit==='2'?'Unidad 2':'Unidad 1')+' · '+findUnit(route.course,route.unit)?.title} · Orilla`;
+ for(const audio of main.querySelectorAll?.('audio[data-listening]')??[]){const saved=state.audioPositions[audio.dataset.listening];if(saved){try{audio.currentTime=saved.time;}catch{audio.addEventListener('loadedmetadata',()=>{audio.currentTime=saved.time;},{once:true});}setAudioSpeed(audio,audioSpeed);audio.volume=saved.volume;audio.muted=saved.muted;if(saved.playing)audio.play()?.catch(()=>{});}}
+ for(const audio of main.querySelectorAll?.('audio')??[])setAudioSpeed(audio,audioSpeed);
+ document.title=`${route.kind==='home'?'Unas Tapitas de Español':route.kind==='library'?T('Resource library','Biblioteca de recursos'):route.kind==='course'?T(...findCourse(route.course).title)+(route.level?' · '+route.level.toUpperCase():''):T('Unit '+route.unit,'Unidad '+route.unit)+' · '+findUnit(route.course,route.unit)?.title} · Orilla`;
  $('#footer').innerHTML=`<p>Unas Tapitas de Español · Orilla</p><p>${L('Original materials · No accounts · No personal profiles','Materiales originales · Sin cuentas · Sin perfiles personales')}</p>${button('privacy',pair(['Privacy & help','Privacidad y ayuda']),'mini-button ghost')}`;
  if(focus){main.focus({preventScroll:true});window.scrollTo({top:0,behavior:'instant'});}
  else if(hadFocus){let target=focusId?document.getElementById(focusId):null;
@@ -183,6 +190,15 @@ function onAction(e){const b=e.target.closest('[data-action]');if(!b)return;cons
   e.preventDefault();
   libraryOrigin={route:routeHash(route),focus:b.id};
   location.hash='#'+resourceHash(b.dataset.id);
+  return;
+ }
+ if(action.startsWith('u3-')){
+  if(changeU3(action.slice(3),b.dataset.value)){
+   render();
+   if(action==='u3-check')$('#u3-feedback-'+b.dataset.value)?.focus({preventScroll:true});
+   if(action==='u3-card')($('#u3-card')??$('#u3-draft'))?.focus({preventScroll:true});
+   if(action==='u3-edit')$('#u3-draft')?.focus({preventScroll:true});
+  }
   return;
  }
  if(action.startsWith('aula-')){
@@ -300,22 +316,29 @@ main.addEventListener('keydown',e=>{
   if(target){render();aulaFocus(target,true);}
  }
 });
-main.addEventListener('input',e=>{const el=e.target;if(el.id==='aula-search'){aulaState.library.q=el.value;refreshLibraryHits();return;}
+main.addEventListener('input',e=>{const el=e.target;if(el.dataset?.u3Input!==undefined){u3.answers[el.id]=el.value;delete u3.checked[el.id.slice(3)];const feedback=$('#u3-feedback-'+el.id.slice(3));if(feedback)feedback.textContent='';return;}if(el.id==='aula-search'){aulaState.library.q=el.value;refreshLibraryHits();return;}
  if(editAula(aulaState,state.section,route.resource,el.id,el.value)){
   if(el.id==='aula-reply'){const feedback=$('#aula-feedback');if(feedback)feedback.hidden=true;}
   return;
  }
  if(el.id==='practice-answer'){state.qValues[questions[state.q].id]=el.value;delete state.qFeedback[questions[state.q].id];}if(el.id==='draft')state.draft=el.value;if(el.id==='reflection')state.reflection=el.value;if(el.id==='comm-work')state.commWork[state.commMode+'-'+state.commTask]=el.value;if(['draft','reflection','comm-work'].includes(el.id)){const printable=main.querySelector(`[data-comm-print="${el.id}"]`);if(printable)printable.textContent=el.value;}if(el.id==='vocab-search'){state.vocabSearch=el.value;const pos=el.selectionStart;render();const n=$('#vocab-search');n.focus();n.setSelectionRange(pos,pos);}});
 main.addEventListener('change',e=>{
+ if(e.target.id==='audio-speed'){const next=Number(e.target.value);if(audioSpeeds.includes(next)){audioSpeed=next;for(const audio of main.querySelectorAll('audio'))setAudioSpeed(audio,audioSpeed);}return;}
+ if(e.target.dataset?.u3Select&&changeU3(e.target.dataset.u3Select,e.target.value)){render();return;}
+
  if(e.target.dataset?.aulaCheck!==undefined){aulaState.checks[e.target.dataset.aulaCheck]=e.target.checked;return;}
  if(['aula-type','aula-level'].includes(e.target.id)){aulaState.library[e.target.id.slice(5)]=e.target.value;refreshLibraryHits();return;}
  if(e.target.id?.startsWith('u2x-')){if(updateUnit2Explore(unit2ExploreState,e.target.id,e.target.value)){render();announce(...unit2ExploreAnnouncement(unit2ExploreState));}return;}if(e.target.dataset?.listeningQuestion){state.listeningAnswers[e.target.dataset.listeningQuestion]=e.target.value;if(state.listeningChecked.has(e.target.dataset.recording)){state.listeningChecked.delete(e.target.dataset.recording);render();}return;}if(e.target.id==='practice-topic'){choosePractice(e.target.value);return;}if(e.target.id?.startsWith('ex-')&&updateExplore(state.explore,e.target.id,e.target.value)){render();if(e.target.id.startsWith('ex-q-')){announceQuestionExperiment();return;}announce('The scene has changed. Explore the new result.','La escena ha cambiado. Explora el resultado.');return;}if(e.target.id==='lab-person'){state.labPerson=e.target.value;render();announce('The phrase has changed. Read the highlighted form.','La frase ha cambiado. Lee la forma destacada.');}if(e.target.id==='lab-value'){state.labValue=e.target.value;render();announce('The detail in the phrase has changed.','Ha cambiado el dato de la frase.');}if(e.target.dataset.self)state.checks[e.target.dataset.self]=e.target.checked;});
-main.addEventListener('play',e=>{if(e.target.matches?.('audio[data-journey-audio]'))for(const audio of main.querySelectorAll?.('audio[data-journey-audio]')??[])if(audio!==e.target)audio.pause?.();},true);
 main.addEventListener('toggle',e=>{if(e.target.matches('details[data-lesson]')&&e.target.open)state.lessonOpen=e.target.dataset.lesson;},true);
-main.addEventListener('play',e=>{if(e.target.matches?.('audio[data-journey-audio]'))for(const audio of main.querySelectorAll?.('audio[data-journey-audio]')??[])if(audio!==e.target)audio.pause?.();},true);
+main.addEventListener('play',e=>{
+ const player=e.target;
+ if(player.tagName==='AUDIO')setAudioSpeed(player,audioSpeed);
+ const group=player.closest?.('.unit3')?.classList?.contains?.('unit3')?'audio':player.matches?.('audio[data-journey-audio]')?'audio[data-journey-audio]':null;
+ if(group)for(const other of main.querySelectorAll?.(group)??[])if(other!==player)other.pause?.();
+},true);
 main.addEventListener('toggle',e=>{if(e.target.id?.startsWith('comm-support-')&&e.target.isConnected)state.commOpen[e.target.open?'add':'delete'](e.target.id.slice('comm-support-'.length));},true);
 main.addEventListener('toggle',e=>{if(e.target.id==='u2b-ideal')weekState.idealOpen=e.target.open;},true);
-main.addEventListener('error',e=>{if(e.target.matches?.('audio[data-explore-audio]')||e.target.matches?.('audio#u2-object-audio, audio#u2-phrase-audio')||e.target.matches?.('audio[data-week-audio]')||e.target.matches?.('audio[data-journey-audio]')){e.target.hidden=true;e.target.nextElementSibling.hidden=false;}},true);
+main.addEventListener('error',e=>{if(e.target.matches?.('audio[data-explore-audio]')||e.target.matches?.('audio#u2-object-audio, audio#u2-phrase-audio')||e.target.matches?.('audio[data-week-audio]')||e.target.matches?.('audio[data-journey-audio]')){e.target.hidden=true;e.target.nextElementSibling.hidden=false;}else if(e.target.tagName==='AUDIO'&&e.target.closest?.('.unit3')){const message=e.target.parentElement.querySelector('[data-audio-error]');if(message)message.hidden=false;}},true);
 $('#mode').addEventListener('change',e=>{state.mode=e.target.value;render();announce('Language changed. Your current work is still here.','Idioma cambiado. Tu trabajo actual sigue aquí.');});
 $('#settings').addEventListener('click',()=>openOptions());
 $('#options').addEventListener('change',e=>{if(e.target.id==='large-text'){state.large=e.target.checked;document.documentElement.classList.toggle('large-text',state.large);}if(e.target.id==='save-progress'){state.saving=e.target.checked;if(!state.saving){try{forgetProgress(localStorage);}catch{state.storageError=true;}}else save();}});
@@ -372,3 +395,5 @@ window.addEventListener('beforeunload',e=>{if(state.draft.trim()||state.reflecti
 const live=document.createElement('div');live.id='announcement';live.setAttribute('role','status');live.setAttribute('aria-live','polite');live.className='visually-hidden';document.body.append(live);
 const initialReferenceFocus=applyRoute();render();
 if(initialReferenceFocus)aulaFocus(initialReferenceFocus,true);
+
+main.addEventListener('toggle',e=>{if(e.target.isConnected&&e.target.dataset?.u3Disclose)u3.disclosures[e.target.open?'add':'delete'](e.target.dataset.u3Disclose);},true);

@@ -1,0 +1,871 @@
+[
+  {
+    "id": "A01",
+    "sha256": "8c0f4af892dcd5937225210e2183fe5466b8d27e38a46c1e284f7cfe31897b58",
+    "seconds": 1.28,
+    "meanDb": -16.8,
+    "peakDb": -0.6,
+    "takes": [
+      {
+        "text": "simpático",
+        "voice": "L",
+        "generation": "Kfdpcpxdi9bUloEo8TNZ"
+      }
+    ]
+  },
+  {
+    "id": "A02",
+    "sha256": "f6b7bef260efbd6d88745a3f64aa6c1ee1cb252237eb0e3a1237c73608399085",
+    "seconds": 1.28,
+    "meanDb": -17.3,
+    "peakDb": -0.9,
+    "takes": [
+      {
+        "text": "simpática",
+        "voice": "L",
+        "generation": "MO1WMg89NhsbsdYzTQoR"
+      }
+    ]
+  },
+  {
+    "id": "A03",
+    "sha256": "84da3c884e195d06cdd89b604bf713717aae1d827b1b558c0553b40c4a6a31cc",
+    "seconds": 1.332,
+    "meanDb": -18.2,
+    "peakDb": -4.6,
+    "takes": [
+      {
+        "text": "tímido",
+        "voice": "L",
+        "generation": "SwO2wy923nFkKpEvGygu"
+      }
+    ]
+  },
+  {
+    "id": "A04",
+    "sha256": "0f305ddd6ff8c952dc44bf30a38e27f23880842cb1b420ca071b89a4da9bd847",
+    "seconds": 1.332,
+    "meanDb": -20.8,
+    "peakDb": -6.3,
+    "takes": [
+      {
+        "text": "tímida",
+        "voice": "L",
+        "generation": "2ieKigx5ensGVywkMVgN"
+      }
+    ]
+  },
+  {
+    "id": "A05",
+    "sha256": "d5fedac4f0ca565503706540b54c3420f444fd7e4f7d28c90c371e987ceb0cd9",
+    "seconds": 1.489,
+    "meanDb": -22.8,
+    "peakDb": -8.0,
+    "takes": [
+      {
+        "text": "tranquilo",
+        "voice": "L",
+        "generation": "gDAVLFrKMz87FHoemPqi"
+      }
+    ]
+  },
+  {
+    "id": "A06",
+    "sha256": "1269cef7b772ae08265840e2a07afd9ad85755186a156cf642e6fe99ee7c2e0c",
+    "seconds": 1.489,
+    "meanDb": -21.6,
+    "peakDb": -6.9,
+    "takes": [
+      {
+        "text": "tranquila",
+        "voice": "L",
+        "generation": "se5GCKzUCIn2zh7NPTWi"
+      }
+    ]
+  },
+  {
+    "id": "A07",
+    "sha256": "621b93b80e9159a0354ceb569fb671d48e4f50880371bd0847b555343f65a816",
+    "seconds": 1.489,
+    "meanDb": -21.7,
+    "peakDb": -2.4,
+    "takes": [
+      {
+        "text": "amable",
+        "voice": "L",
+        "generation": "pXMtnA28tdMdXcePiVVv"
+      }
+    ]
+  },
+  {
+    "id": "C01",
+    "sha256": "87fceebae2429de3ad234f70a481589e7056bea2e24e5cd8b755dd9d3aecddc7",
+    "seconds": 0.967,
+    "meanDb": -19.2,
+    "peakDb": -2.1,
+    "takes": [
+      {
+        "text": "rojo",
+        "voice": "L",
+        "generation": "lW2mRipz1t7GLyJn4mFa"
+      }
+    ]
+  },
+  {
+    "id": "C02",
+    "sha256": "baecccf3dda0defa5cffb8443ecd7cdf11672c5471437ecaf01bea3ed17dc9e7",
+    "seconds": 1.149,
+    "meanDb": -17.5,
+    "peakDb": -1.7,
+    "takes": [
+      {
+        "text": "roja",
+        "voice": "L",
+        "generation": "iJseSb2yId9Ldolu9Kzn"
+      }
+    ]
+  },
+  {
+    "id": "C03",
+    "sha256": "f8298cad684fe136b0aaaf695df348701442b00dcb51c295f7967d8dd192a5cd",
+    "seconds": 1.332,
+    "meanDb": -18.2,
+    "peakDb": -1.1,
+    "takes": [
+      {
+        "text": "amarillo",
+        "voice": "L",
+        "generation": "hWfrokYN5FxwPcuqP3GR"
+      }
+    ]
+  },
+  {
+    "id": "C04",
+    "sha256": "01b4afb33c838f853a182f216c29bd529864c690af5edea13e57162b97a1fb3b",
+    "seconds": 1.384,
+    "meanDb": -19.3,
+    "peakDb": -2.4,
+    "takes": [
+      {
+        "text": "amarilla",
+        "voice": "L",
+        "generation": "ciLW0lwvph1gvZtZE5EE"
+      }
+    ]
+  },
+  {
+    "id": "C05",
+    "sha256": "81b9511bcec2d4167354f934b5eedcd2c0ad200f9127385462cbdea289ef3350",
+    "seconds": 1.202,
+    "meanDb": -18.1,
+    "peakDb": -1.8,
+    "takes": [
+      {
+        "text": "verde",
+        "voice": "L",
+        "generation": "lLm7pAC9CP42zxIqhV8P"
+      }
+    ]
+  },
+  {
+    "id": "C06",
+    "sha256": "eb40daa62d03dbaebf8db96a4b516d311d5a41abace219194906d3179a850d8d",
+    "seconds": 1.384,
+    "meanDb": -22.3,
+    "peakDb": -2.9,
+    "takes": [
+      {
+        "text": "verdes",
+        "voice": "L",
+        "generation": "r8zpLek5mrHTSupJHdj6"
+      }
+    ]
+  },
+  {
+    "id": "C07",
+    "sha256": "417af15fa0727f0ae575994cb00967a42287b65df285f08fd54a5046d08771f9",
+    "seconds": 1.855,
+    "meanDb": -23.3,
+    "peakDb": -4.2,
+    "takes": [
+      {
+        "text": "azul",
+        "voice": "L",
+        "generation": "ERv0eGPK171sg8VAoo0A"
+      }
+    ]
+  },
+  {
+    "id": "C08",
+    "sha256": "027f82b516ca8f5173f27bff5028e9c1f700ceaacb6e605a6a51c10bd5f48f01",
+    "seconds": 1.62,
+    "meanDb": -19.1,
+    "peakDb": -1.9,
+    "takes": [
+      {
+        "text": "una mochila azul",
+        "voice": "L",
+        "generation": "nn2t5B9mttwDvXjFNTsf"
+      }
+    ]
+  },
+  {
+    "id": "C09",
+    "sha256": "16e8fdcbe2d6ff615ab4da6669384eb790950fdc87ddbcd385c39a01902f47f5",
+    "seconds": 1.933,
+    "meanDb": -18.5,
+    "peakDb": -5.2,
+    "takes": [
+      {
+        "text": "unas mochilas azules",
+        "voice": "L",
+        "generation": "4j32juvW3PgZEM4zYmqk"
+      }
+    ]
+  },
+  {
+    "id": "C10",
+    "sha256": "46b1a6e830265f31b25f2539f38ffbadce4d01df81a1d3d24c0bef29d45c1f5f",
+    "seconds": 1.933,
+    "meanDb": -17.7,
+    "peakDb": -2.2,
+    "takes": [
+      {
+        "text": "Lleva una mochila roja.",
+        "voice": "L",
+        "generation": "qzuPQWgZFsDN2cr5UGTU"
+      }
+    ]
+  },
+  {
+    "id": "D01",
+    "sha256": "84d83bd3ef277ece44f95fceadc2da4986ecc2eaa23a0bc9f935c314a18cf1f3",
+    "seconds": 0.967,
+    "meanDb": -29.1,
+    "peakDb": -10.0,
+    "takes": [
+      {
+        "text": "¿Cómo eres?",
+        "voice": "J",
+        "generation": "y4sHstPjCFTMMiSX1mvP"
+      }
+    ]
+  },
+  {
+    "id": "D02",
+    "sha256": "b5484658fd862c78d0b8a6f9cdd6e3188605bceedf3d0d9d29ac5df7352f130e",
+    "seconds": 1.489,
+    "meanDb": -19.6,
+    "peakDb": -1.2,
+    "takes": [
+      {
+        "text": "Soy simpática.",
+        "voice": "L",
+        "generation": "9cRsnqvoLe3EL24DPjXQ"
+      }
+    ]
+  },
+  {
+    "id": "D03",
+    "sha256": "c52d1e31d717050c7651dde73d578c9ab06548db0e0d7f55b13b36dc15a2c9e6",
+    "seconds": 1.62,
+    "meanDb": -18.2,
+    "peakDb": -2.5,
+    "takes": [
+      {
+        "text": "¿Cómo es Leo?",
+        "voice": "L",
+        "generation": "S6MyxHxWB0UR8YXJkqFm"
+      }
+    ]
+  },
+  {
+    "id": "D04",
+    "sha256": "21b2d605839d893b257da8820c960cf9580e8122e72f684796516745288b6e4c",
+    "seconds": 1.254,
+    "meanDb": -24.8,
+    "peakDb": -8.7,
+    "takes": [
+      {
+        "text": "Leo es simpático.",
+        "voice": "J",
+        "generation": "kN45yC6qhn2u1YYGBqIe"
+      }
+    ]
+  },
+  {
+    "id": "D05",
+    "sha256": "d9a4d5c82461dfc62ea427c27fd3835cdfad8c3486e5e91f2e320a24eca1e0da",
+    "seconds": 1.698,
+    "meanDb": -20.7,
+    "peakDb": -4.4,
+    "takes": [
+      {
+        "text": "Tengo el pelo corto.",
+        "voice": "L",
+        "generation": "0h6umTFBp1dAEEG4LARG"
+      }
+    ]
+  },
+  {
+    "id": "D06",
+    "sha256": "eb0ec9bec503eb37567090e1a9c4fe008ed7cc13fdb5975fea95945f79547c18",
+    "seconds": 1.332,
+    "meanDb": -23.9,
+    "peakDb": -6.6,
+    "takes": [
+      {
+        "text": "Tiene el pelo largo.",
+        "voice": "J",
+        "generation": "bf0ESU61oySWAOgUgQBb"
+      }
+    ]
+  },
+  {
+    "id": "D07",
+    "sha256": "65003ec908c5b27c5bae36ac61c19667c7d5e869790f06a6fe51b040f4d783be",
+    "seconds": 1.384,
+    "meanDb": -20.0,
+    "peakDb": -3.2,
+    "takes": [
+      {
+        "text": "Llevo gafas.",
+        "voice": "L",
+        "generation": "clEuGDcnFELAEoAKG5at"
+      }
+    ]
+  },
+  {
+    "id": "D08",
+    "sha256": "88cf1c72dbadffdd354c62f52064ccbbcf1da2336900b401fa8252a16c6663fa",
+    "seconds": 1.384,
+    "meanDb": -17.2,
+    "peakDb": -1.8,
+    "takes": [
+      {
+        "text": "Lleva gafas.",
+        "voice": "L",
+        "generation": "T1gZ55qZiID8O2pAFrzA"
+      }
+    ]
+  },
+  {
+    "id": "D09",
+    "sha256": "e6f7044895f8a73129a73d620dd02f5e17c6cdd092d7b54b1f039dd86804ab8c",
+    "seconds": 2.743,
+    "meanDb": -18.4,
+    "peakDb": -0.4,
+    "takes": [
+      {
+        "text": "Ana es amable. Hoy está nerviosa.",
+        "voice": "L",
+        "generation": "uFfdedIBmRYAkHvWsYi5"
+      }
+    ]
+  },
+  {
+    "id": "E01",
+    "sha256": "724e94a4fb619cd92e82dc5064cbacad1f94c51d550f6b014a18183f5501e273",
+    "seconds": 7.236,
+    "meanDb": -23.5,
+    "peakDb": -1.8,
+    "takes": [
+      {
+        "voice": "J",
+        "text": "Hola, me llamo Leo. Tengo catorce años. Mi cumpleaños es el catorce de septiembre. Soy tranquilo y llevo gafas. Hasta luego.",
+        "generation": "JvVH9UQXoUS3oknVel4Q"
+      }
+    ]
+  },
+  {
+    "id": "E02",
+    "sha256": "b890c1f45807eabc4369117f29af49823dd291347b59ae727fa386fee700e186",
+    "seconds": 14.89,
+    "meanDb": -21.4,
+    "peakDb": -2.0,
+    "takes": [
+      {
+        "voice": "L",
+        "text": "Hola, Hugo. ¿Cuándo es tu cumpleaños?",
+        "generation": "myQt1hSbUc4KawNkmABX"
+      },
+      {
+        "voice": "J",
+        "text": "Mi cumpleaños es el treinta de mayo. ¿Y el tuyo?",
+        "generation": "rzobYZfyBZsO48LfK2Wm"
+      },
+      {
+        "voice": "L",
+        "text": "El veintitrés de mayo. Para la ficha: soy simpática y tengo el pelo corto.",
+        "generation": "Ozz8vdzspMaSC0JF9TQP"
+      },
+      {
+        "voice": "J",
+        "text": "Yo soy tímido y llevo gafas.",
+        "generation": "5jQMyH332plK3cHnyEiA"
+      }
+    ]
+  },
+  {
+    "id": "F01",
+    "sha256": "4d3b26c3a7be254a26e2a6e3b94630685b866b8798e8d04db8e248ac3370515e",
+    "seconds": 2.09,
+    "meanDb": -19.8,
+    "peakDb": -1.7,
+    "takes": [
+      {
+        "text": "¿Cuándo es tu cumpleaños?",
+        "voice": "L",
+        "generation": "b3N8Dq3OHQf1ZTDBiAJi"
+      }
+    ]
+  },
+  {
+    "id": "F02",
+    "sha256": "ad5d3eb503fbd0ca93e8371a87c863680d2a64a550cd6e28a841be8287acf3bb",
+    "seconds": 1.802,
+    "meanDb": -22.1,
+    "peakDb": -1.7,
+    "takes": [
+      {
+        "text": "Mi cumpleaños es el uno de abril.",
+        "voice": "J",
+        "generation": "p4XxbSsulfly3TiNcmK3"
+      }
+    ]
+  },
+  {
+    "id": "F03",
+    "sha256": "3788a4142cac429fadb1e3567d08900738dad3198fab64b15f52739e5a5b424f",
+    "seconds": 2.586,
+    "meanDb": -20.0,
+    "peakDb": -5.4,
+    "takes": [
+      {
+        "text": "Mi cumpleaños es el treinta y",
+        "voice": "L",
+        "generation": "cmjGLvPRM8TzpCOxGEjh"
+      }
+    ]
+  },
+  {
+    "id": "F04",
+    "sha256": "051ce287283c1c6720fb17da6f8bb589bbcb0ccf252306f63a7798116d9b3f54",
+    "seconds": 1.855,
+    "meanDb": -19.5,
+    "peakDb": -1.4,
+    "takes": [
+      {
+        "text": "¿Cuándo es su cumpleaños?",
+        "voice": "L",
+        "generation": "uTioQR8Je9zoTPgGiCku"
+      }
+    ]
+  },
+  {
+    "id": "F05",
+    "sha256": "1725276c9855ebf097ed271e4912db1d0dee270fa20b6f6b1411f530f03d36c6",
+    "seconds": 1.933,
+    "meanDb": -24.1,
+    "peakDb": -3.8,
+    "takes": [
+      {
+        "text": "Su cumpleaños es el veintidós de marzo.",
+        "voice": "J",
+        "generation": "WH8vzuJpEDAWRNm8a0wp"
+      }
+    ]
+  },
+  {
+    "id": "F06",
+    "sha256": "185e663a1e3dceee96088f5d8b118d927d2a9c195c8ad2882102ee7ac9964f61",
+    "seconds": 1.933,
+    "meanDb": -21.6,
+    "peakDb": -7.2,
+    "takes": [
+      {
+        "text": "¡Feliz cumpleaños!",
+        "voice": "L",
+        "generation": "K1kG7brATlvdKmeIOMTp"
+      }
+    ]
+  },
+  {
+    "id": "M01",
+    "sha256": "0c5d54543b4342844c4c7b8af64a8e71cf3d14c424302102c272216566296665",
+    "seconds": 1.071,
+    "meanDb": -19.4,
+    "peakDb": -3.8,
+    "takes": [
+      {
+        "text": "enero",
+        "voice": "L",
+        "generation": "5acheOwZIW6lZdaMH9Wx"
+      }
+    ]
+  },
+  {
+    "id": "M02",
+    "sha256": "eac796d7815943b002f6f65c4c9e61d36f52f112948a21d7b228ddf8887bb63a",
+    "seconds": 1.384,
+    "meanDb": -19.1,
+    "peakDb": -5.2,
+    "takes": [
+      {
+        "text": "febrero",
+        "voice": "L",
+        "generation": "lBJ6cDrWKzvfaG6q4LE1"
+      }
+    ]
+  },
+  {
+    "id": "M03",
+    "sha256": "48891330dde2465bcf2a7f695cf4347106e7ba5aad75eeebbeb14e2b8ba99b98",
+    "seconds": 1.202,
+    "meanDb": -14.7,
+    "peakDb": -1.9,
+    "takes": [
+      {
+        "text": "marzo",
+        "voice": "L",
+        "generation": "VB4LbVtX9MKGT90MorwC"
+      }
+    ]
+  },
+  {
+    "id": "M04",
+    "sha256": "9341d99c478990d2c4ebea269d0eeb9168ee88b4155f0d82e639907d32f844b2",
+    "seconds": 1.28,
+    "meanDb": -18.5,
+    "peakDb": -5.9,
+    "takes": [
+      {
+        "text": "abril",
+        "voice": "L",
+        "generation": "o0RfaeiZGoyMCQSx3DP7"
+      }
+    ]
+  },
+  {
+    "id": "M05",
+    "sha256": "6de1a0a5f0d1bf4234281b97adf0d6e055e48fa4460234941d9b7b1922f5b545",
+    "seconds": 1.202,
+    "meanDb": -26.0,
+    "peakDb": -9.2,
+    "takes": [
+      {
+        "text": "mayo",
+        "voice": "L",
+        "generation": "K9BGpoe0u73z5ww5nL8p"
+      }
+    ]
+  },
+  {
+    "id": "M06",
+    "sha256": "9117e02eb93d7a0bad086b57b61d1f54392a660aa61ac1c7169aa7d9e766512f",
+    "seconds": 1.254,
+    "meanDb": -17.6,
+    "peakDb": -3.2,
+    "takes": [
+      {
+        "text": "junio",
+        "voice": "L",
+        "generation": "NiEkNOVAYoDjRrX7xv2L"
+      }
+    ]
+  },
+  {
+    "id": "M07",
+    "sha256": "e331cd774c03f2ba82f131149a4b8815b6f74b515800387430256b9781429861",
+    "seconds": 1.202,
+    "meanDb": -20.3,
+    "peakDb": -7.2,
+    "takes": [
+      {
+        "text": "julio",
+        "voice": "L",
+        "generation": "wPy1PHFzteb5n33mSTsZ"
+      }
+    ]
+  },
+  {
+    "id": "M08",
+    "sha256": "025d356361b884f93bac7f0f20d0c8306ee03b8e83ec91bf0541b8dc46f6472b",
+    "seconds": 1.149,
+    "meanDb": -16.5,
+    "peakDb": -0.9,
+    "takes": [
+      {
+        "text": "agosto",
+        "voice": "L",
+        "generation": "Vk2I6PaDVz9TKdSMzYok"
+      }
+    ]
+  },
+  {
+    "id": "M09",
+    "sha256": "2e06618738eddca36b05623e8286a24d643e14d121472ff6031ff2062274bddf",
+    "seconds": 1.437,
+    "meanDb": -25.0,
+    "peakDb": -6.7,
+    "takes": [
+      {
+        "text": "septiembre",
+        "voice": "L",
+        "generation": "UEYruWwSNumBVBlhowgP"
+      }
+    ]
+  },
+  {
+    "id": "M10",
+    "sha256": "c6d232e301410542151fd1b8f288b16b7a58c497a218567d1296de0f34ce284b",
+    "seconds": 1.149,
+    "meanDb": -18.9,
+    "peakDb": -4.1,
+    "takes": [
+      {
+        "text": "octubre",
+        "voice": "L",
+        "generation": "0jNbLFYoFHimtrZqZsfe"
+      }
+    ]
+  },
+  {
+    "id": "M11",
+    "sha256": "90ce9508582401ae00901357ee48102825cb2b10562c788147476703977a6f57",
+    "seconds": 1.437,
+    "meanDb": -18.3,
+    "peakDb": -6.2,
+    "takes": [
+      {
+        "text": "noviembre",
+        "voice": "L",
+        "generation": "rb5z1kyxB4ikpVglyzEV"
+      }
+    ]
+  },
+  {
+    "id": "M12",
+    "sha256": "123f900203bcdc48282ceced8f3678b37cf484b66b5a19313ebe4f5fdf81e59f",
+    "seconds": 1.437,
+    "meanDb": -19.0,
+    "peakDb": -1.3,
+    "takes": [
+      {
+        "text": "diciembre",
+        "voice": "L",
+        "generation": "qs2oND2khtqEYHvCQDmJ"
+      }
+    ]
+  },
+  {
+    "id": "N21",
+    "sha256": "90cd98db128219848be341823f4f45e8e8dc7afc56ee638e8906002982d7a64e",
+    "seconds": 1.28,
+    "meanDb": -21.8,
+    "peakDb": -10.0,
+    "takes": [
+      {
+        "text": "veintiuno",
+        "voice": "L",
+        "generation": "M570KnYGEU1GeDzNwpYK"
+      }
+    ]
+  },
+  {
+    "id": "N22",
+    "sha256": "a202af6e6dc0b15031a5c2652e1e139e835fbdf40b3db68d77f83b1813cbe352",
+    "seconds": 1.62,
+    "meanDb": -19.5,
+    "peakDb": -3.3,
+    "takes": [
+      {
+        "text": "veintidós",
+        "voice": "L",
+        "generation": "ObkVae5ZVYJa6kxVwxxN"
+      }
+    ]
+  },
+  {
+    "id": "N23",
+    "sha256": "d79af323179920521d56ba5b4b6bfb749d86790d206afd15caae9e9068431f16",
+    "seconds": 1.672,
+    "meanDb": -18.7,
+    "peakDb": -1.0,
+    "takes": [
+      {
+        "text": "veintitrés",
+        "voice": "L",
+        "generation": "Gm8AbsqaBeONIkgCzeLL"
+      }
+    ]
+  },
+  {
+    "id": "N24",
+    "sha256": "799c0b9395c445f02efc04af9c7997df4f7937b67e26e85ea91ca68149815cae",
+    "seconds": 1.62,
+    "meanDb": -19.0,
+    "peakDb": -1.7,
+    "takes": [
+      {
+        "text": "veinticuatro",
+        "voice": "L",
+        "generation": "Ae4JO36OgUhqM3OiBz9W"
+      }
+    ]
+  },
+  {
+    "id": "N25",
+    "sha256": "3d89103da38de309a8ff8c5ad46e7da1381da6776ac1628dcd4b32d60905070f",
+    "seconds": 1.515,
+    "meanDb": -18.7,
+    "peakDb": -2.5,
+    "takes": [
+      {
+        "text": "veinticinco",
+        "voice": "L",
+        "generation": "2D2UWExB6OAs0OUqJUDU"
+      }
+    ]
+  },
+  {
+    "id": "N26",
+    "sha256": "4aa106888b111886cd8519abb400b55c73d0d90caaa7b8676ffafc9ab5fa3d28",
+    "seconds": 1.62,
+    "meanDb": -18.4,
+    "peakDb": -3.3,
+    "takes": [
+      {
+        "text": "veintiséis",
+        "voice": "L",
+        "generation": "bG38fmJOZ80bfP829i7W"
+      }
+    ]
+  },
+  {
+    "id": "N27",
+    "sha256": "d4bc53300930fa01ae041fefb62bf07cc5b1739044f534b1e30a13a9db8aae07",
+    "seconds": 1.802,
+    "meanDb": -19.8,
+    "peakDb": -5.9,
+    "takes": [
+      {
+        "text": "veintisiete",
+        "voice": "L",
+        "generation": "C2Bg08UNL9OhmAwTiVGo"
+      }
+    ]
+  },
+  {
+    "id": "N28",
+    "sha256": "4cb0f99a4122046bfd8d3313c08e0fbfab9a84acb2d73af4f9e4f995b348491b",
+    "seconds": 1.567,
+    "meanDb": -19.5,
+    "peakDb": -3.7,
+    "takes": [
+      {
+        "text": "veintiocho",
+        "voice": "L",
+        "generation": "iR2JvulGeLyUJ5HJV7Ph"
+      }
+    ]
+  },
+  {
+    "id": "N29",
+    "sha256": "2bc31a55c45b6299f218419c762000361807a11a5dc26643ec0c91a8b60dd243",
+    "seconds": 1.489,
+    "meanDb": -18.0,
+    "peakDb": -4.2,
+    "takes": [
+      {
+        "text": "veintinueve",
+        "voice": "L",
+        "generation": "NapctJzMI1FQxZ11Tzbb"
+      }
+    ]
+  },
+  {
+    "id": "N30",
+    "sha256": "8919fba500c76e6d6bef6071a1f449a7783a107fa4a539b08fea239dcca110f8",
+    "seconds": 1.384,
+    "meanDb": -17.5,
+    "peakDb": -1.3,
+    "takes": [
+      {
+        "text": "treinta",
+        "voice": "L",
+        "generation": "kBYmY7rnVd5RCKN7bmIc"
+      }
+    ]
+  },
+  {
+    "id": "N31",
+    "sha256": "4a47c5342f9bb18c97fdd43ca0bce9fe42893fafd0ef354de847ae52e97b5b01",
+    "seconds": 1.62,
+    "meanDb": -22.8,
+    "peakDb": -10.0,
+    "takes": [
+      {
+        "text": "treinta y uno",
+        "voice": "L",
+        "generation": "iLhgz6H70rPMAZ0x3HtK"
+      }
+    ]
+  },
+  {
+    "id": "P01",
+    "sha256": "cf6483341fb3213d7d54f995203a3454ce140effe63abd0d3e92d70ef72f359e",
+    "seconds": 1.28,
+    "meanDb": -20.8,
+    "peakDb": -5.7,
+    "takes": [
+      {
+        "text": "el pelo",
+        "voice": "L",
+        "generation": "1O7TvMxbMH5cFGnuWdBH"
+      }
+    ]
+  },
+  {
+    "id": "P02",
+    "sha256": "ce500e12022a2376fd13b3583fa373932ab01fb7181bf6351ec65b341006362f",
+    "seconds": 1.515,
+    "meanDb": -22.9,
+    "peakDb": -2.0,
+    "takes": [
+      {
+        "text": "las gafas",
+        "voice": "L",
+        "generation": "ZzB3tbXsrfP7iaSZtfIZ"
+      }
+    ]
+  },
+  {
+    "id": "P03",
+    "sha256": "4b9a04ef966298b35d5d5bad36a955dda1d94f7c8c84fff77ad89784490ec4ea",
+    "seconds": 1.202,
+    "meanDb": -19.2,
+    "peakDb": -0.9,
+    "takes": [
+      {
+        "text": "con gafas",
+        "voice": "L",
+        "generation": "CHK9GTpdHzl26AgVLbqw"
+      }
+    ]
+  },
+  {
+    "id": "P04",
+    "sha256": "7654152df2031b28a246e8544fd3731c7bb43ef44abf3b3aae7cf6ad39ac07ec",
+    "seconds": 1.28,
+    "meanDb": -19.0,
+    "peakDb": -0.8,
+    "takes": [
+      {
+        "text": "sin gafas",
+        "voice": "L",
+        "generation": "Ue7zHxEE443yig9JM8JZ"
+      }
+    ]
+  }
+]

@@ -39,7 +39,7 @@ test('opening a learning explanation retains its revealed state when language ch
 test('a filtered answer survives switching topics and returning',async()=>{const h=await harness();h.route('practise');h.get('#main').listeners.change({target:{id:'practice-topic',value:'age'}});click(h,'q-choice',{value:'tengo'});h.get('#main').listeners.change({target:{id:'practice-topic',value:'greetings'}});h.get('#main').listeners.change({target:{id:'practice-topic',value:'age'}});assert(h.get('#main').innerHTML.includes('data-value="tengo" aria-pressed="true"'));});
 test('optional detail is closed initially and retains its state across language switches',async()=>{const h=await harness();h.route('learn');assert(h.get('#main').innerHTML.includes('id="extra-age" hidden'));click(h,'learn-extra',{id:'age'});assert(h.get('#main').innerHTML.includes('id="extra-age" >'));h.mode('es');assert(h.get('#main').innerHTML.includes('id="extra-age" >'));assert(!h.get('#main').innerHTML.includes('**'));click(h,'learn-extra',{id:'age'});assert(h.get('#main').innerHTML.includes('id="extra-age" hidden'));});
 test('listening choices and transcript visibility survive language switches',async()=>{const h=await harness();h.route('listening');assert(h.get('#main').innerHTML.includes('id="transcript-l1" hidden'));h.get('#main').listeners.change({target:{dataset:{listeningQuestion:'l1-name',recording:'l1'},value:'Sara'}});click(h,'listening-transcript',{id:'l1'});h.mode('es');assert(h.get('#main').innerHTML.includes('value="Sara" selected'));assert(h.get('#main').innerHTML.includes('id="transcript-l1" >'));click(h,'listening-check',{id:'l1'});assert(!h.get('#main').innerHTML.includes('undefined'));h.mode('bi');assert(h.get('#main').innerHTML.includes('She says Me llamo Sara.'));assert(h.get('#main').innerHTML.includes('Dice Me llamo Sara.'));});
-test('a language switch restores audio position, volume and playback intent',async()=>{const h=await harness();h.route('listening');const old={dataset:{listening:'l1'},currentTime:7.25,playbackRate:1,volume:.6,muted:false,paused:false};let played=false;const next={dataset:{listening:'l1'},currentTime:0,play(){played=true;return Promise.resolve();}};let n=0;h.get('#main').querySelectorAll=()=>++n===1?[old]:[next];h.mode('bi');assert.equal(next.currentTime,7.25);assert.equal(next.volume,.6);assert.equal(next.playbackRate,1);assert(played);});
+test('a language switch restores audio position, volume and playback intent',async()=>{const h=await harness();h.route('listening');const old={dataset:{listening:'l1'},currentTime:7.25,playbackRate:1,volume:.6,muted:false,paused:false};let played=false;const next={dataset:{listening:'l1'},currentTime:0,play(){played=true;return Promise.resolve();}};let n=0;h.get('#main').querySelectorAll=()=>++n===1?[old]:[next];h.mode('bi');assert.equal(next.currentTime,7.25);assert.equal(next.volume,.6);assert.equal(next.playbackRate,.80);assert(played);});
 test('leaving the listening route does not request playback on the next render',async()=>{const h=await harness();h.route('listening');const old={dataset:{listening:'l1'},currentTime:3,playbackRate:1,volume:1,muted:false,paused:false};let played=false;const next={dataset:{listening:'l1'},currentTime:0,play(){played=true;return Promise.resolve();}};let n=0;h.get('#main').querySelectorAll=()=>++n===1?[old]:[next];h.route('home');assert(!played);});
 test('Explore navigation and controls respond within the existing route',async()=>{const h=await harness();h.route('explore');click(h,'ex-lab',{value:'numbers'});click(h,'ex-pick-number',{value:'20'});assert(h.get('#main').innerHTML.includes('veinte'));h.get('#main').listeners.change({target:{id:'ex-number',value:'16'}});assert(h.get('#main').innerHTML.includes('dieciséis'));click(h,'ex-lab',{value:'person'});h.get('#main').listeners.change({target:{id:'ex-person',value:'alba'}});assert(h.get('#main').innerHTML.includes('Alba <mark>tiene</mark> trece años.'));h.mode('es');assert(h.get('#main').innerHTML.includes('Alba <mark>tiene</mark> trece años.'));h.route('home');h.route('explore');assert(h.get('#main').innerHTML.includes('Alba <mark>tiene</mark> trece años.'));});
 test('a failed Explore recording reveals a visible fallback',async()=>{const h=await harness();const fallback={hidden:true},audio={hidden:false,nextElementSibling:fallback,matches:s=>s==='audio[data-explore-audio]'};h.get('#main').listeners.error({target:audio});assert.equal(audio.hidden,true);assert.equal(fallback.hidden,false);});
@@ -501,4 +501,31 @@ test('the library opened from Unit 1 navigation offers a return to the original 
  assert.match(h.get('#main').innerHTML,/href="#course\/1st-year\/unit\/1\/communicate">.*Back to my activity/);
  h.route('communicate');
  assert(focused);assert.match(h.get('#main').innerHTML,/Notas de Inés/);
+});
+
+test('1st Year opens the new unit and all its sections in all three modes',async()=>{
+ const h=await harness();
+ for(const mode of ['en','bi','es']){
+  h.mode(mode);h.route('course/1st-year');
+  assert.match(h.get('#main').innerHTML,/unit\/3\/overview/);
+  const sections={overview:/Start with Learn|Empieza por Aprende/,learn:/E01\.mp3/,explore:/Calendario espejo|Mirror calendar/,practise:/E02\.mp3/,communicate:/Nico/,play:/Birthday memory|Memoria de cumpleaños/};
+  for(const [section,expect] of Object.entries(sections)){
+   h.route('course/1st-year/unit/3/'+section);
+   assert.match(h.get('#main').innerHTML,expect);
+  }
+ }
+});
+test('Unit 3 drafts and the chosen rate survive resource help and switching language',async()=>{
+ const h=await harness(),r='course/1st-year/unit/3/communicate';
+ h.route(r);
+ h.get('#main').listeners.input({target:{id:'u3-draft',dataset:{u3Input:''},value:'Se llama Mara.'}});
+ h.get('#main').querySelectorAll=()=>[];
+ h.get('#main').listeners.change({target:{id:'audio-speed',value:'.65'}});
+ h.document.body.listeners.click({target:{closest:()=>({id:'u3-help-communicate-0',dataset:{action:'aula-resource',id:'fechas-y-cumpleanos'}})},preventDefault(){}});
+ h.route('library/fechas-y-cumpleanos');
+ assert(h.get('#main').innerHTML.includes('#'+r));
+ assert.match(h.get('#main').innerHTML,/value="0.65" selected/);
+ h.mode('es');h.route(r);
+ assert.match(h.get('#main').innerHTML,/Se llama Mara\./);
+ assert.match(h.get('#main').innerHTML,/value="0.65" selected/);
 });
