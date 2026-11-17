@@ -508,7 +508,7 @@ test('1st Year opens the new unit and all its sections in all three modes',async
  for(const mode of ['en','bi','es']){
   h.mode(mode);h.route('course/1st-year');
   assert.match(h.get('#main').innerHTML,/unit\/3\/overview/);
-  const sections={overview:/Start with Learn|Empieza por Aprende/,learn:/E01\.mp3/,explore:/Calendario espejo|Mirror calendar/,practise:/E02\.mp3/,communicate:/Nico/,play:/Birthday memory|Memoria de cumpleaños/};
+  const sections={overview:/Start with Learn|Empieza por Aprende/,learn:/id="u3-learn-A"/,explore:/Calendario espejo|Mirror calendar/,practise:/E02\.mp3/,communicate:/Nico/,play:/Birthday memory|Memoria de cumpleaños/};
   for(const [section,expect] of Object.entries(sections)){
    h.route('course/1st-year/unit/3/'+section);
    assert.match(h.get('#main').innerHTML,expect);
@@ -528,4 +528,35 @@ test('Unit 3 drafts and the chosen rate survive resource help and switching lang
  h.mode('es');h.route(r);
  assert.match(h.get('#main').innerHTML,/Se llama Mara\./);
  assert.match(h.get('#main').innerHTML,/value="0.65" selected/);
+});
+
+test('Unit 3 Learn has five usable blocks with compact audio and no truncated F03 playback',async()=>{
+ const h=await harness(),read=()=>h.get('#main').innerHTML;
+ h.route('course/1st-year/unit/3/learn');
+ const expected={A:/Mi cumpleaños es el treinta y uno de octubre\./,B:/blanco \/ blanca/,C:/los ojos marrones/,D:/de estatura media/,E:/E01\.mp3/};
+ for(const mode of ['en','bi','es']){
+  h.mode(mode);
+  for(const [block,pattern] of Object.entries(expected)){
+   click(h,'u3-block',{value:block});
+   assert.match(read(),new RegExp('id="u3-learn-'+block+'" aria-pressed="true"'));
+   assert.match(read(),pattern);
+   assert(!read().includes('F03.mp3'));
+   assert.equal([...read().matchAll(/<audio[^>]+controls/g)].length,block==='E'?1:0);
+  }
+ }
+ click(h,'u3-block',{value:'A'});
+ let played=0;const a=h.get('#u3-audio-M01');
+ a.play=()=>{played++;return Promise.resolve();};
+ click(h,'u3-audio',{value:'M01'});
+ assert.equal(played,1);assert.equal(a.playbackRate,.8);
+});
+test('Unit 3 Explore only links the indefinite plural audio with an unspecified quantity',async()=>{
+ const h=await harness(),read=()=>h.get('#main').innerHTML;
+ h.route('course/1st-year/unit/3/explore');
+ const change=h.get('#main').listeners.change;
+ for(const [value,phrase] of [['two','dos mochilas azules'],['three','tres mochilas azules'],['unknown','unas mochilas azules']]){
+  change({target:{dataset:{u3Select:'plural'},value}});
+  assert(read().includes(phrase));assert.equal(read().includes('C09.mp3'),value==='unknown');
+ }
+ change({target:{dataset:{u3Select:'plural'},value:'one'}});
 });

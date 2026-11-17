@@ -32,3 +32,25 @@ export function gradeAnswer(input,answers){
 }
 
 export const clips=[{"id":"M01","text":"enero","voice":"L"},{"id":"M02","text":"febrero","voice":"L"},{"id":"M03","text":"marzo","voice":"L"},{"id":"M04","text":"abril","voice":"L"},{"id":"M05","text":"mayo","voice":"L"},{"id":"M06","text":"junio","voice":"L"},{"id":"M07","text":"julio","voice":"L"},{"id":"M08","text":"agosto","voice":"L"},{"id":"M09","text":"septiembre","voice":"L"},{"id":"M10","text":"octubre","voice":"L"},{"id":"M11","text":"noviembre","voice":"L"},{"id":"M12","text":"diciembre","voice":"L"},{"id":"N21","text":"veintiuno","voice":"L"},{"id":"N22","text":"veintidós","voice":"L"},{"id":"N23","text":"veintitrés","voice":"L"},{"id":"N24","text":"veinticuatro","voice":"L"},{"id":"N25","text":"veinticinco","voice":"L"},{"id":"N26","text":"veintiséis","voice":"L"},{"id":"N27","text":"veintisiete","voice":"L"},{"id":"N28","text":"veintiocho","voice":"L"},{"id":"N29","text":"veintinueve","voice":"L"},{"id":"N30","text":"treinta","voice":"L"},{"id":"N31","text":"treinta y uno","voice":"L"},{"id":"C01","text":"rojo","voice":"L"},{"id":"C02","text":"roja","voice":"L"},{"id":"C03","text":"amarillo","voice":"L"},{"id":"C04","text":"amarilla","voice":"L"},{"id":"C05","text":"verde","voice":"L"},{"id":"C06","text":"verdes","voice":"L"},{"id":"C07","text":"azul","voice":"L"},{"id":"C08","text":"una mochila azul","voice":"L"},{"id":"C09","text":"unas mochilas azules","voice":"L"},{"id":"C10","text":"Lleva una mochila roja.","voice":"L"},{"id":"A01","text":"simpático","voice":"L"},{"id":"A02","text":"simpática","voice":"L"},{"id":"A03","text":"tímido","voice":"L"},{"id":"A04","text":"tímida","voice":"L"},{"id":"A05","text":"tranquilo","voice":"L"},{"id":"A06","text":"tranquila","voice":"L"},{"id":"A07","text":"amable","voice":"L"},{"id":"P01","text":"el pelo","voice":"L"},{"id":"P02","text":"las gafas","voice":"L"},{"id":"P03","text":"con gafas","voice":"L"},{"id":"P04","text":"sin gafas","voice":"L"},{"id":"F01","text":"¿Cuándo es tu cumpleaños?","voice":"L"},{"id":"F02","text":"Mi cumpleaños es el uno de abril.","voice":"J"},{"id":"F03","text":"Mi cumpleaños es el treinta y","voice":"L"},{"id":"F04","text":"¿Cuándo es su cumpleaños?","voice":"L"},{"id":"F05","text":"Su cumpleaños es el veintidós de marzo.","voice":"J"},{"id":"F06","text":"¡Feliz cumpleaños!","voice":"L"},{"id":"D01","text":"¿Cómo eres?","voice":"J"},{"id":"D02","text":"Soy simpática.","voice":"L"},{"id":"D03","text":"¿Cómo es Leo?","voice":"L"},{"id":"D04","text":"Leo es simpático.","voice":"J"},{"id":"D05","text":"Tengo el pelo corto.","voice":"L"},{"id":"D06","text":"Tiene el pelo largo.","voice":"J"},{"id":"D07","text":"Llevo gafas.","voice":"L"},{"id":"D08","text":"Lleva gafas.","voice":"L"},{"id":"D09","text":"Ana es amable. Hoy está nerviosa.","voice":"L"}];
+
+export const f03Model='Mi cumpleaños es el treinta y uno de octubre.';
+export const unavailableClips=new Set(['F03']);
+export const weekdays=[
+ ['lunes','Monday'],['martes','Tuesday'],['miércoles','Wednesday'],['jueves','Thursday'],
+ ['viernes','Friday'],['sábado','Saturday'],['domingo','Sunday']
+].map(([text,en],i)=>({id:'weekday'+(i+1),text,en,src:'assets/audio/unit2/vocabulary/days/1Y_U02_AUD_DIA_0'+(i+1)+'_v1.mp3'}));
+export const bagColours={
+ azul:['azul','azules','#4c8ff4'],roja:['roja','rojas','#e45857'],verde:['verde','verdes','#68ad75'],
+ amarilla:['amarilla','amarillas','#f7c456'],blanca:['blanca','blancas','#fff'],negra:['negra','negras','#242832'],
+ rosa:['rosa','rosas','#f3a7be'],gris:['gris','grises','#9096a1']
+};
+export const bagPhrase=(quantity,colour)=>quantity==='one'?'una mochila '+bagColours[colour][0]:
+ ({two:'dos',three:'tres',unknown:'unas'}[quantity]+' mochilas '+bagColours[colour][1]);
+export const traits=[['simpátic','simpático/a','friendly'],['tímid','tímido/a','shy'],['tranquil','tranquilo/a','calm'],['amable','amable','kind'],['divertid','divertido/a','fun'],['trabajador','trabajador/a','hard-working']];
+export const describeTrait=(stem,ending)=>stem==='amable'?stem:stem==='trabajador'?stem+(ending==='a'?'a':''):stem+ending;
+export const hairExamples=[
+ ['el pelo liso','straight hair','liso','#493525','#815940'],['el pelo rizado','curly hair','rizado','#332417','#815940'],
+ ['el pelo rubio','blond hair','largo','#dcaa54','#815940'],['el pelo castaño','brown hair','corto','#805439','#815940'],
+ ['el pelo negro','black hair','corto','#28222d','#815940']
+];
+export const eyeExamples=[['los ojos azules','blue eyes','#3475ad'],['los ojos verdes','green eyes','#438767'],['los ojos marrones','brown eyes','#805439']];

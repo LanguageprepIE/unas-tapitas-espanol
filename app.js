@@ -192,6 +192,11 @@ function onAction(e){const b=e.target.closest('[data-action]');if(!b)return;cons
   location.hash='#'+resourceHash(b.dataset.id);
   return;
  }
+ if(action==='u3-audio'){
+  const audio=document.getElementById('u3-audio-'+b.dataset.value);
+  if(audio){setAudioSpeed(audio,audioSpeed);audio.currentTime=0;audio.play()?.catch(()=>{const error=audio.parentElement.querySelector('[data-audio-error]');if(error)error.hidden=false;});}
+  return;
+ }
  if(action.startsWith('u3-')){
   if(changeU3(action.slice(3),b.dataset.value)){
    render();
